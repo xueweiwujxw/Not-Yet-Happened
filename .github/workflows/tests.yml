@@ -1,0 +1,88 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GODOT_VERSION: 4.5.1
+
+jobs:
+  native:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Ubuntu
+            runner: ubuntu-latest
+          - name: Windows
+            runner: windows-latest
+          - name: macOS
+            runner: macos-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Install Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: ${{ env.GODOT_VERSION }}
+          use-dotnet: false
+          include-templates: false
+
+      - name: Show Godot version
+        run: godot --version
+
+      - name: Run automated tests
+        run: godot --headless --path . --script tests/run_tests.gd
+
+      - name: Smoke-test project startup
+        run: godot --headless --path . --quit-after 1
+
+  fedora:
+    name: Fedora 43
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:43
+    steps:
+      - name: Install runner dependencies
+        run: dnf install --assumeyes curl git libstdc++ tar unzip
+
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Install Godot
+        env:
+          GODOT_ARCHIVE: Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip
+        run: |
+          curl --fail --location --retry 3 \
+            --output /tmp/godot.zip \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/${GODOT_ARCHIVE}"
+          unzip /tmp/godot.zip -d /tmp/godot
+          install --mode 0755 \
+            "/tmp/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64" \
+            /usr/local/bin/godot
+
+      - name: Show Godot version
+        run: godot --version
+
+      - name: Run automated tests
+        run: godot --headless --path . --script tests/run_tests.gd
+
+      - name: Smoke-test project startup
+        run: godot --headless --path . --quit-after 1
