@@ -77,7 +77,8 @@ Requirements:
 
 - Development branches merge into `main` through pull requests.
 - Merges into `main` must create a distinct integration commit; fast-forward merges are forbidden.
-- Use squash merge or a merge commit for pull requests. Local integration must use `git merge --no-ff`.
+- Pull requests into `main` must use a merge commit. Squash merge and rebase merge are forbidden.
+- Local integration into `main` must use `git merge --no-ff`.
 - Keep pull requests focused on one coherent change.
 - PR titles should follow the same Conventional Commit style when practical.
 - A PR description must explain:
@@ -86,7 +87,7 @@ Requirements:
   - how it was tested;
   - any known limitations or follow-up work.
 - Do not merge a PR with failing tests.
-- Prefer squash merge for small focused branches unless preserving individual commits is useful.
+- Preserve the feature branch commits behind the required merge commit.
 
 ## Testing policy
 
