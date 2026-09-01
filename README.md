@@ -63,3 +63,8 @@ The architecture will evolve only as concrete gameplay requirements appear.
 An `Observation` identifies its observer and carries one or more fact constraints. Applying it to
 `WorldState` is atomic: either every constraint is compatible with confirmed history, or none of
 them are recorded. Observation IDs are idempotent and cannot be reused for different contents.
+
+A `Possibility` is a candidate reality containing the facts it explicitly decides. Observations
+remove candidates with contradictory values while preserving candidates where the observed fact
+is still unknown. An observation is rejected atomically if it would eliminate every remaining
+candidate reality.
