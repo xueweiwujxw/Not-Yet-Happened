@@ -1,7 +1,17 @@
 class_name WorldState
 extends RefCounted
 
+const ObservationModel := preload("res://src/core/observation.gd")
+
+enum ObservationResult {
+	ACCEPTED,
+	DUPLICATE,
+	CONFLICT,
+	INVALID,
+}
+
 var _facts: Dictionary = {}
+var _observations: Dictionary = {}
 
 
 func confirm_fact(key: StringName, value: Variant) -> bool:
@@ -26,3 +36,33 @@ func fact_count() -> int:
 
 func snapshot() -> Dictionary:
 	return _facts.duplicate(true)
+
+
+func apply_observation(observation: ObservationModel) -> ObservationResult:
+	if observation == null or not observation.is_valid():
+		return ObservationResult.INVALID
+
+	var observation_id := observation.observation_id()
+	if _observations.has(observation_id):
+		var existing: ObservationModel = _observations[observation_id]
+		if existing.is_equivalent_to(observation):
+			return ObservationResult.DUPLICATE
+		return ObservationResult.CONFLICT
+
+	var constraints := observation.constraints()
+	for key: StringName in constraints:
+		if _facts.has(key) and _facts[key] != constraints[key]:
+			return ObservationResult.CONFLICT
+
+	for key: StringName in constraints:
+		_facts[key] = constraints[key]
+	_observations[observation_id] = observation.duplicate_observation()
+	return ObservationResult.ACCEPTED
+
+
+func has_observation(observation_id: StringName) -> bool:
+	return _observations.has(observation_id)
+
+
+func observation_count() -> int:
+	return _observations.size()

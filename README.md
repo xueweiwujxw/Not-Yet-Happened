@@ -57,3 +57,9 @@ docs/         design and narrative documentation
 ```
 
 The architecture will evolve only as concrete gameplay requirements appear.
+
+## Core model
+
+An `Observation` identifies its observer and carries one or more fact constraints. Applying it to
+`WorldState` is atomic: either every constraint is compatible with confirmed history, or none of
+them are recorded. Observation IDs are idempotent and cannot be reused for different contents.
