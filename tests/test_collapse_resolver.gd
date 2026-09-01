@@ -16,6 +16,7 @@ func run() -> Array[String]:
 	_test_rejects_unknown_possibility(failures)
 	_test_repeated_resolution_is_stable(failures)
 	_test_empty_world_does_not_collapse(failures)
+	_test_invalid_inputs_do_not_collapse(failures)
 	return failures
 
 
@@ -143,6 +144,16 @@ func _test_empty_world_does_not_collapse(failures: Array[String]) -> void:
 
 	_expect(resolver.resolve(state, random_source).is_empty(), "empty world should not resolve", failures)
 	_expect(not state.is_collapsed(), "empty world should remain uncollapsed", failures)
+
+
+func _test_invalid_inputs_do_not_collapse(failures: Array[String]) -> void:
+	var state := _weighted_world()
+	var resolver := CollapseResolverScript.new()
+	var random_source := RandomNumberGenerator.new()
+
+	_expect(resolver.resolve(null, random_source).is_empty(), "missing world state should not resolve", failures)
+	_expect(resolver.resolve(state, null).is_empty(), "missing random source should not resolve", failures)
+	_expect(not state.is_collapsed(), "invalid resolver input should not mutate the world", failures)
 
 
 func _weighted_world() -> RefCounted:
