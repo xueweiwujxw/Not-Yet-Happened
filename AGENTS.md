@@ -149,6 +149,23 @@ At minimum:
 5. Check the commit message against Conventional Commits.
 6. Update documentation when behavior or architecture changed.
 
+## Mandatory completion review
+
+Every task must receive an explicit review after implementation and before it is merged or reported
+as complete.
+
+The review must:
+
+- inspect the final diff for correctness, scope, architecture, and unintended changes;
+- check relevant edge cases, failure paths, mutable state, and deterministic behavior;
+- confirm tests cover the new or changed behavior;
+- run the relevant automated tests after all review fixes;
+- resolve every blocking finding before merge;
+- report the findings, fixes, test results, and merge decision.
+
+Passing tests do not replace review. A task with unresolved blocking findings is not complete and
+must not be merged.
+
 ## Agent behavior
 
 Coding agents must:
@@ -161,4 +178,5 @@ Coding agents must:
 - never commit directly to `main` after bootstrap unless the repository owner explicitly requests it;
 - use Conventional Commit messages for every commit;
 - report tests run and their result in the PR or final work summary;
+- perform and report the mandatory completion review for every task;
 - leave the working tree/repository in a coherent state with no knowingly broken intermediate implementation.
