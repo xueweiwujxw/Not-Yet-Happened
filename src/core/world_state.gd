@@ -18,7 +18,7 @@ func confirm_fact(key: StringName, value: Variant) -> bool:
 	if _facts.has(key):
 		return _facts[key] == value
 
-	_facts[key] = value
+	_facts[key] = _copy_fact_value(value)
 	return true
 
 
@@ -27,7 +27,9 @@ func has_fact(key: StringName) -> bool:
 
 
 func get_fact(key: StringName, default_value: Variant = null) -> Variant:
-	return _facts.get(key, default_value)
+	if not _facts.has(key):
+		return default_value
+	return _copy_fact_value(_facts[key])
 
 
 func fact_count() -> int:
@@ -36,6 +38,14 @@ func fact_count() -> int:
 
 func snapshot() -> Dictionary:
 	return _facts.duplicate(true)
+
+
+func _copy_fact_value(value: Variant) -> Variant:
+	if value is Dictionary:
+		return (value as Dictionary).duplicate(true)
+	if value is Array:
+		return (value as Array).duplicate(true)
+	return value
 
 
 func apply_observation(observation: ObservationModel) -> ObservationResult:
