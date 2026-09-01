@@ -3,11 +3,13 @@ extends RefCounted
 
 var _id: StringName
 var _facts: Dictionary
+var _weight: float
 
 
-func _init(possibility_id: StringName, facts: Dictionary) -> void:
+func _init(possibility_id: StringName, facts: Dictionary, weight: float = 1.0) -> void:
 	_id = possibility_id
 	_facts = facts.duplicate(true)
+	_weight = weight
 
 
 func possibility_id() -> StringName:
@@ -18,8 +20,12 @@ func facts() -> Dictionary:
 	return _facts.duplicate(true)
 
 
+func weight() -> float:
+	return _weight
+
+
 func is_valid() -> bool:
-	if _id.is_empty() or _facts.is_empty():
+	if _id.is_empty() or _facts.is_empty() or not is_finite(_weight) or _weight <= 0.0:
 		return false
 
 	for key: Variant in _facts:
@@ -42,8 +48,9 @@ func is_equivalent_to(other: Variant) -> bool:
 		and other.get_script() == get_script()
 		and _id == other._id
 		and _facts == other._facts
+		and _weight == other._weight
 	)
 
 
 func duplicate_possibility() -> RefCounted:
-	return get_script().new(_id, _facts)
+	return get_script().new(_id, _facts, _weight)
