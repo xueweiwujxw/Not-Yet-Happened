@@ -23,6 +23,10 @@ godot --headless --path . --script tests/run_tests.gd
 
 The command exits with a non-zero status when a test fails.
 
+GitHub Actions runs the same suite and a project startup smoke test on Fedora 43, Ubuntu,
+Windows, and macOS. The workflow pins Godot 4.5.1 so all target environments use the same engine
+version.
+
 ## Development workflow
 
 Read [`AGENTS.md`](AGENTS.md) before making changes.
