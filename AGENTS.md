@@ -76,6 +76,8 @@ Requirements:
 ## Pull request policy
 
 - Development branches merge into `main` through pull requests.
+- Merges into `main` must create a distinct integration commit; fast-forward merges are forbidden.
+- Use squash merge or a merge commit for pull requests. Local integration must use `git merge --no-ff`.
 - Keep pull requests focused on one coherent change.
 - PR titles should follow the same Conventional Commit style when practical.
 - A PR description must explain:
