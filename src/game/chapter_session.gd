@@ -10,7 +10,7 @@ var _switch_on: bool = true
 var _repaired: bool = false
 var _completed: bool = false
 var _leaving: bool = false
-var _portrait_pending: bool = false
+var _pending_facts: Dictionary = {}
 var _dialogue: Array[String] = []
 var _cursor: int = 0
 
@@ -25,9 +25,10 @@ func advance() -> bool:
 	if not speaking():
 		return false
 	_cursor += 1
-	if not speaking() and _portrait_pending:
-		_world.confirm_fact(&"portrait", "栞同意留下吃冰棒时的照片。")
-		_portrait_pending = false
+	if not speaking():
+		for key: StringName in _pending_facts:
+			_world.confirm_fact(key, _pending_facts[key])
+		_pending_facts.clear()
 	if not speaking() and _leaving:
 		_completed = true
 		_switch_on = false
@@ -57,7 +58,7 @@ func act(action: StringName) -> bool:
 	_cursor = 0
 	match action:
 		&"notice":
-			_world.confirm_fact(&"notice_text", "旧防波堤拆除前，最后一次集体追思。")
+			_pending_facts[&"notice_text"] = "旧防波堤拆除前，最后一次集体追思。"
 			_append(&"notice")
 		&"switch":
 			_switch_on = not _switch_on
@@ -65,13 +66,13 @@ func act(action: StringName) -> bool:
 		&"repair":
 			_repair()
 		&"recording":
-			_world.confirm_fact(&"recording_words", Content.RECORDING)
+			_pending_facts[&"recording_words"] = Content.RECORDING
 			_done[action] = true
 			_dialogue.append_array(Content.RECORDING)
 			_arrive()
 		&"photo":
-			_world.confirm_fact(&"photo_front", "林澈、林遥、栞在防波堤；栞穿红鞋。")
-			_world.confirm_fact(&"photo_back", "开学前最后一个夏天。")
+			_pending_facts[&"photo_front"] = "林澈、林遥、栞在防波堤；栞穿红鞋。"
+			_pending_facts[&"photo_back"] = "开学前最后一个夏天。"
 			_done[action] = true
 			_append(&"photo_together" if _people_present else &"photo_alone")
 			_arrive()
@@ -80,11 +81,11 @@ func act(action: StringName) -> bool:
 			_append(action)
 		&"portrait":
 			_done[action] = true
-			_portrait_pending = true
+			_pending_facts[&"portrait"] = "栞同意留下吃冰棒时的照片。"
 			_append(action)
 		&"letter":
 			_done[action] = true
-			_world.confirm_fact(&"letter_words", Content.LETTER)
+			_pending_facts[&"letter_words"] = Content.LETTER
 			_dialogue.append(Content.LETTER)
 			_append(&"letter_end" if _done.has(&"photo") else &"letter_without_photo")
 		&"leave":
@@ -120,7 +121,7 @@ func view() -> Dictionary:
 		if _world.has_fact(key):
 			confirmed.append(Content.FACT_NOTES[key])
 	var claims: Array[String] = []
-	if _done.has(&"letter"):
+	if _world.has_fact(&"letter_words"):
 		claims.append(Content.SHEN_CLAIM)
 	return {
 		"line": _dialogue[_cursor] if speaking() else Content.FINISHED if _completed else Content.IDLE,

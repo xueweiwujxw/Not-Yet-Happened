@@ -47,6 +47,7 @@ func run() -> Array[String]:
 		_expect(not session.act(&"leave") and not session.advance(), "completion cannot repeat", failures)
 		_expect(session.view() == final_state, "terminal state stable", failures)
 	_test_optional_actions(failures)
+	_test_evidence_waits_for_dialogue(failures)
 	return failures
 
 
@@ -80,6 +81,22 @@ func _test_optional_actions(failures: Array[String]) -> void:
 	snapshot["confirmed"].clear()
 	_expect(session.view()["facts"][&"children_survived"], "snapshot cannot change history", failures)
 	_expect(session.view()["done"].has(&"portrait"), "snapshot cannot change progress", failures)
+
+
+func _test_evidence_waits_for_dialogue(failures: Array[String]) -> void:
+	for action: StringName in [&"recording", &"photo", &"letter"]:
+		var session := Session.new()
+		_drain(session)
+		if action == &"letter":
+			session.act(&"recording")
+			_drain(session)
+		var before: Dictionary = session.view()["facts"]
+		session.act(action)
+		_expect(session.view()["facts"] == before, "evidence should not precede its dialogue", failures)
+		if action == &"letter":
+			_expect(session.view()["claims"].is_empty(), "testimony waits until heard", failures)
+		_drain(session)
+		_expect(session.view()["facts"].size() > before.size(), "finished investigation anchors evidence", failures)
 
 
 func _drain(session: RefCounted) -> String:
