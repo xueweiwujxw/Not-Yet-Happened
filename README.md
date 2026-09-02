@@ -13,6 +13,24 @@ The project is intentionally starting small. The first technical goal is to vali
 
 Open the repository with Godot 4.x and run the project.
 
+### Playable room prototype
+
+The startup scene now contains a short, text-first room puzzle. Use the buttons with a mouse,
+or Tab / Shift+Tab and Enter / Space with a keyboard.
+
+- Before the storm, telephone the keeper to arrange an escort for Shiori.
+- Listening or opening the door advances time; the storm then cuts the telephone line.
+- Listening confirms footsteps, not Shiori's safety. It filters histories without fully resolving them.
+- Opening the door anchors one compatible history. A prior rescue call guarantees safety;
+  without one, both safe and unsafe histories remain possible.
+- Start a new attempt to reset all facts. The prototype uses a fixed seed (2026), so the same
+  actions reproduce the same ending. Domain tests inject other seeds.
+
+This is a mechanic test, not the final story or 3D presentation. Five authored outcomes, English
+placeholder text, and a diagnostic candidate count are included. Footsteps are an authored partial
+observation, not procedurally generated audio. There are no saves or packaged exports yet.
+The scene UI delegates rules to `src/game/room_session.gd`; it does not mutate core facts.
+
 ## Tests
 
 Run the headless test suite from the repository root:
