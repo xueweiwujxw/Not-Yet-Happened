@@ -22,4 +22,6 @@ func run() -> Array[String]:
 		failures.append("Windows release needs console wrapper for CI smoke test")
 	if config.get_value("preset.2.options", "application/name", "") != "NotYetHappened":
 		failures.append("macOS bundle name must match CI launch path")
+	if not ProjectSettings.get_setting("rendering/textures/vram_compression/import_etc2_astc", false):
+		failures.append("Universal macOS export requires project ETC2/ASTC import")
 	return failures
