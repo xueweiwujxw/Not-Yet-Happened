@@ -49,10 +49,12 @@ jobs:
         run: godot --version
 
       - name: Run automated tests
-        run: godot --headless --path . --script tests/run_tests.gd
+        run: |
+          bash tests/test_check_godot.sh
+          bash scripts/check-godot.sh godot --headless --path . --script tests/run_tests.gd
 
       - name: Smoke-test project startup
-        run: godot --headless --path . --quit-after 1
+        run: bash scripts/check-godot.sh godot --headless --path . --quit-after 1
 
   fedora:
     name: Fedora 43
@@ -82,7 +84,9 @@ jobs:
         run: godot --version
 
       - name: Run automated tests
-        run: godot --headless --path . --script tests/run_tests.gd
+        run: |
+          bash tests/test_check_godot.sh
+          bash scripts/check-godot.sh godot --headless --path . --script tests/run_tests.gd
 
       - name: Smoke-test project startup
-        run: godot --headless --path . --quit-after 1
+        run: bash scripts/check-godot.sh godot --headless --path . --quit-after 1

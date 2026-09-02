@@ -41,6 +41,9 @@ godot --headless --path . --script tests/run_tests.gd
 
 The command exits with a non-zero status when a test fails.
 
+CI additionally runs commands through `bash scripts/check-godot.sh` to reject Godot runtime/error
+logs even when the engine exits zero. Test that guard with `bash tests/test_check_godot.sh`.
+
 GitHub Actions runs the same suite and a project startup smoke test on Fedora 43, Ubuntu,
 Windows, and macOS. The workflow pins Godot 4.5.1 so all target environments use the same engine
 version.

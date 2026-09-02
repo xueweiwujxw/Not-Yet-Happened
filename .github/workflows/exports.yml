@@ -48,9 +48,9 @@ jobs:
           use-dotnet: false
           include-templates: true
       - name: Test source before export
-        run: godot --headless --path . --script tests/run_tests.gd
+        run: bash scripts/check-godot.sh godot --headless --path . --script tests/run_tests.gd
       - name: Import project
-        run: godot --headless --editor --path . --quit
+        run: bash scripts/check-godot.sh godot --headless --path . --import
       - name: Export release
         env:
           PRESET: ${{ matrix.preset }}
@@ -58,20 +58,20 @@ jobs:
           OUTPUT: ${{ matrix.output }}
         run: |
           mkdir -p "build/${TARGET}"
-          godot --headless --path . --export-release "$PRESET" "build/${TARGET}/${OUTPUT}"
+          bash scripts/check-godot.sh godot --headless --path . --export-release "$PRESET" "build/${TARGET}/${OUTPUT}"
           test -s "build/${TARGET}/${OUTPUT}"
       - name: Launch Linux export
         if: matrix.target == 'linux'
-        run: ./build/linux/NotYetHappened.x86_64 --headless --quit-after 2
+        run: bash scripts/check-godot.sh ./build/linux/NotYetHappened.x86_64 --headless --quit-after 2
       - name: Launch Windows export
         if: matrix.target == 'windows'
-        run: ./build/windows/NotYetHappened.console.exe --headless --quit-after 2
+        run: bash scripts/check-godot.sh ./build/windows/NotYetHappened.console.exe --headless --quit-after 2
       - name: Launch macOS export
         if: matrix.target == 'macos'
         run: |
           mkdir -p build/macos-smoke
           ditto -x -k build/macos/NotYetHappened.zip build/macos-smoke
-          ./build/macos-smoke/NotYetHappened.app/Contents/MacOS/NotYetHappened --headless --quit-after 2
+          bash scripts/check-godot.sh ./build/macos-smoke/NotYetHappened.app/Contents/MacOS/NotYetHappened --headless --quit-after 2
       - name: Upload tested export
         uses: actions/upload-artifact@v4
         with:
@@ -89,7 +89,8 @@ jobs:
       image: fedora:43
     steps:
       - name: Install runtime dependencies
-        run: dnf install --assumeyes libstdc++
+        run: dnf install --assumeyes git libstdc++
+      - uses: actions/checkout@v5
       - uses: actions/download-artifact@v4
         with:
           name: not-yet-happened-linux
@@ -97,4 +98,4 @@ jobs:
       - name: Launch exported game without editor
         run: |
           chmod +x build/linux/NotYetHappened.x86_64
-          ./build/linux/NotYetHappened.x86_64 --headless --quit-after 2
+          bash scripts/check-godot.sh ./build/linux/NotYetHappened.x86_64 --headless --quit-after 2
