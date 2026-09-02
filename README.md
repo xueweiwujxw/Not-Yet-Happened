@@ -13,9 +13,24 @@ The project is intentionally starting small. The first technical goal is to vali
 
 Open the repository with Godot 4.x and run the project.
 
-### Playable room prototype
+### Playable first chapter
 
-The startup scene now contains a short, text-first room puzzle. Use the buttons with a mouse,
+The project opens **厨房的灯**, a Chinese text-first chapter with investigation, sequential
+dialogue, an optional lamp repair and portrait, an evidence notebook, and chapter completion.
+Read the recording, old photograph and letter in any supported order; optional interactions
+do not block completion. The notebook distinguishes confirmed contents from testimony and keeps
+the sister's fate unknown. Tab and Enter / Space support keyboard play.
+
+The bundled Noto Sans CJK subset provides Chinese glyphs on all four platforms; the font license
+is accessible from the chapter screen. See [font provenance and rebuild instructions](assets/fonts/README.md).
+Automated tests cover glyph coverage, progression, scene controls and narrow-window layout.
+Photos and recordings are represented by text in this slice: there is no generated photo image,
+voice acting, 3D environment, save system or playable second chapter yet. Restart clears the attempt.
+
+### Independent room prototype
+
+Open the separate mechanic sandbox using the button below the chapter notebook; return without
+changing chapter progress. It contains a short, text-first room puzzle. Use the buttons with a mouse,
 or Tab / Shift+Tab and Enter / Space with a keyboard.
 
 - Before the storm, telephone the keeper to arrange an escort for Shiori.
@@ -75,7 +90,8 @@ Default destinations are in `build/` and are ignored by Git.
 
 The Chinese [story bible](docs/story-bible.md) defines the six-chapter narrative, characters,
 fixed-history rules and four endings. The [chapter-one script](docs/chapter-01.md) specifies the
-next playable slice and its acceptance tests. These are design documents, not implemented chapters.
+first playable slice and its acceptance tests. Chapter one now has a text-first implementation;
+the remaining chapters and historical-revisit system are still design documents.
 The current room puzzle remains a separate mechanic sandbox; its uncertain child-safety outcomes
 must not be reused as canon in a story where Shiori's survival is already established.
 
