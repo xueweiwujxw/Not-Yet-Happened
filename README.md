@@ -71,6 +71,14 @@ To export locally, install Godot **4.5.1** and its matching export templates, cr
 directory, then run `godot --headless --path . --export-release Linux` (or `Windows` / `macOS`).
 Default destinations are in `build/` and are ignored by Git.
 
+## Story and next milestone
+
+The Chinese [story bible](docs/story-bible.md) defines the six-chapter narrative, characters,
+fixed-history rules and four endings. The [chapter-one script](docs/chapter-01.md) specifies the
+next playable slice and its acceptance tests. These are design documents, not implemented chapters.
+The current room puzzle remains a separate mechanic sandbox; its uncertain child-safety outcomes
+must not be reused as canon in a story where Shiori's survival is already established.
+
 ## Development workflow
 
 Read [`AGENTS.md`](AGENTS.md) before making changes.
