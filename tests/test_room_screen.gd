@@ -1,6 +1,6 @@
 extends RefCounted
 
-const MainScene := preload("res://scenes/main.tscn")
+const MainScene := preload("res://scenes/room.tscn")
 
 
 func run(root: Node) -> Array[String]:

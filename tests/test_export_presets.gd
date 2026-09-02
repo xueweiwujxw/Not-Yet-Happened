@@ -18,6 +18,8 @@ func run() -> Array[String]:
 			failures.append("Exports must stay in ignored build directory")
 		if "tests/*" not in String(config.get_value(section, "exclude_filter", "")):
 			failures.append("Development tests must not ship in exports")
+		if "assets/fonts/*.txt" not in String(config.get_value(section, "include_filter", "")):
+			failures.append("Every export must include the bundled font license")
 	if config.get_value("preset.1.options", "debug/export_console_wrapper", 0) != 2:
 		failures.append("Windows release needs console wrapper for CI smoke test")
 	if config.get_value("preset.2.options", "application/bundle_identifier", "") != "org.notyethappened.prototype":
