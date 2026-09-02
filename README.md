@@ -28,7 +28,7 @@ or Tab / Shift+Tab and Enter / Space with a keyboard.
 
 This is a mechanic test, not the final story or 3D presentation. Five authored outcomes, English
 placeholder text, and a diagnostic candidate count are included. Footsteps are an authored partial
-observation, not procedurally generated audio. There are no saves or packaged exports yet.
+observation, not procedurally generated audio. There are no saves yet.
 The scene UI delegates rules to `src/game/room_session.gd`; it does not mutate core facts.
 
 ## Tests
@@ -41,9 +41,35 @@ godot --headless --path . --script tests/run_tests.gd
 
 The command exits with a non-zero status when a test fails.
 
+CI additionally runs commands through `bash scripts/check-godot.sh` to reject Godot runtime/error
+logs even when the engine exits zero. Test that guard with `bash tests/test_check_godot.sh`.
+
 GitHub Actions runs the same suite and a project startup smoke test on Fedora 43, Ubuntu,
 Windows, and macOS. The workflow pins Godot 4.5.1 so all target environments use the same engine
 version.
+
+## Desktop packages
+
+The **Desktop exports** workflow tests and exports release builds on every PR and `main` push.
+Download `not-yet-happened-linux`, `not-yet-happened-windows`, or `not-yet-happened-macos`
+from the successful run's Artifacts section. These are development builds, retained for 14 days,
+not signed public releases.
+
+- Fedora / Ubuntu: extract the Linux x86-64 artifact, run `chmod +x NotYetHappened.x86_64`,
+  then launch it. The same binary is smoke-tested on both distributions.
+- Windows: extract the artifact and launch `NotYetHappened.exe`. The console executable is for
+  diagnostics. Windows builds are x86-64 and are not code-signed.
+- macOS: extract the artifact and then `NotYetHappened.zip` to obtain the universal `.app`
+  (Intel and Apple Silicon). It is ad-hoc signed, not notarized; Gatekeeper may require approval
+  through System Settings for this trusted development build. CI tests the runner's architecture,
+  not both architectures.
+
+CI launches each exported binary headlessly without the editor. This checks packaging/startup,
+not GPU rendering, audio, or interactive usability on physical machines.
+
+To export locally, install Godot **4.5.1** and its matching export templates, create the output
+directory, then run `godot --headless --path . --export-release Linux` (or `Windows` / `macOS`).
+Default destinations are in `build/` and are ignored by Git.
 
 ## Development workflow
 
