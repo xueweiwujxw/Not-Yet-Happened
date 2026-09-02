@@ -68,3 +68,8 @@ A `Possibility` is a candidate reality containing the facts it explicitly decide
 remove candidates with contradictory values while preserving candidates where the observed fact
 is still unknown. An observation is rejected atomically if it would eliminate every remaining
 candidate reality.
+
+A `CollapseResolver` makes the final weighted choice from the remaining candidates. It requires an
+injected `RandomNumberGenerator`, iterates candidates in deterministic order, and delegates the
+actual state transition to `WorldState`. Once collapsed, the selected possibility and its explicit
+facts are anchored, alternatives cannot be added, and repeated resolution is idempotent.

@@ -14,6 +14,7 @@ enum ObservationResult {
 var _facts: Dictionary = {}
 var _observations: Dictionary = {}
 var _possibilities: Dictionary = {}
+var _collapsed_possibility_id: StringName = &""
 
 
 func confirm_fact(key: StringName, value: Variant) -> bool:
@@ -93,6 +94,8 @@ func add_possibility(possibility: PossibilityModel) -> bool:
 		return false
 
 	var possibility_id := possibility.possibility_id()
+	if is_collapsed() and possibility_id != _collapsed_possibility_id:
+		return false
 	if _possibilities.has(possibility_id):
 		var existing: PossibilityModel = _possibilities[possibility_id]
 		return existing.is_equivalent_to(possibility)
@@ -125,6 +128,40 @@ func possibility_facts(possibility_id: StringName) -> Dictionary:
 		return {}
 	var possibility: PossibilityModel = _possibilities[possibility_id]
 	return possibility.facts()
+
+
+func possibility_weight(possibility_id: StringName) -> float:
+	if not _possibilities.has(possibility_id):
+		return 0.0
+	var possibility: PossibilityModel = _possibilities[possibility_id]
+	return possibility.weight()
+
+
+func collapse_to(possibility_id: StringName) -> bool:
+	if is_collapsed():
+		return _collapsed_possibility_id == possibility_id
+	if not _possibilities.has(possibility_id):
+		return false
+
+	var selected: PossibilityModel = _possibilities[possibility_id]
+	var selected_facts := selected.facts()
+	for key: StringName in selected_facts:
+		if _facts.has(key) and _facts[key] != selected_facts[key]:
+			return false
+
+	for key: StringName in selected_facts:
+		_facts[key] = _copy_fact_value(selected_facts[key])
+	_possibilities = {possibility_id: selected.duplicate_possibility()}
+	_collapsed_possibility_id = possibility_id
+	return true
+
+
+func is_collapsed() -> bool:
+	return not _collapsed_possibility_id.is_empty()
+
+
+func collapsed_possibility_id() -> StringName:
+	return _collapsed_possibility_id
 
 
 func _can_preserve_a_possibility(constraints: Dictionary) -> bool:
