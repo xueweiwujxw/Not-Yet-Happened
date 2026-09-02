@@ -1,0 +1,100 @@
+name: Desktop exports
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: exports-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GODOT_VERSION: 4.5.1
+
+jobs:
+  export:
+    name: Export and launch ${{ matrix.target }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: linux
+            runner: ubuntu-latest
+            preset: Linux
+            output: NotYetHappened.x86_64
+          - target: windows
+            runner: windows-latest
+            preset: Windows
+            output: NotYetHappened.exe
+          - target: macos
+            runner: macos-latest
+            preset: macOS
+            output: NotYetHappened.zip
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v5
+      - uses: chickensoft-games/setup-godot@v2
+        with:
+          version: ${{ env.GODOT_VERSION }}
+          use-dotnet: false
+          include-templates: true
+      - name: Test source before export
+        run: godot --headless --path . --script tests/run_tests.gd
+      - name: Import project
+        run: godot --headless --editor --path . --quit
+      - name: Export release
+        env:
+          PRESET: ${{ matrix.preset }}
+          TARGET: ${{ matrix.target }}
+          OUTPUT: ${{ matrix.output }}
+        run: |
+          mkdir -p "build/${TARGET}"
+          godot --headless --path . --export-release "$PRESET" "build/${TARGET}/${OUTPUT}"
+          test -s "build/${TARGET}/${OUTPUT}"
+      - name: Launch Linux export
+        if: matrix.target == 'linux'
+        run: ./build/linux/NotYetHappened.x86_64 --headless --quit-after 2
+      - name: Launch Windows export
+        if: matrix.target == 'windows'
+        run: ./build/windows/NotYetHappened.console.exe --headless --quit-after 2
+      - name: Launch macOS export
+        if: matrix.target == 'macos'
+        run: |
+          mkdir -p build/macos-smoke
+          ditto -x -k build/macos/NotYetHappened.zip build/macos-smoke
+          ./build/macos-smoke/NotYetHappened.app/Contents/MacOS/NotYetHappened --headless --quit-after 2
+      - name: Upload tested export
+        uses: actions/upload-artifact@v4
+        with:
+          name: not-yet-happened-${{ matrix.target }}
+          path: build/${{ matrix.target }}/
+          if-no-files-found: error
+          retention-days: 14
+
+  fedora:
+    name: Launch Linux export on Fedora 43
+    needs: export
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    container:
+      image: fedora:43
+    steps:
+      - name: Install runtime dependencies
+        run: dnf install --assumeyes libstdc++
+      - uses: actions/download-artifact@v4
+        with:
+          name: not-yet-happened-linux
+          path: build/linux
+      - name: Launch exported game without editor
+        run: |
+          chmod +x build/linux/NotYetHappened.x86_64
+          ./build/linux/NotYetHappened.x86_64 --headless --quit-after 2
