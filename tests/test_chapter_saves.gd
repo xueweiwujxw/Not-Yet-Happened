@@ -64,9 +64,10 @@ func _test_invalid_data(failures: Array[String]) -> void:
 	var before := session.view()
 	var invalid: Array = [null, [], {}, {"version": 1, "chapter": Session.CONTENT_REVISION, "events": ["photo"]}]
 	for field: String in ["version", "chapter", "events"]:
-		var data := session.save_data()
-		data[field] = "invalid"
-		invalid.append(data)
+		for value: Variant in [null, true, {}, "invalid"]:
+			var data := session.save_data()
+			data[field] = value
+			invalid.append(data)
 	for event: Variant in ["unknown", 42, {}, "x".repeat(33)]:
 		var data := session.save_data()
 		data["events"] = [event]
@@ -93,6 +94,12 @@ func _test_files(path: String, failures: Array[String]) -> void:
 	_expect(not store.load_session()["ok"], "missing save is recoverable error", failures)
 	var first := Session.new()
 	_expect(store.save_session(first)["ok"], "create manual slot", failures)
+	for field: String in ["version", "chapter"]:
+		var bad_header := first.save_data()
+		bad_header[field] = {}
+		_write(path, JSON.stringify(bad_header))
+		_expect(not store.load_session()["ok"], "reject wrong-type file headers without runtime errors", failures)
+	_write(path, JSON.stringify(first.save_data()))
 	first.advance()
 	_expect(store.save_session(first)["ok"], "replace slot and create backup", failures)
 	var result := store.load_session()

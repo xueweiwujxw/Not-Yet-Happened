@@ -83,9 +83,11 @@ func _read(path: String) -> Dictionary:
 	if json.parse(text) != OK or not json.data is Dictionary:
 		return _failure("invalid")
 	var data: Dictionary = json.data
-	if data.has("version") and data["version"] != Session.SAVE_VERSION:
+	if typeof(data.get("version")) not in [TYPE_INT, TYPE_FLOAT] or not data.get("chapter") is String:
+		return _failure("invalid")
+	if data["version"] != Session.SAVE_VERSION:
 		return _failure("version")
-	if data.has("chapter") and data["chapter"] != Session.CONTENT_REVISION:
+	if data["chapter"] != Session.CONTENT_REVISION:
 		return _failure("version")
 	var restored := Session.new().restore_save(data)
 	if restored == null:

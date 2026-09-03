@@ -176,7 +176,9 @@ func restore_save(data: Variant) -> RefCounted:
 		return null
 	if typeof(data.get("version")) not in [TYPE_INT, TYPE_FLOAT] or data["version"] != SAVE_VERSION:
 		return null
-	if data.get("chapter") != CONTENT_REVISION or not data.get("events") is Array:
+	if not data.get("chapter") is String:
+		return null
+	if data["chapter"] != CONTENT_REVISION or not data.get("events") is Array:
 		return null
 	var events: Array = data["events"]
 	if events.size() > MAX_SAVE_EVENTS:

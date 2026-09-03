@@ -56,3 +56,7 @@ All test files use a uniquely named directory, never the player's default save s
 Review found an edge case where an incompatible backup was hidden behind a missing-primary error
 and a new save could be written over that situation. Regression tests reproduced it; both Load and
 Save now surface the version error and leave those files alone.
+
+Further malformed-header tests caught GDScript comparison errors for boolean/object chapter IDs
+and object schema versions. Header types are now checked before comparison; the process-error
+guard correctly failed the pre-fix test run even though the engine returned zero.
