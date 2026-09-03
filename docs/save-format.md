@@ -1,7 +1,8 @@
-# Chapter-one manual saves
+# Chapter manual saves
 
 Implemented: one manual slot at `user://chapter-one.json`, plus `.bak` containing the previous
-valid save. Godot resolves `user://` to its per-user application data directory on each platform;
+valid save. Chapter two has a separate slot at `user://chapter-two.json` using the same protocol.
+Godot resolves `user://` to its per-user application data directory on each platform;
 the executable directory need not be writable. The chapter screen offers explicit Save and Load
 buttons. There is no autosave, cloud sync, sandbox save or multi-slot selection.
 
@@ -30,6 +31,18 @@ into another legal action sequence. Saves are not encrypted or tamper-proof.
 Bump the story revision when changing action rules, dialogue steps/order or confirmed fact meanings.
 Unsupported schema/story revisions are rejected, including an incompatible backup when the primary
 is missing or corrupt. No migration or silent downgrade is implemented yet.
+
+Chapter two uses four fields: `version: 1`, `chapter: "keeper-room-v1"`, `events` and `prologue`.
+The prologue is a full chapter-one save and must replay to completion before chapter-two input
+is applied. All first-chapter facts are inherited. Limits apply to each event log, and the whole
+file must remain within 256 KiB. Unsupported nested prologue revisions also block loading and
+overwriting; they are not treated as ordinary corruption. Changing only chapter-one's idle
+completion message to advertise chapter two does not change the action log or revision.
+
+The initial chapter screen can load chapter two directly, restoring its matching chapter-one
+record as well. Returning to chapter one only views that completed record; continuing chapter two
+does not restart its revisit. Explicit first-chapter restart/load discards dependent in-memory
+chapter two, not the saved slot. A new second-chapter attempt retains its prologue.
 
 ## Write and recovery protocol
 

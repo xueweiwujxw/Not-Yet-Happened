@@ -13,7 +13,7 @@ The project is intentionally starting small. The first technical goal is to vali
 
 Open the repository with Godot 4.x and run the project.
 
-### Playable first chapter
+### Playable chapters
 
 The project opens **厨房的灯**, a Chinese text-first chapter with investigation, sequential
 dialogue, an optional lamp repair and portrait, an evidence notebook, and chapter completion.
@@ -25,9 +25,21 @@ The bundled Noto Sans CJK subset provides Chinese glyphs on all four platforms; 
 is accessible from the chapter screen. See [font provenance and rebuild instructions](assets/fonts/README.md).
 Automated tests cover glyph coverage, progression, scene controls and narrow-window layout.
 Photos and recordings are represented by text in this slice: there is no generated photo image,
-voice acting, 3D environment or playable second chapter yet. Manual Save/Load preserves dialogue,
+voice acting or 3D environment yet. Manual Save/Load preserves dialogue,
 progress and facts; Restart clears only the active attempt, not the disk save. See [save format and
-recovery rules](docs/save-format.md). There is one slot with a last-valid backup and no autosave.
+recovery rules](docs/save-format.md). Each chapter has one slot with a last-valid backup and no autosave.
+
+Complete chapter one to enter **门后有人**, the second text-first chapter. Investigate the old
+telephone and recording in the present, then explicitly enter a constrained historical window.
+Calling before listening/opening secures the keeper's escort and cabinet-location information;
+listening advances to the outage and closes the call opportunity. Footsteps do not identify a
+person. Opening confirms the authored local outcome without random rolls: the children survive
+in every route, and the sister's later fate remains unknown. The closed window cannot be replayed
+within the same attempt. Chapter two does not fix later lighting/ladder preparations.
+
+Return to the first-chapter record and resume without losing second-chapter progress. The initial
+screen can also load chapter two directly: its save includes its matching first-chapter record.
+See the [second-chapter script and acceptance checks](docs/chapter-02.md).
 
 ### Independent room prototype
 
@@ -92,8 +104,9 @@ Default destinations are in `build/` and are ignored by Git.
 
 The Chinese [story bible](docs/story-bible.md) defines the six-chapter narrative, characters,
 fixed-history rules and four endings. The [chapter-one script](docs/chapter-01.md) specifies the
-first playable slice and its acceptance tests. Chapter one now has a text-first implementation;
-the remaining chapters and historical-revisit system are still design documents.
+first playable slice and its acceptance tests. Chapters one and two now have text-first
+implementations, including the first limited historical revisit. Chapters three through six
+remain design documents; the next milestone is the letters/report investigation in chapter three.
 The current room puzzle remains a separate mechanic sandbox; its uncertain child-safety outcomes
 must not be reused as canon in a story where Shiori's survival is already established.
 

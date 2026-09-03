@@ -4,9 +4,17 @@ const Session := preload("res://src/game/chapter_session.gd")
 const Content := preload("res://src/content/chapter_one.gd")
 const RoomScene := preload("res://scenes/room.tscn")
 const SaveStore := preload("res://src/game/chapter_save_store.gd")
+const Second := preload("res://src/game/chapter_two_session.gd")
+const SecondContent := preload("res://src/content/chapter_two.gd")
 
-var session := Session.new()
+var session: RefCounted = Session.new()
 var save_store := SaveStore.new()
+var second_store := SaveStore.new("user://chapter-two.json", Second)
+var is_second := false
+var second_button: Button
+var load_second_button: Button
+var second_back_button: Button
+var second_screen: Control
 var save_button: Button
 var load_button: Button
 var save_status: Label
@@ -44,9 +52,9 @@ func _ready() -> void:
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation", 16)
 	margin.add_child(column)
-	_label(column, Content.TITLE, 30)
+	_label(column, SecondContent.CHAPTER_TITLE if is_second else Content.TITLE, 30)
 	_label(column, Content.HELP, 16)
-	_label(column, Content.OBJECTIVE, 20)
+	_label(column, SecondContent.CHAPTER_OBJECTIVE if is_second else Content.OBJECTIVE, 20)
 	lamp_label = _label(column, "", 18)
 	story_label = _label(column, "", 24)
 	story_label.custom_minimum_size.y = 120
@@ -55,8 +63,10 @@ func _ready() -> void:
 	actions.add_theme_constant_override("h_separation", 12)
 	actions.add_theme_constant_override("v_separation", 10)
 	column.add_child(actions)
-	for id: StringName in Content.ORDER:
-		action_buttons[id] = _button(actions, Content.LABELS[id], _act.bind(id))
+	var order: Array[StringName] = SecondContent.ACTION_ORDER if is_second else Content.ORDER
+	var labels: Dictionary = SecondContent.ACTION_LABELS if is_second else Content.LABELS
+	for id: StringName in order:
+		action_buttons[id] = _button(actions, labels[id], _act.bind(id))
 	_label(column, Content.NOTEBOOK, 24)
 	notebook_label = _label(column, "", 18)
 	var save_actions := HFlowContainer.new()
@@ -64,7 +74,10 @@ func _ready() -> void:
 	save_button = _button(save_actions, Content.SAVE, _save)
 	load_button = _button(save_actions, Content.LOAD, _load)
 	save_status = _label(column, "", 18)
-	restart_button = _button(column, Content.RESTART, _restart)
+	restart_button = _button(column, SecondContent.RESET if is_second else Content.RESTART, _restart)
+	if not is_second:
+		second_button = _button(column, SecondContent.ENTRY, _enter_second)
+		load_second_button = _button(column, SecondContent.LOAD_CHAPTER, _load_second)
 	sandbox_button = _button(column, Content.SANDBOX, _show_sandbox)
 	var license_button := _button(column, Content.LICENSE, _show_license)
 	license_button.tooltip_text = "SIL Open Font License 1.1"
@@ -97,7 +110,7 @@ func _advance() -> void:
 		if session.view()["completed"]:
 			restart_button.grab_focus()
 		else:
-			action_buttons[&"notice"].grab_focus()
+			_focus_action()
 
 
 func _act(id: StringName) -> void:
@@ -109,7 +122,8 @@ func _act(id: StringName) -> void:
 
 
 func _restart() -> void:
-	session = Session.new()
+	_clear_second()
+	session = session.new_attempt() if is_second else Session.new()
 	save_status.text = Content.RESTART_INFO
 	_refresh()
 	next_button.grab_focus()
@@ -127,6 +141,7 @@ func _load() -> void:
 		save_status.text = Content.SAVE_ERRORS[result["error"]]
 		return
 	session = result["session"]
+	_clear_second()
 	_refresh()
 	save_status.text = Content.LOAD_BACKUP if result["recovered"] else Content.LOAD_OK
 	if session.speaking():
@@ -134,19 +149,23 @@ func _load() -> void:
 	elif session.view()["completed"]:
 		restart_button.grab_focus()
 	else:
-		action_buttons[&"notice"].grab_focus()
+		_focus_action()
+	chapter_scroll.scroll_vertical = 0
 
 
 func _refresh() -> void:
-	var state := session.view()
+	var state: Dictionary = session.view()
 	story_label.text = state["line"]
 	lamp_label.text = state["lamp"]
 	lamp_label.modulate = Color(1.0, 0.85, 0.55) if state["repaired"] else Color.WHITE
 	next_button.disabled = not state["speaking"]
 	for id: StringName in action_buttons:
 		action_buttons[id].disabled = not session.can_act(id)
-	var confirmed: Array[String] = state["confirmed"]
-	var claims: Array[String] = state["claims"]
+	if second_button != null:
+		second_button.disabled = not state["completed"]
+		second_button.text = SecondContent.RESUME if second_screen != null else SecondContent.ENTRY
+	var confirmed: Array = state["confirmed"]
+	var claims: Array = state["claims"]
 	notebook_label.text = Content.CONFIRMED + "\n" + "\n".join(confirmed)
 	notebook_label.text += "\n\n" + Content.CLAIMS + "\n"
 	notebook_label.text += "\n".join(claims) if not claims.is_empty() else Content.EMPTY
@@ -158,7 +177,7 @@ func _show_sandbox() -> void:
 		_sandbox = RoomScene.instantiate()
 		_sandbox.offset_top = 56
 		add_child(_sandbox)
-		back_button = _button(self, Content.BACK, _hide_sandbox)
+		back_button = _button(self, SecondContent.RESUME if is_second else Content.BACK, _hide_sandbox)
 		back_button.position = Vector2(28, 0)
 	chapter_scroll.hide()
 	_sandbox.show()
@@ -184,3 +203,73 @@ func _show_license() -> void:
 	dialog.canceled.connect(dialog.queue_free)
 	add_child(dialog)
 	dialog.popup_centered_ratio(0.8)
+
+
+func _focus_action() -> void:
+	for button: Button in action_buttons.values():
+		if not button.disabled:
+			button.grab_focus()
+			return
+
+
+func _enter_second() -> void:
+	if not session.view()["completed"]:
+		return
+	if second_screen == null:
+		var next_session := Second.new()
+		if not next_session.start_after(session):
+			return
+		_show_second(next_session)
+	else:
+		chapter_scroll.hide()
+		second_screen.show()
+		second_back_button.show()
+		second_back_button.grab_focus()
+
+
+func _show_second(next_session: RefCounted) -> void:
+	_clear_second()
+	second_screen = get_script().new()
+	second_screen.is_second = true
+	second_screen.session = next_session
+	second_screen.save_store = second_store
+	second_screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(second_screen)
+	second_screen.offset_top = 56
+	second_back_button = _button(self, SecondContent.RETURN, _return_first)
+	second_back_button.position = Vector2(28, 0)
+	chapter_scroll.hide()
+	if next_session.speaking():
+		second_screen.next_button.grab_focus()
+	else:
+		second_back_button.grab_focus()
+
+
+func _load_second() -> void:
+	var result := second_store.load_session()
+	if not result["ok"]:
+		save_status.text = Content.SAVE_ERRORS[result["error"]]
+		return
+	var next_session: RefCounted = result["session"]
+	session = Session.new().restore_save(next_session.save_data()["prologue"])
+	_show_second(next_session)
+	_refresh()
+	second_screen.save_status.text = Content.LOAD_BACKUP if result["recovered"] else Content.LOAD_OK
+
+
+func _return_first() -> void:
+	# A loaded second-chapter save may carry a different first-chapter attempt.
+	session = Session.new().restore_save(second_screen.session.save_data()["prologue"])
+	second_screen.hide()
+	second_back_button.hide()
+	chapter_scroll.show()
+	_refresh()
+	second_button.grab_focus()
+
+
+func _clear_second() -> void:
+	if second_screen != null:
+		second_screen.free()
+		second_screen = null
+		second_back_button.free()
+		second_back_button = null
