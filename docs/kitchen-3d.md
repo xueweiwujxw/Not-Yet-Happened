@@ -37,7 +37,7 @@ and font coverage. Existing chapter, save and ending tests still run unchanged o
 
 `tests/render_kitchen.gd` requires a real display; it explicitly rejects headless dummy rendering.
 It stages a deterministic repaired/occupied kitchen and captures overview, detail and gameplay
-views. The `Render kitchen previews` workflow runs it with Xvfb and Mesa software OpenGL, then
+views, plus the default 1280×720 gameplay layout. The `Render kitchen previews` workflow runs it with Xvfb and Mesa software OpenGL, then
 uploads `kitchen-previews`. Locally, on a graphical machine:
 
 ```bash

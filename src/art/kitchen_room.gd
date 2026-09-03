@@ -133,10 +133,10 @@ func _living() -> void:
 	# Photo sideboard with a stylized physical photograph, books and a bowl of citrus.
 	Art.box(self, Vector3(3.95, 0.52, 1.6), Vector3(1.18, 1.04, 2.05), _sage, true)
 	Art.box(self, Vector3(3.95, 1.09, 1.6), Vector3(1.3, 0.11, 2.16), _wood)
-	Art.box(self, Vector3(3.98, 1.46, 1.06), Vector3(0.09, 0.61, 0.7), _dark)
-	Art.box(self, Vector3(3.923, 1.46, 1.06), Vector3(0.015, 0.49, 0.57), Art.material("e8cb96"))
-	for z: float in [0.92, 1.07, 1.22]:
-		Art.sphere(self, Vector3(3.907, 1.51, z), Vector3(0.02, 0.11, 0.09), Art.material("728b83"))
+	Art.box(self, Vector3(3.98, 1.46, 1.06), Vector3(0.7, 0.61, 0.09), _dark)
+	Art.box(self, Vector3(3.98, 1.46, 1.117), Vector3(0.57, 0.49, 0.015), Art.material("e8cb96"))
+	for x: float in [3.84, 3.99, 4.14]:
+		Art.sphere(self, Vector3(x, 1.51, 1.133), Vector3(0.09, 0.11, 0.02), Art.material("728b83"))
 	Art.cylinder(self, Vector3(3.93, 1.2, 2.1), 0.28, 0.12, _cream, 0.35)
 	for i: int in range(4):
 		Art.sphere(self, Vector3(3.8 + (i % 2) * 0.2, 1.32, 1.96 + floorf(i / 2.0) * 0.2), Vector3.ONE * 0.2, Art.material("dca252"))
@@ -175,14 +175,14 @@ func _lighting() -> void:
 	settings.background_color = Color("e6d6b9")
 	settings.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	settings.ambient_light_color = Color("c7d9d1")
-	settings.ambient_light_energy = 0.65
-	settings.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	settings.ambient_light_energy = 0.3
+	settings.tonemap_mode = Environment.TONE_MAPPER_LINEAR
 	environment.environment = settings
 	add_child(environment)
 	var sun := DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-38, -35, 0)
-	sun.light_color = Color("ffe2aa")
-	sun.light_energy = 1.45
+	sun.light_color = Color("fff0d6")
+	sun.light_energy = 0.7
 	sun.shadow_enabled = true
 	sun.directional_shadow_max_distance = 45
 	add_child(sun)
@@ -190,7 +190,7 @@ func _lighting() -> void:
 	lamp.position = Vector3(0.6, 2.65, 0.1)
 	lamp.omni_range = 5.0
 	lamp.light_color = Color("ffd899")
-	lamp.light_energy = 0.8
+	lamp.light_energy = 0.3
 	add_child(lamp)
 
 

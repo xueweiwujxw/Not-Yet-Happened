@@ -124,7 +124,7 @@ not signed public releases.
 CI launches each exported binary headlessly without the editor. This checks packaging/startup,
 not GPU rendering, audio, or interactive usability on physical machines.
 
-**Render kitchen previews** additionally renders three actual 1600×1000 Godot screenshots on
+**Render kitchen previews** additionally renders actual 1600×1000 and default 1280×720 Godot screenshots on
 Ubuntu with Mesa software OpenGL and Xvfb. Download the `kitchen-previews` artifact (14 days).
 This is a reproducible visual-review aid, not physical-GPU coverage of all four platforms.
 

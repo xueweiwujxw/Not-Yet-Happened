@@ -23,10 +23,13 @@ func _capture() -> void:
 	main.kitchen_button.pressed.emit()
 	var view: Control = main.kitchen_view
 	view.set_physics_process(false)
-	for shot: String in ["kitchen-overview", "kitchen-detail", "kitchen-gameplay"]:
-		view.frame_camera(shot == "kitchen-detail")
-		view.hud.visible = shot == "kitchen-gameplay"
-		if shot == "kitchen-gameplay":
+	for shot: String in ["kitchen-overview", "kitchen-detail", "kitchen-gameplay", "kitchen-gameplay-default"]:
+		var gameplay := shot.begins_with("kitchen-gameplay")
+		var expected := Vector2i(1280, 720) if shot.ends_with("default") else Vector2i(1600, 1000)
+		root.size = expected
+		view.frame_camera(shot == "kitchen-detail", gameplay)
+		view.hud.visible = gameplay
+		if gameplay:
 			view.player.position = Vector3(3.0, 0.1, 1.6)
 			view._act(&"photo")
 			view.refresh()
@@ -34,7 +37,7 @@ func _capture() -> void:
 			await process_frame
 		await RenderingServer.frame_post_draw
 		var image := root.get_texture().get_image()
-		if image.is_empty() or image.get_width() != 1600 or image.get_height() != 1000:
+		if image.is_empty() or image.get_size() != expected:
 			printerr("Invalid kitchen screenshot size")
 			quit(1)
 			return

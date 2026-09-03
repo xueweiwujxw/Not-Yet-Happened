@@ -50,9 +50,10 @@ func _ready() -> void:
 	refresh()
 
 
-func frame_camera(detail: bool) -> void:
+func frame_camera(detail: bool, gameplay: bool = true) -> void:
 	camera.position = Vector3(8, 7, 10) if detail else Vector3(11, 10, 14)
-	camera.size = 7.8 if detail else 10.8
+	camera.size = 7.8 if detail else 13.2 if gameplay else 12.2
+	camera.v_offset = -0.85 if gameplay and not detail else 0.0
 	camera.look_at(Vector3(0.3, 0.7, -0.4) if detail else Vector3(0, 0.6, 0))
 
 
