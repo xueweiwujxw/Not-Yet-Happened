@@ -2,6 +2,8 @@
 
 Implemented: one manual slot at `user://chapter-one.json`, plus `.bak` containing the previous
 valid save. Chapter two has a separate slot at `user://chapter-two.json` using the same protocol.
+Chapters three through six share `user://story-finale.json`: one sequential arc slot, not four
+independent chapter slots. It can be loaded directly from the initial chapter screen.
 Godot resolves `user://` to its per-user application data directory on each platform;
 the executable directory need not be writable. The chapter screen offers explicit Save and Load
 buttons. There is no autosave, cloud sync, sandbox save or multi-slot selection.
@@ -43,6 +45,27 @@ The initial chapter screen can load chapter two directly, restoring its matching
 record as well. Returning to chapter one only views that completed record; continuing chapter two
 does not restart its revisit. Explicit first-chapter restart/load discards dependent in-memory
 chapter two, not the saved slot. A new second-chapter attempt retains its prologue.
+
+## Final arc (chapters three through six)
+
+The four fields are `version: 1`, `chapter: "summer-finale-v1"`, `events` and `prologue`.
+The prologue is a complete chapter-two save, itself containing chapter one. The bounded, fixed-depth
+replay validates both earlier chapters before applying arc events. The arc's current chapter is
+derived from valid transitions, never trusted as an injected chapter index. All three headers are
+checked for compatibility; an unsupported inner version cannot be downgraded or overwritten.
+
+Pending observations, closed preparation windows, sealed identities, invitations and endings all
+restore through the same rules. Limits remain 8,192 events per log and 256 KiB for the whole file.
+The stored event log commits a choice when selected; its evidence is recorded only when its final
+dialogue line is read. Loading halfway through a decision cannot expose other actions or reroll it.
+
+Returning from the arc restores the matching earlier records, even if a different arc save was
+loaded inside its screen. Continuing resumes the live arc. Explicit restart/load of either earlier
+chapter clears dependent live arc progress. Restart within the arc begins at chapter three while
+preserving its earlier chapters. No such action deletes or automatically writes any disk slot.
+
+Only chapter-two's idle completion message changed to advertise the remaining story; its actions,
+dialogue steps and fact meanings are unchanged, so `keeper-room-v1` saves remain compatible.
 
 ## Write and recovery protocol
 

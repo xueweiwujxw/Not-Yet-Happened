@@ -25,6 +25,15 @@ func run() -> Array[String]:
 				facts.merge(Third.FACTS[&"match_cabinet"])
 			_expect(Rules.can_act(3, &"next", facts), "forgiveness not a mainline requirement", failures)
 			_expect(not facts.has(&"pier_empty") and not facts.has(&"sister_fate"), "records do not infer truth or death", failures)
+	for respected: bool in [false, true]:
+		for pair: Array in [["safe", "alive", true, "kitchen"], ["safe", "alive", false, "distance"], ["fall", "dead", null, "name"], ["safe", "unconfirmed", null, "blank"], ["fall", "unconfirmed", null, "blank"], ["", "unconfirmed", null, "blank"]]:
+			var f: Dictionary = {&"platform_route": pair[0], &"sister_fate": pair[1], &"shiori_boundary_respected": respected}
+			if pair[2] != null:
+				f[&"invitation_sent"] = pair[2]
+			_expect(Rules.ending(f) == pair[3], "ending conditions exhaustive and independent of relationship", failures)
+	for invalid: Dictionary in [{}, {&"sister_fate": "alive"}, {&"sister_fate": "dead", &"platform_route": "safe"}, {&"sister_fate": "unconfirmed", &"invitation_sent": true}, {&"sister_fate": "alive", &"platform_route": "safe", &"invitation_sent": "yes"}]:
+		_expect(Rules.ending(invalid).is_empty(), "invalid terminal state has no fabricated ending", failures)
+		_expect(not Rules.can_act(6, &"memorial", invalid), "invalid terminal state cannot write a memorial", failures)
 	return failures
 
 
