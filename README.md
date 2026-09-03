@@ -24,8 +24,13 @@ the sister's fate unknown. Tab and Enter / Space support keyboard play.
 The bundled Noto Sans CJK subset provides Chinese glyphs on all four platforms; the font license
 is accessible from the chapter screen. See [font provenance and rebuild instructions](assets/fonts/README.md).
 Automated tests cover glyph coverage, progression, scene controls and narrow-window layout.
-Photos and recordings are represented by text in this slice: there is no generated photo image,
-voice acting or 3D environment yet. Manual Save/Load preserves dialogue,
+Photo and recording contents are represented by text; there is no voice acting yet.
+Use **探索 3D 老屋** to enter the first chapter's low-poly kitchen: WASD / arrow keys move,
+E interacts or continues dialogue, and Tab returns to the notebook and manual save/load.
+Walk near an object to reveal its available actions. The 3D view shares the exact chapter session;
+moving the camera or seeing a prop does not confirm evidence. Character position is not saved.
+See [art, controls and rendering checks](docs/kitchen-3d.md).
+Manual Save/Load preserves dialogue,
 progress and facts; Restart clears only the active attempt, not the disk save. See [save format and
 recovery rules](docs/save-format.md). There are separate slots for chapter one, chapter two, and
 the sequential chapters-three-to-six arc, each with a last-valid backup and no autosave.
@@ -61,7 +66,8 @@ implemented; there is no random life/death selection. See [arc rules, routes and
 Directly load any saved point in the final arc from the initial screen, including pending dialogue
 and completed endings. Its save carries both earlier chapters. Returning to earlier records is
 read-only; explicitly loading/restarting an earlier attempt discards dependent live later progress,
-not disk saves. No 3D, voice assets or human-validated playtime are claimed by this milestone.
+not disk saves. Chapters two through six remain text-first; voice assets and human-validated
+playtime are not yet available.
 
 ### Independent room prototype
 
@@ -117,6 +123,10 @@ not signed public releases.
 
 CI launches each exported binary headlessly without the editor. This checks packaging/startup,
 not GPU rendering, audio, or interactive usability on physical machines.
+
+**Render kitchen previews** additionally renders three actual 1600×1000 Godot screenshots on
+Ubuntu with Mesa software OpenGL and Xvfb. Download the `kitchen-previews` artifact (14 days).
+This is a reproducible visual-review aid, not physical-GPU coverage of all four platforms.
 
 To export locally, install Godot **4.5.1** and its matching export templates, create the output
 directory, then run `godot --headless --path . --export-release Linux` (or `Windows` / `macOS`).
