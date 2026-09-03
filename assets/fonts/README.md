@@ -8,9 +8,9 @@ Upstream SHA-256: `2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b
 Rebuild after editing Chinese content, using the optional development tool FontTools:
 
 ```bash
-cat src/content/chapter_one.gd src/content/chapter_two.gd | pyftsubset /path/to/NotoSansCJKsc-Regular.otf --text-file=/dev/stdin --unicodes=U+0020-007E --output-file=assets/fonts/ChapterSans.otf
+cat src/content/chapter_one.gd src/content/chapter_two.gd src/content/chapter_three.gd src/content/chapter_four.gd src/content/chapter_five.gd src/content/chapter_six.gd src/content/finale_content.gd | pyftsubset /path/to/NotoSansCJKsc-Regular.otf --text-file=/dev/stdin --unicodes=U+0020-007E --output-file=assets/fonts/ChapterSans.otf
 ```
 
 Runtime needs no Python or system CJK fonts. Tests check glyph coverage for chapter content.
-The command above uses a POSIX shell. The subset covers both implemented chapters, not arbitrary
+The command above uses a POSIX shell. The subset covers all six implemented chapters, not arbitrary
 future Chinese text. Font subsetting is a development step; all four game platforms use the result.

@@ -27,7 +27,8 @@ Automated tests cover glyph coverage, progression, scene controls and narrow-win
 Photos and recordings are represented by text in this slice: there is no generated photo image,
 voice acting or 3D environment yet. Manual Save/Load preserves dialogue,
 progress and facts; Restart clears only the active attempt, not the disk save. See [save format and
-recovery rules](docs/save-format.md). Each chapter has one slot with a last-valid backup and no autosave.
+recovery rules](docs/save-format.md). There are separate slots for chapter one, chapter two, and
+the sequential chapters-three-to-six arc, each with a last-valid backup and no autosave.
 
 Complete chapter one to enter **门后有人**, the second text-first chapter. Investigate the old
 telephone and recording in the present, then explicitly enter a constrained historical window.
@@ -40,6 +41,27 @@ within the same attempt. Chapter two does not fix later lighting/ladder preparat
 Return to the first-chapter record and resume without losing second-chapter progress. The initial
 screen can also load chapter two directly: its save includes its matching first-chapter record.
 See the [second-chapter script and acceptance checks](docs/chapter-02.md).
+
+### Complete story arc
+
+From chapter two, continue through the four remaining chapters:
+
+- **没有寄出的信**: read the admission letter, distinguish a report from its truth, check patrol
+  coverage, obtain the rescue diagram and respond to Shiori's refusal to hear her recording.
+- **七分钟**: connect backup lighting before the outage and lower the ladder before boarding.
+  Both are needed for the safe route. Early platform confirmation ends unfinished preparation;
+  declining confirmation preserves the unknown. A witnessed fall is not a death confirmation.
+- **有人在等她**: review sources, explicitly verify identity or seal the records, and decide
+  whether to contact the living sister. Share dinner and preserve both the old report and correction.
+- **下一班车**: write fact-appropriate memorial text, choose a farewell photograph and depart.
+  Four endings follow from earlier history, identity and invitation choices, not four ending buttons.
+
+The six-chapter Chinese text-first story is playable from start to finish. All four endings are
+implemented; there is no random life/death selection. See [arc rules, routes and review](docs/chapters-03-06.md).
+Directly load any saved point in the final arc from the initial screen, including pending dialogue
+and completed endings. Its save carries both earlier chapters. Returning to earlier records is
+read-only; explicitly loading/restarting an earlier attempt discards dependent live later progress,
+not disk saves. No 3D, voice assets or human-validated playtime are claimed by this milestone.
 
 ### Independent room prototype
 
@@ -100,13 +122,14 @@ To export locally, install Godot **4.5.1** and its matching export templates, cr
 directory, then run `godot --headless --path . --export-release Linux` (or `Windows` / `macOS`).
 Default destinations are in `build/` and are ignored by Git.
 
-## Story and next milestone
+## Story and remaining production work
 
 The Chinese [story bible](docs/story-bible.md) defines the six-chapter narrative, characters,
 fixed-history rules and four endings. The [chapter-one script](docs/chapter-01.md) specifies the
-first playable slice and its acceptance tests. Chapters one and two now have text-first
-implementations, including the first limited historical revisit. Chapters three through six
-remain design documents; the next milestone is the letters/report investigation in chapter three.
+first playable slice and its acceptance tests. All six chapters now have text-first implementations,
+with constrained historical revisits, evidence separation, persistent choices and four endings.
+Next production work is human playtesting/pacing, presentation, scene art and audio, not additional
+unimplemented mainline chapters. The original 2–3 hour target is unmeasured, not a duration claim.
 The current room puzzle remains a separate mechanic sandbox; its uncertain child-safety outcomes
 must not be reused as canon in a story where Shiori's survival is already established.
 

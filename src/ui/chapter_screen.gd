@@ -1,16 +1,23 @@
 extends Control
 
+signal continue_story
+signal session_replaced
+
 const Session := preload("res://src/game/chapter_session.gd")
 const Content := preload("res://src/content/chapter_one.gd")
 const RoomScene := preload("res://scenes/room.tscn")
 const SaveStore := preload("res://src/game/chapter_save_store.gd")
 const Second := preload("res://src/game/chapter_two_session.gd")
 const SecondContent := preload("res://src/content/chapter_two.gd")
+const FinaleNavigation := preload("res://src/ui/finale_navigation.gd")
+const FinaleContent := preload("res://src/content/finale_content.gd")
 
 var session: RefCounted = Session.new()
 var save_store := SaveStore.new()
 var second_store := SaveStore.new("user://chapter-two.json", Second)
 var is_second := false
+var finale_navigation: RefCounted
+var finale_button: Button
 var second_button: Button
 var load_second_button: Button
 var second_back_button: Button
@@ -78,6 +85,10 @@ func _ready() -> void:
 	if not is_second:
 		second_button = _button(column, SecondContent.ENTRY, _enter_second)
 		load_second_button = _button(column, SecondContent.LOAD_CHAPTER, _load_second)
+		finale_navigation = FinaleNavigation.new()
+		finale_navigation.configure(self, column)
+	else:
+		finale_button = _button(column, FinaleContent.ENTRY, func() -> void: continue_story.emit())
 	sandbox_button = _button(column, Content.SANDBOX, _show_sandbox)
 	var license_button := _button(column, Content.LICENSE, _show_license)
 	license_button.tooltip_text = "SIL Open Font License 1.1"
@@ -124,6 +135,7 @@ func _act(id: StringName) -> void:
 func _restart() -> void:
 	_clear_second()
 	session = session.new_attempt() if is_second else Session.new()
+	session_replaced.emit()
 	save_status.text = Content.RESTART_INFO
 	_refresh()
 	next_button.grab_focus()
@@ -142,6 +154,7 @@ func _load() -> void:
 		return
 	session = result["session"]
 	_clear_second()
+	session_replaced.emit()
 	_refresh()
 	save_status.text = Content.LOAD_BACKUP if result["recovered"] else Content.LOAD_OK
 	if session.speaking():
@@ -164,6 +177,8 @@ func _refresh() -> void:
 	if second_button != null:
 		second_button.disabled = not state["completed"]
 		second_button.text = SecondContent.RESUME if second_screen != null else SecondContent.ENTRY
+	if finale_button != null:
+		finale_button.disabled = not state["completed"]
 	var confirmed: Array = state["confirmed"]
 	var claims: Array = state["claims"]
 	notebook_label.text = Content.CONFIRMED + "\n" + "\n".join(confirmed)
@@ -233,6 +248,8 @@ func _show_second(next_session: RefCounted) -> void:
 	second_screen.is_second = true
 	second_screen.session = next_session
 	second_screen.save_store = second_store
+	second_screen.continue_story.connect(finale_navigation.enter)
+	second_screen.session_replaced.connect(finale_navigation.clear)
 	second_screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(second_screen)
 	second_screen.offset_top = 56
@@ -268,6 +285,8 @@ func _return_first() -> void:
 
 
 func _clear_second() -> void:
+	if finale_navigation != null:
+		finale_navigation.clear()
 	if second_screen != null:
 		second_screen.free()
 		second_screen = null
