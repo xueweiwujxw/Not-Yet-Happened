@@ -11,6 +11,8 @@ const Second := preload("res://src/game/chapter_two_session.gd")
 const SecondContent := preload("res://src/content/chapter_two.gd")
 const FinaleNavigation := preload("res://src/ui/finale_navigation.gd")
 const FinaleContent := preload("res://src/content/finale_content.gd")
+const KitchenView := preload("res://src/ui/kitchen_view.gd")
+const KitchenContent := preload("res://src/content/kitchen_visual.gd")
 
 var session: RefCounted = Session.new()
 var save_store := SaveStore.new()
@@ -18,6 +20,8 @@ var second_store := SaveStore.new("user://chapter-two.json", Second)
 var is_second := false
 var finale_navigation: RefCounted
 var finale_button: Button
+var kitchen_button: Button
+var kitchen_view: Control
 var second_button: Button
 var load_second_button: Button
 var second_back_button: Button
@@ -59,6 +63,8 @@ func _ready() -> void:
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation", 16)
 	margin.add_child(column)
+	if not is_second:
+		kitchen_button = _button(column, KitchenContent.ENTRY, _show_kitchen)
 	_label(column, SecondContent.CHAPTER_TITLE if is_second else Content.TITLE, 30)
 	_label(column, Content.HELP, 16)
 	_label(column, SecondContent.CHAPTER_OBJECTIVE if is_second else Content.OBJECTIVE, 20)
@@ -292,3 +298,23 @@ func _clear_second() -> void:
 		second_screen = null
 		second_back_button.free()
 		second_back_button = null
+
+
+func _show_kitchen() -> void:
+	if kitchen_view != null:
+		return
+	kitchen_view = KitchenView.new()
+	kitchen_view.session = session
+	kitchen_view.theme = theme
+	kitchen_view.return_requested.connect(_hide_kitchen)
+	add_child(kitchen_view)
+	chapter_scroll.hide()
+
+
+func _hide_kitchen() -> void:
+	# Rendering/movement never owns facts. Both interfaces have used the exact same session.
+	kitchen_view.queue_free()
+	kitchen_view = null
+	chapter_scroll.show()
+	_refresh()
+	kitchen_button.grab_focus()
