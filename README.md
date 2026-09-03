@@ -25,7 +25,9 @@ The bundled Noto Sans CJK subset provides Chinese glyphs on all four platforms; 
 is accessible from the chapter screen. See [font provenance and rebuild instructions](assets/fonts/README.md).
 Automated tests cover glyph coverage, progression, scene controls and narrow-window layout.
 Photos and recordings are represented by text in this slice: there is no generated photo image,
-voice acting, 3D environment, save system or playable second chapter yet. Restart clears the attempt.
+voice acting, 3D environment or playable second chapter yet. Manual Save/Load preserves dialogue,
+progress and facts; Restart clears only the active attempt, not the disk save. See [save format and
+recovery rules](docs/save-format.md). There is one slot with a last-valid backup and no autosave.
 
 ### Independent room prototype
 
@@ -43,7 +45,7 @@ or Tab / Shift+Tab and Enter / Space with a keyboard.
 
 This is a mechanic test, not the final story or 3D presentation. Five authored outcomes, English
 placeholder text, and a diagnostic candidate count are included. Footsteps are an authored partial
-observation, not procedurally generated audio. There are no saves yet.
+observation, not procedurally generated audio. The independent sandbox is not saved.
 The scene UI delegates rules to `src/game/room_session.gd`; it does not mutate core facts.
 
 ## Tests
