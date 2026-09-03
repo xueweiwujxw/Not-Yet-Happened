@@ -5,6 +5,20 @@ const TITLE := "尚未发生 · 第一章：厨房的灯"
 const HELP := "Tab 切换焦点 · Enter / 空格确认 · 对话结束后可自由调查"
 const NEXT := "继续"
 const RESTART := "重新开始本章（清空本次进度）"
+const SAVE := "保存本章（覆盖存档槽）"
+const LOAD := "读取存档（替换本次进度）"
+const SAVE_OK := "已保存当前对白与调查进度。"
+const LOAD_OK := "已恢复存档。读取的是先前保存的尝试，不会改写该尝试的事实。"
+const LOAD_BACKUP := "主存档无法读取，已恢复上一份有效备份；进度可能较旧。"
+const RESTART_INFO := "已开始新尝试，磁盘上的存档没有修改。"
+const SAVE_ERRORS := {
+	"missing": "未找到可用存档，当前进度保持不变。",
+	"invalid": "存档内容无效或操作序列过长，操作未完成。",
+	"too_large": "存档超过大小限制，操作未完成。",
+	"version": "存档版本与当前剧情不兼容，未读取或覆盖该存档。",
+	"read": "无法读取存档，请检查文件权限。当前进度保持不变。",
+	"write": "存档写入失败，原主存档未替换，请检查磁盘空间和文件权限。",
+}
 const SANDBOX := "独立机制沙盒（不属于正式剧情）"
 const BACK := "返回第一章"
 const LICENSE := "字体许可（Noto Sans CJK / SIL OFL 1.1）"

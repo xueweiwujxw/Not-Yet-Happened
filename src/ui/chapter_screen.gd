@@ -3,8 +3,13 @@ extends Control
 const Session := preload("res://src/game/chapter_session.gd")
 const Content := preload("res://src/content/chapter_one.gd")
 const RoomScene := preload("res://scenes/room.tscn")
+const SaveStore := preload("res://src/game/chapter_save_store.gd")
 
 var session := Session.new()
+var save_store := SaveStore.new()
+var save_button: Button
+var load_button: Button
+var save_status: Label
 var action_buttons: Dictionary = {}
 var next_button: Button
 var restart_button: Button
@@ -54,6 +59,11 @@ func _ready() -> void:
 		action_buttons[id] = _button(actions, Content.LABELS[id], _act.bind(id))
 	_label(column, Content.NOTEBOOK, 24)
 	notebook_label = _label(column, "", 18)
+	var save_actions := HFlowContainer.new()
+	column.add_child(save_actions)
+	save_button = _button(save_actions, Content.SAVE, _save)
+	load_button = _button(save_actions, Content.LOAD, _load)
+	save_status = _label(column, "", 18)
 	restart_button = _button(column, Content.RESTART, _restart)
 	sandbox_button = _button(column, Content.SANDBOX, _show_sandbox)
 	var license_button := _button(column, Content.LICENSE, _show_license)
@@ -100,9 +110,31 @@ func _act(id: StringName) -> void:
 
 func _restart() -> void:
 	session = Session.new()
+	save_status.text = Content.RESTART_INFO
 	_refresh()
 	next_button.grab_focus()
 	chapter_scroll.scroll_vertical = 0
+
+
+func _save() -> void:
+	var result := save_store.save_session(session)
+	save_status.text = Content.SAVE_OK if result["ok"] else Content.SAVE_ERRORS[result["error"]]
+
+
+func _load() -> void:
+	var result := save_store.load_session()
+	if not result["ok"]:
+		save_status.text = Content.SAVE_ERRORS[result["error"]]
+		return
+	session = result["session"]
+	_refresh()
+	save_status.text = Content.LOAD_BACKUP if result["recovered"] else Content.LOAD_OK
+	if session.speaking():
+		next_button.grab_focus()
+	elif session.view()["completed"]:
+		restart_button.grab_focus()
+	else:
+		action_buttons[&"notice"].grab_focus()
 
 
 func _refresh() -> void:

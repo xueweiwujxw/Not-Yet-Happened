@@ -2,6 +2,9 @@ extends RefCounted
 
 const Content := preload("res://src/content/chapter_one.gd")
 const World := preload("res://src/core/world_state.gd")
+const SAVE_VERSION := 1
+const CONTENT_REVISION := "kitchen-light-v1"
+const MAX_SAVE_EVENTS := 8192
 
 var _world := World.new()
 var _done: Dictionary = {}
@@ -13,6 +16,7 @@ var _leaving: bool = false
 var _pending_facts: Dictionary = {}
 var _dialogue: Array[String] = []
 var _cursor: int = 0
+var _events: Array[String] = []
 
 
 func _init() -> void:
@@ -24,6 +28,7 @@ func _init() -> void:
 func advance() -> bool:
 	if not speaking():
 		return false
+	_events.append("advance")
 	_cursor += 1
 	if not speaking():
 		for key: StringName in _pending_facts:
@@ -54,6 +59,7 @@ func can_act(action: StringName) -> bool:
 func act(action: StringName) -> bool:
 	if not can_act(action):
 		return false
+	_events.append(String(action))
 	_dialogue.clear()
 	_cursor = 0
 	match action:
@@ -157,3 +163,31 @@ func _repair() -> void:
 		_append(&"repair")
 		if _people_present:
 			_append(&"lamp_memory")
+
+
+func save_data() -> Dictionary:
+	return {"version": SAVE_VERSION, "chapter": CONTENT_REVISION, "events": _events.duplicate()}
+
+
+func restore_save(data: Variant) -> RefCounted:
+	# Replay validated player input, never deserialize arbitrary facts or executable objects.
+	# Construct a new session: a bad save must not modify the caller's live progress.
+	if not data is Dictionary or data.size() != 3:
+		return null
+	if typeof(data.get("version")) not in [TYPE_INT, TYPE_FLOAT] or data["version"] != SAVE_VERSION:
+		return null
+	if not data.get("chapter") is String:
+		return null
+	if data["chapter"] != CONTENT_REVISION or not data.get("events") is Array:
+		return null
+	var events: Array = data["events"]
+	if events.size() > MAX_SAVE_EVENTS:
+		return null
+	var restored: RefCounted = get_script().new()
+	for event: Variant in events:
+		if not event is String or event.length() > 32:
+			return null
+		var accepted: bool = restored.advance() if event == "advance" else restored.act(StringName(event))
+		if not accepted:
+			return null
+	return restored
