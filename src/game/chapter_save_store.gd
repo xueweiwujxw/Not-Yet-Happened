@@ -7,16 +7,18 @@ const MAX_BYTES := 262144
 const DEFAULT_PATH := "user://chapter-one.json"
 
 var _path: String
+var _session_script: GDScript
 
 
-func _init(path: String = DEFAULT_PATH) -> void:
+func _init(path: String = DEFAULT_PATH, session_script: GDScript = Session) -> void:
 	_path = path
+	_session_script = session_script
 
 
-func save_session(session: Session) -> Dictionary:
-	if session == null:
+func save_session(session: RefCounted) -> Dictionary:
+	if session == null or session.get_script() != _session_script:
 		return _failure("invalid")
-	var data := session.save_data()
+	var data: Dictionary = session.save_data()
 	if session.restore_save(data) == null:
 		return _failure("invalid")
 	var serialized := JSON.stringify(data)
@@ -83,13 +85,10 @@ func _read(path: String) -> Dictionary:
 	if json.parse(text) != OK or not json.data is Dictionary:
 		return _failure("invalid")
 	var data: Dictionary = json.data
-	if typeof(data.get("version")) not in [TYPE_INT, TYPE_FLOAT] or not data.get("chapter") is String:
-		return _failure("invalid")
-	if data["version"] != Session.SAVE_VERSION:
-		return _failure("version")
-	if data["chapter"] != Session.CONTENT_REVISION:
-		return _failure("version")
-	var restored := Session.new().restore_save(data)
+	var header_error: String = _session_script.save_header_error(data)
+	if not header_error.is_empty():
+		return _failure(header_error)
+	var restored: RefCounted = _session_script.new().restore_save(data)
 	if restored == null:
 		return _failure("invalid")
 	return {"ok": true, "error": "", "session": restored}

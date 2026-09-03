@@ -10,6 +10,7 @@ const ExportPresetTests := preload("res://tests/test_export_presets.gd")
 const ChapterSessionTests := preload("res://tests/test_chapter_session.gd")
 const ChapterScreenTests := preload("res://tests/test_chapter_screen.gd")
 const ChapterSaveTests := preload("res://tests/test_chapter_saves.gd")
+const ChapterTwoTests := preload("res://tests/test_chapter_two.gd")
 
 
 func _initialize() -> void:
@@ -28,6 +29,7 @@ func _run() -> void:
 		ChapterSessionTests,
 		ChapterScreenTests,
 		ChapterSaveTests,
+		ChapterTwoTests,
 	]
 	for suite: GDScript in suites:
 		if not suite.can_instantiate():
@@ -46,6 +48,7 @@ func _run() -> void:
 	failures.append_array(ChapterSessionTests.new().run())
 	failures.append_array(await ChapterScreenTests.new().run(root))
 	failures.append_array(ChapterSaveTests.new().run(root))
+	failures.append_array(await ChapterTwoTests.new().run(root))
 
 	if failures.is_empty():
 		print("All tests passed.")

@@ -174,11 +174,7 @@ func restore_save(data: Variant) -> RefCounted:
 	# Construct a new session: a bad save must not modify the caller's live progress.
 	if not data is Dictionary or data.size() != 3:
 		return null
-	if typeof(data.get("version")) not in [TYPE_INT, TYPE_FLOAT] or data["version"] != SAVE_VERSION:
-		return null
-	if not data.get("chapter") is String:
-		return null
-	if data["chapter"] != CONTENT_REVISION or not data.get("events") is Array:
+	if not save_header_error(data).is_empty() or not data.get("events") is Array:
 		return null
 	var events: Array = data["events"]
 	if events.size() > MAX_SAVE_EVENTS:
@@ -191,3 +187,11 @@ func restore_save(data: Variant) -> RefCounted:
 		if not accepted:
 			return null
 	return restored
+
+
+static func save_header_error(data: Dictionary) -> String:
+	if typeof(data.get("version")) not in [TYPE_INT, TYPE_FLOAT] or not data.get("chapter") is String:
+		return "invalid"
+	if data["version"] != SAVE_VERSION or data["chapter"] != CONTENT_REVISION:
+		return "version"
+	return ""
