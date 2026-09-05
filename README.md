@@ -28,6 +28,9 @@ Photo and recording contents are represented by text; there is no voice acting y
 Use **探索 3D 老屋** to enter the first chapter's low-poly kitchen: WASD / arrow keys or a
 gamepad left stick move; E / gamepad A interacts or continues dialogue; Tab / gamepad B returns
 to the notebook and manual save/load. The player has a lightweight procedural walk cycle.
+Quiet synthesized ambience, footsteps and accepted-interaction tones accompany the kitchen.
+Use `Audio: ON/OFF` to mute this view; this setting resets on reopening. These are placeholder
+effects, not voice acting or audible evidence. Physical-device listening QA remains outstanding.
 Walk near an object to reveal its available actions. The 3D view shares the exact chapter session;
 moving the camera or seeing a prop does not confirm evidence. Character position is not saved.
 See [art, controls and rendering checks](docs/kitchen-3d.md).

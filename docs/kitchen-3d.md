@@ -27,9 +27,18 @@ the view retains story state and resets player position. Position/camera are del
 part of the save format; save versions and previous saves remain compatible.
 
 The player has a capsule body, a solid floor and furniture collisions. Open cutaway edges are
-bounded. The player character has a small procedural walk cycle; NPCs remain static. Sound and
+bounded. The player character has a small procedural walk cycle; NPCs remain static. Final foley and
 accessibility remapping are follow-up work. Photo/letter meshes are suggestive props, not readable
 evidence substitutes.
+
+The kitchen now includes quiet procedural surf-like noise, distance-triggered footstep pulses and
+short accepted-action/continue tones. These are original synthesized placeholders, not recorded
+foley, music, voice acting or evidence playback. Audio owns no story state. The `Audio: ON/OFF`
+button pauses ambience and discards pending effects; this local preference resets when reopening
+the kitchen and is not part of story saves. Leaving the view frees all its audio players without
+changing the global Master bus. Automated tests validate PCM, loop bounds, deterministic synthesis,
+mute and distance triggers. Headless CI cannot validate perceived sound quality; headphone/speaker
+listening and physical-device audio remain manual release checks.
 
 ## Verification
 

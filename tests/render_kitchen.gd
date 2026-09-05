@@ -50,6 +50,7 @@ func _capture() -> void:
 			return
 		print("Captured ", shot, " at ", image.get_size())
 	main.free()
+	await create_timer(0.1).timeout
 	quit(0)
 
 

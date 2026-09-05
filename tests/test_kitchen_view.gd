@@ -4,6 +4,7 @@ const Scene := preload("res://scenes/main.tscn")
 const Spatial := preload("res://src/game/kitchen_interactions.gd")
 const Controls := preload("res://src/game/kitchen_controls.gd")
 const Animator := preload("res://src/art/person_animator.gd")
+const Sound := preload("res://src/art/kitchen_audio.gd")
 const Session := preload("res://src/game/chapter_session.gd")
 
 
@@ -24,6 +25,23 @@ func run(root: Window) -> Array[String]:
 	_expect(view.session == screen.session, "3D and text use the same session", failures)
 	_expect(not view.room.shiori.visible and not view.room.letter.visible, "NPCs and letter hidden before arrival", failures)
 	var initial: Dictionary = screen.session.save_data()
+	var wave := Sound.synthesize(true)
+	_expect(wave.data == Sound.synthesize(true).data, "audio synthesis is deterministic", failures)
+	_expect(wave.data.size() == Sound.RATE * 8 and wave.loop_end == Sound.RATE * 4, "ambience has valid PCM loop bounds", failures)
+	_expect(wave.data.decode_s16(0) == 0 and wave.data.decode_s16(wave.data.size() - 2) == 0, "loop endpoints avoid clicks", failures)
+	view.mute_button.pressed.emit()
+	_expect(view.sound.muted and view.sound.ambience.stream_paused, "mute pauses local audio only", failures)
+	view.sound.cue()
+	_expect(not view.sound.effects.playing, "muted effects do not start", failures)
+	for i: int in range(4):
+		view.sound.travel(0.2, true)
+	_expect(view.sound.steps == 1, "footsteps follow distance", failures)
+	view.sound.travel(0.0, true)
+	view.sound.travel(0.2, false)
+	_expect(view.sound.distance == 0.0, "idle and airborne motion reset footsteps", failures)
+	view.mute_button.pressed.emit()
+	_expect(not view.sound.muted and not view.sound.effects.playing, "unmute does not replay old effects", failures)
+	_expect(screen.session.save_data() == initial, "audio cannot alter story or save data", failures)
 	view.frame_camera(true)
 	_expect(screen.session.save_data() == initial, "camera is not an observation", failures)
 	view._act(&"photo")
@@ -97,6 +115,8 @@ func run(root: Window) -> Array[String]:
 	await root.get_tree().process_frame
 	_expect(screen.kitchen_view == null and screen.chapter_scroll.visible, "gamepad B returns even with a focused GUI button", failures)
 	screen.free()
+	# AudioServer retires stopped playback on its next mix tick, not the scene free call.
+	await root.get_tree().create_timer(0.1).timeout
 	return failures
 
 
