@@ -24,13 +24,13 @@ func _capture() -> void:
 	var view: Control = main.kitchen_view
 	view.set_physics_process(false)
 	for shot: String in ["kitchen-overview", "kitchen-detail", "kitchen-interaction", "kitchen-gameplay", "kitchen-gameplay-default"]:
-		var gameplay := shot.begins_with("kitchen-gameplay")
+		var gameplay := shot.begins_with("kitchen-gameplay") or shot == "kitchen-interaction"
 		var expected := Vector2i(1280, 720) if shot.ends_with("default") else Vector2i(1600, 1000)
 		root.size = expected
 		view.frame_camera(shot == "kitchen-detail", gameplay)
 		view.hud.visible = gameplay
 		if shot == "kitchen-interaction":
-			view.player.position = Vector3(2.3, 0.1, -1.45)
+			view.player.position = Vector3(1.2, 0.1, -1.45)
 			view.refresh()
 		elif gameplay:
 			view.player.position = Vector3(3.0, 0.1, 1.6)

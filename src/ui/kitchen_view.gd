@@ -130,8 +130,8 @@ func _trigger_primary_action() -> void:
 
 func _build_interaction_marker() -> MeshInstance3D:
 	var mesh := TorusMesh.new()
-	mesh.inner_radius = 0.16
-	mesh.outer_radius = 0.25
+	mesh.inner_radius = 0.42
+	mesh.outer_radius = 0.52
 	mesh.rings = 12
 	mesh.ring_segments = 8
 	var marker := MeshInstance3D.new()
