@@ -5,7 +5,9 @@ signal return_requested
 
 const Room := preload("res://src/art/kitchen_room.gd")
 const Art := preload("res://src/art/low_poly.gd")
+const PersonAnimator := preload("res://src/art/person_animator.gd")
 const Spatial := preload("res://src/game/kitchen_interactions.gd")
+const Controls := preload("res://src/game/kitchen_controls.gd")
 const Content := preload("res://src/content/kitchen_visual.gd")
 const Chapter := preload("res://src/content/chapter_one.gd")
 
@@ -21,8 +23,10 @@ var zone_label: Label
 var action_buttons: Dictionary = {}
 var _visual: Node3D
 var _actions: HFlowContainer
+var _marker: MeshInstance3D
 var _active_zone: StringName = &""
 var _moving := false
+var _walk_phase := 0.0
 
 
 func _ready() -> void:
@@ -40,6 +44,7 @@ func _ready() -> void:
 	player.add_child(shape)
 	add_child(player)
 	_visual = Art.person(player, Vector3.ZERO, "d49a70")
+	_marker = _build_interaction_marker()
 	camera = Camera3D.new()
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	camera.size = 10.8
@@ -60,12 +65,19 @@ func frame_camera(detail: bool, gameplay: bool = true) -> void:
 func _physics_process(delta: float) -> void:
 	if not visible:
 		return
-	var input := Vector2.ZERO
+	var keyboard := Vector2.ZERO
+	var stick := Vector2.ZERO
 	if not session.speaking() and not get_viewport().gui_get_focus_owner() is LineEdit:
-		input.x = float(Input.is_physical_key_pressed(KEY_D) or Input.is_physical_key_pressed(KEY_RIGHT)) - float(Input.is_physical_key_pressed(KEY_A) or Input.is_physical_key_pressed(KEY_LEFT))
-		input.y = float(Input.is_physical_key_pressed(KEY_S) or Input.is_physical_key_pressed(KEY_DOWN)) - float(Input.is_physical_key_pressed(KEY_W) or Input.is_physical_key_pressed(KEY_UP))
-	move_player(input, delta)
+		keyboard.x = float(Input.is_physical_key_pressed(KEY_D) or Input.is_physical_key_pressed(KEY_RIGHT)) - float(Input.is_physical_key_pressed(KEY_A) or Input.is_physical_key_pressed(KEY_LEFT))
+		keyboard.y = float(Input.is_physical_key_pressed(KEY_S) or Input.is_physical_key_pressed(KEY_DOWN)) - float(Input.is_physical_key_pressed(KEY_W) or Input.is_physical_key_pressed(KEY_UP))
+		var joypads := Input.get_connected_joypads()
+		if not joypads.is_empty():
+			var device: int = joypads[0]
+			stick = Vector2(Input.get_joy_axis(device, JOY_AXIS_LEFT_X), Input.get_joy_axis(device, JOY_AXIS_LEFT_Y))
+	move_player(Controls.movement(keyboard, stick), delta)
 	_refresh_zone()
+	if _marker.visible:
+		_marker.position.y = 0.12 + sin(Time.get_ticks_msec() * 0.005) * 0.035
 
 
 func move_player(input: Vector2, delta: float) -> void:
@@ -79,31 +91,58 @@ func move_player(input: Vector2, delta: float) -> void:
 	player.velocity.x = direction.x * 2.5
 	player.velocity.z = direction.z * 2.5
 	player.velocity.y = maxf(player.velocity.y - 12.0 * delta, -20.0)
+	var before := player.position
 	player.move_and_slide()
 	player.position = Spatial.constrain(player.position)
-	_moving = direction.length_squared() > 0.01
+	var travelled := Vector2(player.position.x - before.x, player.position.z - before.z).length()
+	_moving = travelled > 0.0001
 	if _moving:
 		_visual.rotation.y = atan2(direction.x, direction.z)
+		_walk_phase = fmod(_walk_phase + travelled * 7.0, TAU)
+	PersonAnimator.apply(_visual, _walk_phase, _moving)
 
 
 func _input(event: InputEvent) -> void:
-	# Reserve the notebook shortcut before GUI focus traversal consumes Tab.
-	if not event is InputEventKey or not event.pressed or event.echo:
-		return
-	if event.physical_keycode == KEY_TAB:
+	# Reserve controller face buttons and Tab before GUI focus handling consumes them.
+	var keyboard_back: bool = event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_TAB
+	var gamepad_back: bool = event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_B
+	if keyboard_back or gamepad_back:
 		return_requested.emit()
 		get_viewport().set_input_as_handled()
-
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	if not event is InputEventKey or not event.pressed or event.echo:
-		return
-	if event.physical_keycode == KEY_E:
-		if session.speaking():
-			_advance()
-		elif not action_buttons.is_empty():
-			_act(action_buttons.keys()[0])
+	elif event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_A:
+		_trigger_primary_action()
 		get_viewport().set_input_as_handled()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	var keyboard_action: bool = event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_E
+	if keyboard_action:
+		_trigger_primary_action()
+		get_viewport().set_input_as_handled()
+
+
+func _trigger_primary_action() -> void:
+	if session.speaking():
+		_advance()
+	elif not action_buttons.is_empty():
+		_act(action_buttons.keys()[0])
+
+
+func _build_interaction_marker() -> MeshInstance3D:
+	var mesh := TorusMesh.new()
+	mesh.inner_radius = 0.16
+	mesh.outer_radius = 0.25
+	mesh.rings = 12
+	mesh.ring_segments = 8
+	var marker := MeshInstance3D.new()
+	marker.mesh = mesh
+	var marker_material := Art.material("f3bd62")
+	marker_material.emission_enabled = true
+	marker_material.emission = Color("c67b42")
+	marker.material_override = marker_material
+	marker.visible = false
+	add_child(marker)
+	return marker
 
 
 func _build_hud() -> void:
@@ -200,9 +239,16 @@ func _refresh_zone(force: bool = false) -> void:
 	if not force and id == _active_zone:
 		return
 	_active_zone = id
+	_marker.visible = not nearby.is_empty()
+	if _marker.visible:
+		var at: Vector2 = nearby["at"]
+		_marker.position = Vector3(at.x, 0.12, at.y)
 	for button: Button in action_buttons.values():
 		button.queue_free()
 	action_buttons.clear()
 	zone_label.text = Content.ZONES.get(id, Content.SUBTITLE)
-	for action: StringName in nearby.get("actions", []):
-		action_buttons[action] = _button(_actions, Chapter.LABELS[action], _act.bind(action))
+	var actions: Array = nearby.get("actions", [])
+	for index: int in range(actions.size()):
+		var action: StringName = actions[index]
+		var label: String = ("E / A · " if index == 0 else "") + Chapter.LABELS[action]
+		action_buttons[action] = _button(_actions, label, _act.bind(action))

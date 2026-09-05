@@ -2,6 +2,8 @@ extends RefCounted
 
 const Scene := preload("res://scenes/main.tscn")
 const Spatial := preload("res://src/game/kitchen_interactions.gd")
+const Controls := preload("res://src/game/kitchen_controls.gd")
+const Animator := preload("res://src/art/person_animator.gd")
 const Session := preload("res://src/game/chapter_session.gd")
 
 
@@ -12,6 +14,8 @@ func run(root: Window) -> Array[String]:
 	_drain(first)
 	_expect(Spatial.nearby(Vector3(20, 0, 20), first).is_empty(), "remote interaction rejected", failures)
 	_expect(Spatial.constrain(Vector3(100, 1, -100)) == Vector3(4.55, 1, -3.4), "open diorama edge remains bounded", failures)
+	_expect(Controls.movement(Vector2.RIGHT, Vector2(0.1, 0.0)) == Vector2.RIGHT, "stick drift stays below deadzone", failures)
+	_expect(is_equal_approx(Controls.movement(Vector2.RIGHT, Vector2.DOWN).length(), 1.0), "combined input is normalized", failures)
 	var screen := Scene.instantiate()
 	root.add_child(screen)
 	screen.kitchen_button.pressed.emit()
@@ -27,8 +31,14 @@ func run(root: Window) -> Array[String]:
 	_drain(screen.session)
 	view.refresh()
 	view.player.position = Vector3(3.0, 0.1, 1.6)
-	view._act(&"photo")
+	view._refresh_zone(true)
+	_expect(view._marker.visible and is_equal_approx(view._marker.position.x, 3.95), "nearby action projects a world marker", failures)
+	var gamepad_action := InputEventJoypadButton.new()
+	gamepad_action.button_index = JOY_BUTTON_A
+	gamepad_action.pressed = true
+	view._input(gamepad_action)
 	_expect(screen.session.speaking(), "nearby photo interaction reaches existing dialogue", failures)
+	_expect(not view._marker.visible, "dialogue hides unavailable interaction marker", failures)
 	_expect(not screen.session.view()["facts"].has(&"photo_front"), "rendered photo does not pre-confirm evidence", failures)
 	_drain(screen.session)
 	view.refresh()
@@ -48,6 +58,10 @@ func run(root: Window) -> Array[String]:
 	_drain(screen.session)
 	view.refresh()
 	_expect(view.room.lamp.visible, "working pendant follows repaired/on state", failures)
+	Animator.apply(view._visual, PI / 2.0, true)
+	_expect(view._visual.get_node("ArmLeft").rotation.x > 0.5 and view._visual.get_node("ArmRight").rotation.x < -0.5, "walk pose swings named limbs", failures)
+	Animator.apply(view._visual, 0.0, false)
+	_expect(view._visual.get_node("ArmLeft").rotation.x == 0.0 and view._visual.position.y == 0.0, "idle pose restores rest state", failures)
 	# Actual physics ticks: the floor supports the player and the solid counter blocks travel.
 	view.player.position = Vector3(-2.5, 0.1, -1.6)
 	for count: int in range(45):
@@ -71,6 +85,17 @@ func run(root: Window) -> Array[String]:
 	await root.get_tree().process_frame
 	_expect(screen.kitchen_view == null and screen.chapter_scroll.visible, "Tab returns even with a focused GUI button", failures)
 	_expect(screen.session.save_data() != initial and screen.session.view()["repaired"], "3D actions persist on return", failures)
+	# Reopen the same session to exercise the equivalent gamepad path.
+	screen.kitchen_button.pressed.emit()
+	view = screen.kitchen_view
+	view.set_physics_process(false)
+	view.back_button.grab_focus()
+	var gamepad_back := InputEventJoypadButton.new()
+	gamepad_back.button_index = JOY_BUTTON_B
+	gamepad_back.pressed = true
+	root.push_input(gamepad_back)
+	await root.get_tree().process_frame
+	_expect(screen.kitchen_view == null and screen.chapter_scroll.visible, "gamepad B returns even with a focused GUI button", failures)
 	screen.free()
 	return failures
 
