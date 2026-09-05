@@ -5,6 +5,7 @@ signal return_requested
 
 const Room := preload("res://src/art/kitchen_room.gd")
 const Art := preload("res://src/art/low_poly.gd")
+const Sound := preload("res://src/art/kitchen_audio.gd")
 const PersonAnimator := preload("res://src/art/person_animator.gd")
 const Spatial := preload("res://src/game/kitchen_interactions.gd")
 const Controls := preload("res://src/game/kitchen_controls.gd")
@@ -12,6 +13,8 @@ const Content := preload("res://src/content/kitchen_visual.gd")
 const Chapter := preload("res://src/content/chapter_one.gd")
 
 var session: RefCounted
+var sound: Node
+var mute_button: Button
 var room: Node3D
 var player: CharacterBody3D
 var camera: Camera3D
@@ -31,6 +34,8 @@ var _walk_phase := 0.0
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	sound = Sound.new()
+	add_child(sound)
 	room = Room.new()
 	add_child(room)
 	player = CharacterBody3D.new()
@@ -100,6 +105,7 @@ func move_player(input: Vector2, delta: float) -> void:
 		_visual.rotation.y = atan2(direction.x, direction.z)
 		_walk_phase = fmod(_walk_phase + travelled * 7.0, TAU)
 	PersonAnimator.apply(_visual, _walk_phase, _moving)
+	sound.travel(travelled, player.is_on_floor() and not session.speaking())
 
 
 func _input(event: InputEvent) -> void:
@@ -160,6 +166,12 @@ func _build_hud() -> void:
 	back_button.offset_right = -28
 	back_button.offset_top = 25
 	back_button.offset_bottom = 65
+	mute_button = _button(hud, "Audio: ON", _toggle_audio)
+	mute_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	mute_button.offset_left = -180
+	mute_button.offset_right = -28
+	mute_button.offset_top = 76
+	mute_button.offset_bottom = 112
 	var panel := PanelContainer.new()
 	panel.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	panel.offset_left = 28
@@ -213,15 +225,22 @@ func _button(parent: Node, text: String, callback: Callable) -> Button:
 
 
 func _advance() -> void:
-	session.advance()
+	if session.advance():
+		sound.cue()
 	refresh()
+
+
+func _toggle_audio() -> void:
+	sound.set_muted(not sound.muted)
+	mute_button.text = "Audio: OFF" if sound.muted else "Audio: ON"
 
 
 func _act(action: StringName) -> void:
 	var available := Spatial.nearby(player.position, session)
 	if action not in available.get("actions", []):
 		return
-	session.act(action)
+	if session.act(action):
+		sound.cue()
 	refresh()
 
 
