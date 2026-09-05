@@ -25,7 +25,7 @@ static func nearby(position: Vector3, session: RefCounted) -> Dictionary:
 		var current := Vector2(position.x, position.z).distance_to(zone["at"])
 		if current < distance:
 			distance = current
-			closest = {"id": zone["id"], "actions": available}
+			closest = {"id": zone["id"], "at": zone["at"], "actions": available}
 	return closest
 
 

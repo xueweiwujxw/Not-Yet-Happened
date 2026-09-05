@@ -25,8 +25,9 @@ The bundled Noto Sans CJK subset provides Chinese glyphs on all four platforms; 
 is accessible from the chapter screen. See [font provenance and rebuild instructions](assets/fonts/README.md).
 Automated tests cover glyph coverage, progression, scene controls and narrow-window layout.
 Photo and recording contents are represented by text; there is no voice acting yet.
-Use **探索 3D 老屋** to enter the first chapter's low-poly kitchen: WASD / arrow keys move,
-E interacts or continues dialogue, and Tab returns to the notebook and manual save/load.
+Use **探索 3D 老屋** to enter the first chapter's low-poly kitchen: WASD / arrow keys or a
+gamepad left stick move; E / gamepad A interacts or continues dialogue; Tab / gamepad B returns
+to the notebook and manual save/load. The player has a lightweight procedural walk cycle.
 Walk near an object to reveal its available actions. The 3D view shares the exact chapter session;
 moving the camera or seeing a prop does not confirm evidence. Character position is not saved.
 See [art, controls and rendering checks](docs/kitchen-3d.md).

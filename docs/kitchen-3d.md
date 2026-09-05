@@ -13,10 +13,11 @@ animation or a fully modelled town. Chapters two through six retain their existi
 
 ## Play and ownership
 
-From the chapter-one screen choose **探索 3D 老屋**. Use WASD / arrow keys to move relative to
+From the chapter-one screen choose **探索 3D 老屋**. Use WASD / arrow keys or the gamepad left stick to move relative to
 the fixed camera; approach the door, wall switch, repair area, table, photograph or Shiori to
-reveal available actions. E selects the first nearby action or advances dialogue; mouse buttons
-select alternatives. Movement pauses during dialogue. Tab or the top-right button opens the
+reveal available actions. A pulsing amber floor marker shows the current interaction point. E or
+gamepad A selects the first nearby action or advances dialogue; mouse buttons select alternatives.
+Movement pauses during dialogue. Tab, gamepad B or the top-right button opens the
 notebook again, where the existing manual save/load and chapter navigation remain available.
 
 `KitchenView` receives the same `ChapterSession`, not a clone. `KitchenInteractions` only filters
@@ -26,8 +27,9 @@ the view retains story state and resets player position. Position/camera are del
 part of the save format; save versions and previous saves remain compatible.
 
 The player has a capsule body, a solid floor and furniture collisions. Open cutaway edges are
-bounded. Characters are stylized static figures; walking animation, sound and gamepad controls
-are follow-up work. Photo/letter meshes are suggestive props, not readable evidence substitutes.
+bounded. The player character has a small procedural walk cycle; NPCs remain static. Sound and
+accessibility remapping are follow-up work. Photo/letter meshes are suggestive props, not readable
+evidence substitutes.
 
 ## Verification
 
@@ -36,8 +38,8 @@ facts under camera changes, arrival/lamp projection, floor/counter collisions, k
 and font coverage. Existing chapter, save and ending tests still run unchanged on four platforms.
 
 `tests/render_kitchen.gd` requires a real display; it explicitly rejects headless dummy rendering.
-It stages a deterministic repaired/occupied kitchen and captures overview, detail and gameplay
-views, plus the default 1280×720 gameplay layout. The `Render kitchen previews` workflow runs it with Xvfb and Mesa software OpenGL, then
+It stages a deterministic repaired/occupied kitchen and captures overview, detail, interaction-marker
+and gameplay views, plus the default 1280×720 gameplay layout. The `Render kitchen previews` workflow runs it with Xvfb and Mesa software OpenGL, then
 uploads `kitchen-previews`. Locally, on a graphical machine:
 
 ```bash

@@ -72,17 +72,26 @@ static func plant(parent: Node3D, at: Vector3, scale_factor: float = 1.0) -> voi
 static func person(parent: Node3D, at: Vector3, shirt: String, hair_color: String = "41433e") -> Node3D:
 	var person := Node3D.new()
 	person.position = at
+	person.set_meta("rest_y", at.y)
 	parent.add_child(person)
 	var skin := material("dcaf88")
 	var cloth := material(shirt)
 	var trousers := material("4e6668")
 	for x: float in [-0.14, 0.14]:
-		box(person, Vector3(x, 0.3, 0), Vector3(0.19, 0.58, 0.22), trousers)
-		box(person, Vector3(x, 0.07, 0.075), Vector3(0.23, 0.13, 0.36), material("e8d8b7"))
+		var leg := Node3D.new()
+		leg.name = "LegLeft" if x < 0 else "LegRight"
+		leg.position = Vector3(x, 0.59, 0)
+		person.add_child(leg)
+		box(leg, Vector3(0, -0.29, 0), Vector3(0.19, 0.58, 0.22), trousers)
+		box(leg, Vector3(0, -0.52, 0.075), Vector3(0.23, 0.13, 0.36), material("e8d8b7"))
 	cylinder(person, Vector3(0, 0.85, 0), 0.3, 0.63, cloth, 0.24)
 	for x: float in [-0.34, 0.34]:
-		box(person, Vector3(x, 0.88, 0), Vector3(0.17, 0.39, 0.23), cloth)
-		sphere(person, Vector3(x, 0.6, 0), Vector3(0.17, 0.19, 0.18), skin)
+		var arm := Node3D.new()
+		arm.name = "ArmLeft" if x < 0 else "ArmRight"
+		arm.position = Vector3(x, 1.075, 0)
+		person.add_child(arm)
+		box(arm, Vector3(0, -0.195, 0), Vector3(0.17, 0.39, 0.23), cloth)
+		sphere(arm, Vector3(0, -0.475, 0), Vector3(0.17, 0.19, 0.18), skin)
 	sphere(person, Vector3(0, 1.38, 0), Vector3(0.53, 0.57, 0.48), skin)
 	sphere(person, Vector3(0, 1.55, -0.035), Vector3(0.57, 0.32, 0.5), material(hair_color))
 	for x: float in [-0.105, 0.105]:
