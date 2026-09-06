@@ -64,6 +64,7 @@ func _show() -> void:
 
 
 func return_to_records() -> void:
+	screen._hide_spatial()
 	# Loading inside the arc can change both prior chapters. Restore the matching record.
 	var second := Second.new().restore_save(screen.session.save_data()["prologue"])
 	owner_screen.second_screen.session = second
