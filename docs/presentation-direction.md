@@ -60,3 +60,16 @@ between takes and 0.2 seconds tail. No voice cloning or soundtrack assets were u
 preset names do not guarantee actor identity or gender. These demo takes need human listening and
 final casting/distribution review before public release. Raw Ogg files are included in exports and
 decoded directly so clean headless test runs do not depend on an editor import cache.
+
+## Authored dialogue blocking
+
+Selected chapter 3, 5 and 6 display blocks now name an on-stage actor instead of
+choosing whichever person happens to be nearest. Shiori pauses before turning away
+when refusing the recording, and faces the player again after that boundary is respected.
+The studio admission reply targets Shen; dinner targets Xu; the shared station photo
+targets Shiori. Missing or hidden actors are never revealed or replaced by bystanders.
+
+These are visual pauses, not input locks or automatic dialogue advances. Repeated UI
+refreshes preserve beat time; a new line or room resets it. Camera OFF disables the
+turns. Other dialogue retains the existing proximity framing. This is a small authored
+pass, not full chapter choreography or timed lip sync; no new voice takes are included.
