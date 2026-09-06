@@ -309,7 +309,7 @@ func refresh() -> void:
 	var state: Dictionary = session.view()
 	scene_label.text = scene_title
 	room.sync_state(state)
-	director.stage(room, player, state["speaking"])
+	director.stage(room, player, state["speaking"], state["line"])
 	voice.present(state["line"], state["speaking"])
 	story_label.text = state["line"] if state["speaking"] else completed_text if state["completed"] else Content.WANDER
 	next_button.visible = state["speaking"]

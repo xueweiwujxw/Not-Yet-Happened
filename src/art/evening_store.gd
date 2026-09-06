@@ -30,7 +30,8 @@ func _ready() -> void:
 	for z: float in [0.45, 0.95]:
 		Art.cylinder(self, Vector3(4.15, 0.98, z), 0.18, 0.13, Art.material("eadfc2"), 0.23)
 	Art.person(self, Vector3(4.3, 0, 1.9), "b69078")
-	Art.person(self, Vector3(4.3, 0, -0.5), "8fa68a", "807467")
+	var xu := Art.person(self, Vector3(4.3, 0, -0.5), "8fa68a", "807467")
+	xu.set_meta("actor_id", &"xu")
 	for y: float in [0.7, 1.5, 2.3]:
 		Art.box(self, Vector3(-4.65, y, 0.2), Vector3(0.6, 0.1, 2.4), Art.material("796850"), true)
 		for z: float in [-0.6, 0, 0.6]:
