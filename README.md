@@ -39,7 +39,10 @@ progress and facts; Restart clears only the active attempt, not the disk save. S
 recovery rules](docs/save-format.md). There are separate slots for chapter one, chapter two, and
 the sequential chapters-three-to-six arc, each with a last-valid backup and no autosave.
 
-Complete chapter one to enter **门后有人**, the second text-first chapter. Investigate the old
+Complete chapter one to enter **门后有人**, the second chapter with an optional **3D** keeper-office
+view using the same session and movement controls as the kitchen. Approach the desk telephone,
+tape recorder or back door to interact; Tab returns to the notebook/save controls. Past figures
+remain hidden until the door observation is committed. Investigate the old
 telephone and recording in the present, then explicitly enter a constrained historical window.
 Calling before listening/opening secures the keeper's escort and cabinet-location information;
 listening advances to the outage and closes the call opportunity. Footsteps do not identify a
@@ -70,7 +73,7 @@ implemented; there is no random life/death selection. See [arc rules, routes and
 Directly load any saved point in the final arc from the initial screen, including pending dialogue
 and completed endings. Its save carries both earlier chapters. Returning to earlier records is
 read-only; explicitly loading/restarting an earlier attempt discards dependent live later progress,
-not disk saves. Chapters two through six remain text-first; voice assets and human-validated
+not disk saves. Chapters three through six remain text-first; voice assets and human-validated
 playtime are not yet available.
 
 ### Independent room prototype
@@ -131,6 +134,7 @@ not GPU rendering, audio, or interactive usability on physical machines.
 **Render kitchen previews** additionally renders actual 1600×1000 and default 1280×720 Godot screenshots on
 Ubuntu with Mesa software OpenGL and Xvfb. Download the `kitchen-previews` artifact (14 days).
 This is a reproducible visual-review aid, not physical-GPU coverage of all four platforms.
+The same workflow uploads `keeper-previews`: chapter-two present, outage and observed states.
 
 To export locally, install Godot **4.5.1** and its matching export templates, create the output
 directory, then run `godot --headless --path . --export-release Linux` (or `Windows` / `macOS`).

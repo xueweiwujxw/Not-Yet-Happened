@@ -12,6 +12,7 @@ const SecondContent := preload("res://src/content/chapter_two.gd")
 const FinaleNavigation := preload("res://src/ui/finale_navigation.gd")
 const FinaleContent := preload("res://src/content/finale_content.gd")
 const KitchenView := preload("res://src/ui/kitchen_view.gd")
+const KeeperView := preload("res://src/ui/keeper_view.gd")
 const KitchenContent := preload("res://src/content/kitchen_visual.gd")
 
 var session: RefCounted = Session.new()
@@ -63,8 +64,7 @@ func _ready() -> void:
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation", 16)
 	margin.add_child(column)
-	if not is_second:
-		kitchen_button = _button(column, KitchenContent.ENTRY, _show_kitchen)
+	kitchen_button = _button(column, "3D · " + SecondContent.PRESENT if is_second else KitchenContent.ENTRY, _show_kitchen)
 	_label(column, SecondContent.CHAPTER_TITLE if is_second else Content.TITLE, 30)
 	_label(column, Content.HELP, 16)
 	_label(column, SecondContent.CHAPTER_OBJECTIVE if is_second else Content.OBJECTIVE, 20)
@@ -282,6 +282,8 @@ func _load_second() -> void:
 
 func _return_first() -> void:
 	# A loaded second-chapter save may carry a different first-chapter attempt.
+	if second_screen.kitchen_view != null:
+		second_screen._hide_kitchen()
 	session = Session.new().restore_save(second_screen.session.save_data()["prologue"])
 	second_screen.hide()
 	second_back_button.hide()
@@ -303,7 +305,7 @@ func _clear_second() -> void:
 func _show_kitchen() -> void:
 	if kitchen_view != null:
 		return
-	kitchen_view = KitchenView.new()
+	kitchen_view = KeeperView.new() if is_second else KitchenView.new()
 	kitchen_view.session = session
 	kitchen_view.theme = theme
 	kitchen_view.return_requested.connect(_hide_kitchen)
@@ -313,6 +315,8 @@ func _show_kitchen() -> void:
 
 func _hide_kitchen() -> void:
 	# Rendering/movement never owns facts. Both interfaces have used the exact same session.
+	if kitchen_view == null:
+		return
 	kitchen_view.queue_free()
 	kitchen_view = null
 	chapter_scroll.show()

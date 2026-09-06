@@ -35,6 +35,16 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: kitchen-previews
-          path: build/previews/*.png
+          path: build/previews/kitchen-*.png
+          if-no-files-found: error
+          retention-days: 14
+      - name: Render keeper office with Mesa OpenGL
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a -s '-screen 0 1280x720x24' bash scripts/check-godot.sh godot --path . --rendering-method gl_compatibility --audio-driver Dummy --script tests/render_keeper.gd
+      - uses: actions/upload-artifact@v4
+        with:
+          name: keeper-previews
+          path: build/previews/keeper-*.png
           if-no-files-found: error
           retention-days: 14

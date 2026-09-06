@@ -9,7 +9,8 @@ scene supports the first chapter's uncertain memories without using horror effec
 All meshes and materials are original procedural Godot primitives in `src/art/`. No downloaded
 model packs, generated raster artwork, or new runtime dependencies are required. The existing
 licensed Noto subset is extended for the new UI. This is an art/proportion pass, not final character
-animation or a fully modelled town. Chapters two through six retain their existing text interface.
+animation or a fully modelled town. Chapter two now has its own optional keeper-office 3D view;
+chapters three through six retain their existing text interface.
 
 ## Play and ownership
 

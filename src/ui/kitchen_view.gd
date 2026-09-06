@@ -13,6 +13,13 @@ const Content := preload("res://src/content/kitchen_visual.gd")
 const Chapter := preload("res://src/content/chapter_one.gd")
 
 var session: RefCounted
+var room_script: GDScript = Room
+var spatial_script: GDScript = Spatial
+var action_labels: Dictionary = Chapter.LABELS
+var scene_title: String = Content.SUBTITLE
+var zone_names: Dictionary = Content.ZONES
+var completed_text: String = Content.DONE
+var initial_audio_muted := false
 var sound: Node
 var mute_button: Button
 var room: Node3D
@@ -35,8 +42,9 @@ var _walk_phase := 0.0
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	sound = Sound.new()
+	sound.muted = initial_audio_muted
 	add_child(sound)
-	room = Room.new()
+	room = room_script.new()
 	add_child(room)
 	player = CharacterBody3D.new()
 	player.position = Vector3(1.4, 0.08, 2.8)
@@ -68,7 +76,7 @@ func frame_camera(detail: bool, gameplay: bool = true) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not visible:
+	if not is_visible_in_tree():
 		return
 	var keyboard := Vector2.ZERO
 	var stick := Vector2.ZERO
@@ -98,7 +106,7 @@ func move_player(input: Vector2, delta: float) -> void:
 	player.velocity.y = maxf(player.velocity.y - 12.0 * delta, -20.0)
 	var before := player.position
 	player.move_and_slide()
-	player.position = Spatial.constrain(player.position)
+	player.position = spatial_script.constrain(player.position)
 	var travelled := Vector2(player.position.x - before.x, player.position.z - before.z).length()
 	_moving = travelled > 0.0001
 	if _moving:
@@ -109,6 +117,8 @@ func move_player(input: Vector2, delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if not is_visible_in_tree() or is_queued_for_deletion():
+		return
 	# Reserve controller face buttons and Tab before GUI focus handling consumes them.
 	var keyboard_back: bool = event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_TAB
 	var gamepad_back: bool = event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_B
@@ -121,6 +131,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not is_visible_in_tree() or is_queued_for_deletion():
+		return
 	var keyboard_action: bool = event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_E
 	if keyboard_action:
 		_trigger_primary_action()
@@ -158,7 +170,7 @@ func _build_hud() -> void:
 	add_child(hud)
 	var title := _label(hud, Content.TITLE, 25)
 	title.position = Vector2(32, 23)
-	var subtitle := _label(hud, Content.SUBTITLE, 16)
+	var subtitle := _label(hud, scene_title, 16)
 	subtitle.position = Vector2(33, 61)
 	back_button = _button(hud, Content.BACK, func() -> void: return_requested.emit())
 	back_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
@@ -236,7 +248,7 @@ func _toggle_audio() -> void:
 
 
 func _act(action: StringName) -> void:
-	var available := Spatial.nearby(player.position, session)
+	var available: Dictionary = spatial_script.nearby(player.position, session)
 	if action not in available.get("actions", []):
 		return
 	if session.act(action):
@@ -247,13 +259,13 @@ func _act(action: StringName) -> void:
 func refresh() -> void:
 	var state: Dictionary = session.view()
 	room.sync_state(state)
-	story_label.text = state["line"] if state["speaking"] else Content.DONE if state["completed"] else Content.WANDER
+	story_label.text = state["line"] if state["speaking"] else completed_text if state["completed"] else Content.WANDER
 	next_button.visible = state["speaking"]
 	_refresh_zone(true)
 
 
 func _refresh_zone(force: bool = false) -> void:
-	var nearby := Spatial.nearby(player.position, session)
+	var nearby: Dictionary = spatial_script.nearby(player.position, session)
 	var id: StringName = nearby.get("id", &"")
 	if not force and id == _active_zone:
 		return
@@ -265,9 +277,9 @@ func _refresh_zone(force: bool = false) -> void:
 	for button: Button in action_buttons.values():
 		button.queue_free()
 	action_buttons.clear()
-	zone_label.text = Content.ZONES.get(id, Content.SUBTITLE)
+	zone_label.text = zone_names.get(id, scene_title)
 	var actions: Array = nearby.get("actions", [])
 	for index: int in range(actions.size()):
 		var action: StringName = actions[index]
-		var label: String = ("E / A · " if index == 0 else "") + Chapter.LABELS[action]
+		var label: String = ("E / A · " if index == 0 else "") + action_labels[action]
 		action_buttons[action] = _button(_actions, label, _act.bind(action))
