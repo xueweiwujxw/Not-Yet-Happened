@@ -27,7 +27,11 @@ Automated tests cover glyph coverage, progression, scene controls and narrow-win
 Photo and recording contents are represented by text; there is no voice acting yet.
 Use **探索 3D 老屋** to enter the first chapter's low-poly kitchen: WASD / arrow keys or a
 gamepad left stick move; E / gamepad A interacts or continues dialogue; Tab / gamepad B returns
-to the notebook and manual save/load. The player has a lightweight procedural walk cycle.
+to the notebook and manual save/load. The player eases into motion, brakes and turns smoothly,
+and blends the walk cycle back to rest. Dialogue pushes in gently and nearby visible characters
+turn toward each other; `Camera: OFF` restores wide framing. See [presentation direction and voice
+handoff](docs/presentation-direction.md). The recorded-voice loader is ready, but no spoken takes
+are bundled yet; missing takes stay silent and dialogue always advances manually.
 Quiet synthesized ambience, footsteps and accepted-interaction tones accompany the kitchen.
 Use `Audio: ON/OFF` to mute this view; this setting resets on reopening. These are placeholder
 effects, not voice acting or audible evidence. Physical-device listening QA remains outstanding.
@@ -141,6 +145,7 @@ This is a reproducible visual-review aid, not physical-GPU coverage of all four 
 The same workflow uploads `keeper-previews`: chapter-two present, outage and observed states.
 `finale-previews` covers all four remaining scenes, pending/committed ladder states, the preparation
 warning, relationship-dependent farewells and all four completed endings at 1280×720.
+`cinematic-preview` adds an actual Godot MP4 camera/movement reel and keyframes.
 
 To export locally, install Godot **4.5.1** and its matching export templates, create the output
 directory, then run `godot --headless --path . --export-release Linux` (or `Windows` / `macOS`).

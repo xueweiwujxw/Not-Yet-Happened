@@ -73,6 +73,7 @@ func _capture() -> void:
 
 
 func shot(view: Control, label: String) -> void:
+	await create_timer(0.8).timeout
 	for frame: int in range(5):
 		await process_frame
 	await RenderingServer.frame_post_draw

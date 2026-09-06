@@ -6,6 +6,19 @@ var shiori: Node3D
 
 func _ready() -> void:
 	foundation("c9b992", "dce0c9")
+	Details.window(self, Vector3(-3.15, 2.15, -3.65))
+	# The studio has a fabric work mat, photo drying line, books and a darkroom curtain.
+	Art.box(self, Vector3(0, 0.045, 0), Vector3(3.9, 0.025, 2.8), Art.material("a8b9a0"))
+	for z: float in [-1.3, 1.3]:
+		Art.box(self, Vector3(0, 0.061, z), Vector3(3.7, 0.01, 0.05), Art.material("ddcfac"))
+	for i: int in range(5):
+		Art.box(self, Vector3(-4.8, 1.1 + i * 0.17, -1.3), Vector3(0.3, 0.12, 0.6), Art.material("9b7d61" if i % 2 else "809d94"))
+	Art.box(self, Vector3(-4.83, 1.6, 2.5), Vector3(0.06, 2.9, 1.4), Art.material("b88771"))
+	for i: int in range(6):
+		Art.box(self, Vector3(-4.77, 1.6, 1.85 + i * 0.23), Vector3(0.05, 2.9, 0.07), Art.material("ac7b68"))
+	Art.box(self, Vector3(0, 2.95, -3.5), Vector3(2.7, 0.018, 0.02), Art.material("665c4b"))
+	for i: int in range(4):
+		Art.box(self, Vector3(-1.05 + i * 0.7, 2.74, -3.5), Vector3(0.43, 0.38, 0.02), Art.material("e9dcbb"))
 	for x: float in [-3.2, 0, 3.2]:
 		desk(Vector3(x, 0, -2.6))
 	paper(Vector3(-3.2, 0.94, -2.6))

@@ -17,6 +17,7 @@ const FinaleScreenTests := preload("res://tests/test_finale_screen.gd")
 const KitchenTests := preload("res://tests/test_kitchen_view.gd")
 const KeeperTests := preload("res://tests/test_keeper_view.gd")
 const FinaleViewTests := preload("res://tests/test_finale_view.gd")
+const PresentationTests := preload("res://tests/test_presentation.gd")
 
 
 func _initialize() -> void:
@@ -42,6 +43,7 @@ func _run() -> void:
 		KitchenTests,
 		KeeperTests,
 		FinaleViewTests,
+		PresentationTests,
 	]
 	for suite: GDScript in suites:
 		if not suite.can_instantiate():
@@ -67,6 +69,7 @@ func _run() -> void:
 	failures.append_array(await KitchenTests.new().run(root))
 	failures.append_array(await KeeperTests.new().run(root))
 	failures.append_array(await FinaleViewTests.new().run(root))
+	failures.append_array(await PresentationTests.new().run(root))
 
 	if failures.is_empty():
 		print("All tests passed.")

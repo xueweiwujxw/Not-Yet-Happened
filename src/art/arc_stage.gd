@@ -2,6 +2,7 @@ extends Node3D
 ## Shared cutaway dimensions and original props; each chapter supplies its own set.
 
 const Art := preload("res://src/art/low_poly.gd")
+const Details := preload("res://src/art/coastal_details.gd")
 var sun: DirectionalLight3D
 var environment: WorldEnvironment
 
@@ -13,7 +14,7 @@ func foundation(floor_color: String, sky: String, indoors: bool = true) -> void:
 		Art.box(self, Vector3(-5, 1.65, 0), Vector3(0.15, 3.3, 7.6), Art.material("abbcaf"), true)
 	for x: int in range(10):
 		Art.box(self, Vector3(-4.5 + x, 0.015, 0), Vector3(0.02, 0.01, 7.5), Art.material("8a9690"))
-	Art.box(self, Vector3(0, -0.4, -15), Vector3(60, 0.1, 28), Art.material("739c9d"))
+	add_child(Details.new())
 	environment = WorldEnvironment.new()
 	environment.environment = Environment.new()
 	environment.environment.background_mode = Environment.BG_COLOR
