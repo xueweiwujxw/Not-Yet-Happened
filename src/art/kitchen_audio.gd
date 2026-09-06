@@ -14,7 +14,8 @@ func _ready() -> void:
 	ambience = _player(synthesize(true), -24.0)
 	effects = _player(synthesize(false), -18.0)
 	footsteps = _player(synthesize(false, 110.0), -22.0)
-	ambience.play()
+	if not muted:
+		ambience.play()
 
 
 func _exit_tree() -> void:
