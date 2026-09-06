@@ -39,23 +39,38 @@ func run(root: Window) -> Array[String]:
 	check(voice.current_key.is_empty(), "end of dialogue clears voice", failures)
 	voice.resolve_stream = func(_path: String) -> AudioStream: return preload("res://src/art/kitchen_audio.gd").synthesize(false)
 	voice.present("test line", true)
+	await root.get_tree().process_frame
+	await root.get_tree().process_frame
 	check(voice.output.playing, "valid take starts with line", failures)
 	var playback: AudioStream = voice.output.stream
 	voice.present("test line", true)
 	check(voice.output.stream == playback, "refresh does not replace same take", failures)
 	playback = null
+	# Let the audio mixer consume the started test take before testing interruption.
+	await root.get_tree().create_timer(0.05).timeout
 	voice.present("next line", true)
 	check(not voice.output.playing and voice.output.stream == null, "advancing stops previous take even if next is absent", failures)
 	voice.clips[key] = "res://assets/voice/../../secrets.ogg"
 	voice.present("test line", true)
 	check(voice.output.stream == null, "out-of-folder take rejected", failures)
 	voice.set_muted(true)
+	voice.stop()
+	voice.set_muted(false)
+	voice.clips[key] = "res://assets/voice/missing.ogg"
+	voice.present("test line", true)
+	voice.present("skipped", true)
+	await root.get_tree().process_frame
+	await root.get_tree().process_frame
+	check(not voice.output.playing, "same-frame skip cancels queued playback", failures)
 	voice.free()
 	var view := Fixture.View.new()
 	view.session = Fixture.fresh()
 	root.add_child(view)
 	view.set_physics_process(false)
 	view.set_process(false)
+	for line: String in preload("res://src/content/chapter_three.gd").OPENING:
+		var take: AudioStream = view.voice._resolve_stream(view.voice.clips.get(Voice.key_for(line), ""))
+		check(take != null and take.get_length() > 1.0, "bundled opening voice decodes without editor import", failures)
 	var saved: Dictionary = view.session.save_data()
 	var wide: float = view.camera.size
 	for i: int in range(120):

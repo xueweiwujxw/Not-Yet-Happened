@@ -30,8 +30,9 @@ gamepad left stick move; E / gamepad A interacts or continues dialogue; Tab / ga
 to the notebook and manual save/load. The player eases into motion, brakes and turns smoothly,
 and blends the walk cycle back to rest. Dialogue pushes in gently and nearby visible characters
 turn toward each other; `Camera: OFF` restores wide framing. See [presentation direction and voice
-handoff](docs/presentation-direction.md). The recorded-voice loader is ready, but no spoken takes
-are bundled yet; missing takes stay silent and dialogue always advances manually.
+handoff](docs/presentation-direction.md). Third-chapter opening dialogue has two generated Chinese
+audition takes; the rest is not dubbed yet. Missing takes stay silent and dialogue always advances
+manually. `Voice: ON/OFF` controls these takes separately from kitchen ambience.
 Quiet synthesized ambience, footsteps and accepted-interaction tones accompany the kitchen.
 Use `Audio: ON/OFF` to mute this view; this setting resets on reopening. These are placeholder
 effects, not voice acting or audible evidence. Physical-device listening QA remains outstanding.

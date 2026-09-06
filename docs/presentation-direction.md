@@ -21,8 +21,9 @@ soft-colored low-poly scenery and give each location a recognizable silhouette a
 
 ## Voice handoff
 
-The playback integration is present but no approved spoken takes are bundled yet. An empty manifest
-means silent dialogue; synthesized kitchen cues are not character voices. The voice control is shown
+Two Chinese audition takes cover the third-chapter opening's three spoken sentences. They are
+generated samples, not approved final casting or a full dub. Stage directions remain unvoiced.
+Missing manifest entries mean silent dialogue; kitchen cues are not character voices. The voice control is shown
 only when a manifest has takes. It mutes locally; missing clips remain silent; advancing/stopping or
 hiding the view stops old audio. Audio completion never advances the story.
 
@@ -44,3 +45,18 @@ celebrity or game-character imitation. Audition ordinary conversation before emo
 Human listening, pronunciation (especially 栞), mix balance and distribution rights must be checked
 before takes are treated as release assets. This pass does not claim a finished six-chapter dub,
 custom facial rigs, full cinematic choreography or final production art.
+
+## Sample provenance
+
+Generated on 2026-09-06 with the user-connected AI Voice Generator from this project's original text:
+
+- Shiori, delicate preset: https://www.aidocmaker.com/g0/audio?name=dc1faecaa2a54c348facd66ec8411ba9
+- Lin Che, normal preset: https://www.aidocmaker.com/g0/audio?name=efc1132f715240958adf37c63ca35b25
+- Shiori, delicate preset: https://www.aidocmaker.com/g0/audio?name=8ee2869a55774e03b44a75c6d76c40ff
+
+Complete short-preview MP3 responses were converted to mono 24 kHz Ogg Vorbis. First block has
+0.5 seconds lead-in and 0.2 seconds tail; second block joins Lin Che and Shiori with 0.45 seconds
+between takes and 0.2 seconds tail. No voice cloning or soundtrack assets were used. The service's
+preset names do not guarantee actor identity or gender. These demo takes need human listening and
+final casting/distribution review before public release. Raw Ogg files are included in exports and
+decoded directly so clean headless test runs do not depend on an editor import cache.

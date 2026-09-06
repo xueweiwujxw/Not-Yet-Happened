@@ -6,6 +6,7 @@ var current_key := ""
 var muted := false
 var clips: Dictionary = {}
 var resolve_stream: Callable = _resolve_stream
+var _ticket := 0
 
 
 func _ready() -> void:
@@ -34,14 +35,22 @@ func present(text: String, speaking: bool) -> void:
 		return
 	output.stream = resolve_stream.call(path)
 	if output.stream != null:
+		_start_take.call_deferred(_ticket)
+
+
+func _start_take(ticket: int) -> void:
+	if ticket == _ticket and not muted and is_inside_tree() and output.stream != null:
 		output.play()
 
 
 func _resolve_stream(path: String) -> AudioStream:
+	if path.ends_with(".ogg") and FileAccess.file_exists(path):
+		return AudioStreamOggVorbis.load_from_file(path)
 	return load(path) as AudioStream if ResourceLoader.exists(path, "AudioStream") else null
 
 
 func stop() -> void:
+	_ticket += 1
 	if output != null:
 		output.stop()
 		output.stream = null
@@ -51,6 +60,7 @@ func stop() -> void:
 func set_muted(value: bool) -> void:
 	muted = value
 	if muted:
+		_ticket += 1
 		# Do not replay a line when unmuted; the next line starts normally.
 		output.stop()
 

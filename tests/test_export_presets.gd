@@ -22,6 +22,8 @@ func run() -> Array[String]:
 			failures.append("Every export must include the bundled font license")
 		if "assets/voice/*.json" not in String(config.get_value(section, "include_filter", "")):
 			failures.append("Every export must include the dialogue voice manifest")
+		if "assets/voice/*.ogg" not in String(config.get_value(section, "include_filter", "")):
+			failures.append("Every export must include raw dialogue takes")
 	if config.get_value("preset.1.options", "debug/export_console_wrapper", 0) != 2:
 		failures.append("Windows release needs console wrapper for CI smoke test")
 	if config.get_value("preset.2.options", "application/bundle_identifier", "") != "org.notyethappened.prototype":
