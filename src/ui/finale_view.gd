@@ -33,6 +33,7 @@ func refresh() -> void:
 		player.velocity = Vector3.ZERO
 		_active_zone = &""
 		frame_camera(false)
+		fade_in()
 	action_labels = state["actions"]
 	zone_names = action_labels
 	scene_title = state["title"]

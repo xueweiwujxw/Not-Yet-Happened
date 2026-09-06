@@ -73,9 +73,14 @@ func _capture() -> void:
 
 
 func shot(view: Control, label: String) -> void:
+	await create_timer(0.8).timeout
 	for frame: int in range(5):
 		await process_frame
 	await RenderingServer.frame_post_draw
+	if view.shown_chapter == 4:
+		var top: Vector2 = view.camera.unproject_position(view.room.lighthouse_roof.global_position + Vector3(0, 0.15, 0))
+		if not Rect2(Vector2.ZERO, Vector2(root.size)).has_point(top):
+			failures.append("Lighthouse silhouette clipped: " + label)
 	# Catch dialogue/button overflow on the actual rendered layout, not just PNG existence.
 	for control: Control in [view.story_label, view.zone_label, view.next_button]:
 		if control.visible and not Rect2(Vector2.ZERO, Vector2(root.size)).encloses(control.get_global_rect()):

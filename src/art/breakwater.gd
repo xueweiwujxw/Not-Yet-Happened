@@ -4,10 +4,21 @@ extends "res://src/art/arc_stage.gd"
 var backup: OmniLight3D
 var ladder: Node3D
 var indicator: MeshInstance3D
+var lighthouse_roof: MeshInstance3D
 
 
 func _ready() -> void:
 	foundation("8c9d9a", "abbac0", false)
+	# Concrete joints, tide stains and a distant lighthouse give the pier its own silhouette.
+	for z: float in [-2.4, -0.8, 0.8, 2.4]:
+		Art.box(self, Vector3(0, 0.028, z), Vector3(9.8, 0.01, 0.025), Art.material("687f7e"))
+	Art.box(self, Vector3(0, -0.36, 0), Vector3(10.2, 0.3, 7.9), Art.material("658780"))
+	Art.sphere(self, Vector3(-4.8, -0.4, -5.4), Vector3(2.2, 0.5, 2), Art.material("84948a"))
+	Art.cylinder(self, Vector3(-4.8, 0.45, -5.4), 0.5, 1.8, Art.material("ded8ba"), 0.35)
+	Art.cylinder(self, Vector3(-4.8, 1.5, -5.4), 0.4, 0.3, Art.material("798f89"))
+	lighthouse_roof = Art.cylinder(self, Vector3(-4.8, 1.8, -5.4), 0.5, 0.3, Art.material("a57860"), 0.08)
+	for x: float in [-4.4, 4.4]:
+		Art.cylinder(self, Vector3(x, 0.25, 2.8), 0.18, 0.5, Art.material("586f72"))
 	var metal := Art.material("4b6367")
 	for x: float in [-4.7, -2.2, 0.3, 2.8, 4.7]:
 		Art.cylinder(self, Vector3(x, 0.5, -3.5), 0.06, 1.0, metal)

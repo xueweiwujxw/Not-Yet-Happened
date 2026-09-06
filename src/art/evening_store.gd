@@ -7,6 +7,16 @@ var correction: MeshInstance3D
 
 func _ready() -> void:
 	foundation("aa9c82", "71858a")
+	# A tiled shop, stocked shelves and a striped shopfront distinguish the night interior.
+	for x: int in range(10):
+		for z: int in range(8):
+			Art.box(self, Vector3(-4.5 + x, 0.03, -3.3 + z * 0.94), Vector3(0.97, 0.025, 0.91), Art.material("b8bba5" if (x + z) % 2 else "8e9e92"))
+	Details.window(self, Vector3(-3.1, 2.1, -3.65))
+	for i: int in range(10):
+		Art.box(self, Vector3(-4.5 + i, 3.3, -3.1), Vector3(1, 0.13, 1.3), Art.material("b58167" if i % 2 else "e5d5b0"))
+	Art.box(self, Vector3(0, 2.5, -3.65), Vector3(1.7, 0.65, 0.08), Art.material("718c80"))
+	for i: int in range(5):
+		Art.cylinder(self, Vector3(-4.65, 0.3, -1.4 + i * 0.35), 0.12, 0.55, Art.material("c7a770"))
 	sun.light_energy = 0.2
 	for x: float in [-3.2, 0, 3.2]:
 		desk(Vector3(x, 0, -2.6))

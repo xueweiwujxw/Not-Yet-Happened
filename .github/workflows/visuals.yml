@@ -25,7 +25,7 @@ jobs:
           use-dotnet: false
           include-templates: false
       - name: Install software rendering dependencies
-        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri libglx-mesa0
+        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri libglx-mesa0 ffmpeg
       - name: Import project
         run: bash scripts/check-godot.sh godot --headless --path . --import
       - name: Render actual Godot scene with Mesa OpenGL
@@ -56,5 +56,19 @@ jobs:
         with:
           name: finale-previews
           path: build/previews/finale-*.png
+          if-no-files-found: error
+          retention-days: 14
+      - name: Record real camera and movement reel
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: |
+          xvfb-run -a -s '-screen 0 1280x720x24' bash scripts/check-godot.sh godot --path . --rendering-method gl_compatibility --audio-driver Dummy --fixed-fps 30 --write-movie build/previews/cinematic.avi --script tests/render_cinematic.gd
+          ffmpeg -y -i build/previews/cinematic.avi -c:v libx264 -pix_fmt yuv420p -crf 22 -c:a aac -b:a 128k build/previews/cinematic.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cinematic-preview
+          path: |
+            build/previews/cinematic-*.png
+            build/previews/cinematic.mp4
           if-no-files-found: error
           retention-days: 14

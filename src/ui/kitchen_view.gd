@@ -11,6 +11,9 @@ const Spatial := preload("res://src/game/kitchen_interactions.gd")
 const Controls := preload("res://src/game/kitchen_controls.gd")
 const Content := preload("res://src/content/kitchen_visual.gd")
 const Chapter := preload("res://src/content/chapter_one.gd")
+const Motion := preload("res://src/game/character_motion.gd")
+const Director := preload("res://src/art/scene_director.gd")
+const Voice := preload("res://src/art/dialogue_voice.gd")
 
 var session: RefCounted
 var room_script: GDScript = Room
@@ -22,6 +25,12 @@ var zone_names: Dictionary = Content.ZONES
 var completed_text: String = Content.DONE
 var initial_audio_muted := false
 var sound: Node
+var voice: Node
+var director := Director.new()
+var motion_button: Button
+var voice_button: Button
+var transition: ColorRect
+var transition_tween: Tween
 var mute_button: Button
 var room: Node3D
 var player: CharacterBody3D
@@ -38,6 +47,7 @@ var _marker: MeshInstance3D
 var _active_zone: StringName = &""
 var _moving := false
 var _walk_phase := 0.0
+var _manual_camera := false
 
 
 func _ready() -> void:
@@ -45,6 +55,8 @@ func _ready() -> void:
 	sound = Sound.new()
 	sound.muted = initial_audio_muted
 	add_child(sound)
+	voice = Voice.new()
+	add_child(voice)
 	room = room_script.new()
 	add_child(room)
 	player = CharacterBody3D.new()
@@ -58,6 +70,7 @@ func _ready() -> void:
 	player.add_child(shape)
 	add_child(player)
 	_visual = Art.person(player, Vector3.ZERO, "d49a70")
+	director.player_visual = _visual
 	_marker = _build_interaction_marker()
 	camera = Camera3D.new()
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
@@ -65,11 +78,34 @@ func _ready() -> void:
 	add_child(camera)
 	frame_camera(false)
 	camera.make_current()
+	transition = ColorRect.new()
+	transition.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	transition.color = Color(0.12, 0.17, 0.18, 0)
+	transition.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(transition)
 	_build_hud()
 	refresh()
+	visibility_changed.connect(func() -> void:
+		if not is_visible_in_tree():
+			voice.stop()
+	)
+
+
+func _process(delta: float) -> void:
+	if is_visible_in_tree() and not is_queued_for_deletion() and not _manual_camera:
+		director.tick(camera, delta)
+
+
+func fade_in() -> void:
+	if transition_tween != null:
+		transition_tween.kill()
+	transition.color.a = 0.85 if director.enabled else 0.0
+	transition_tween = create_tween()
+	transition_tween.tween_property(transition, "color:a", 0.0, 0.65)
 
 
 func frame_camera(detail: bool, gameplay: bool = true) -> void:
+	_manual_camera = detail or not gameplay
 	camera.position = Vector3(8, 7, 10) if detail else Vector3(11, 10, 14)
 	camera.size = 7.8 if detail else 13.2 if gameplay else 12.2
 	camera.v_offset = -0.85 if gameplay and not detail else 0.0
@@ -102,8 +138,9 @@ func move_player(input: Vector2, delta: float) -> void:
 	right.y = 0
 	forward.y = 0
 	var direction := (right.normalized() * move.x + forward.normalized() * move.y).limit_length(1.0)
-	player.velocity.x = direction.x * 2.5
-	player.velocity.z = direction.z * 2.5
+	var speed := Motion.velocity(Vector2(player.velocity.x, player.velocity.z), Vector2(direction.x, direction.z), delta, session.speaking())
+	player.velocity.x = speed.x
+	player.velocity.z = speed.y
 	player.velocity.y = maxf(player.velocity.y - 12.0 * delta, -20.0)
 	var before := player.position
 	player.move_and_slide()
@@ -111,9 +148,9 @@ func move_player(input: Vector2, delta: float) -> void:
 	var travelled := Vector2(player.position.x - before.x, player.position.z - before.z).length()
 	_moving = travelled > 0.0001
 	if _moving:
-		_visual.rotation.y = atan2(direction.x, direction.z)
+		_visual.rotation.y = Motion.facing(_visual.rotation.y, Vector2(player.position.x - before.x, player.position.z - before.z) / maxf(delta, 0.001), delta)
 		_walk_phase = fmod(_walk_phase + travelled * 7.0, TAU)
-	PersonAnimator.apply(_visual, _walk_phase, _moving)
+	PersonAnimator.blend(_visual, _walk_phase, minf(travelled / maxf(delta, 0.001) / Motion.SPEED, 1.0), delta)
 	sound.travel(travelled, player.is_on_floor() and not session.speaking())
 
 
@@ -185,6 +222,17 @@ func _build_hud() -> void:
 	mute_button.offset_right = -28
 	mute_button.offset_top = 76
 	mute_button.offset_bottom = 112
+	motion_button = _button(hud, "Camera: ON", func() -> void:
+		director.enabled = not director.enabled
+		motion_button.text = "Camera: ON" if director.enabled else "Camera: OFF"
+	)
+	motion_button.position = Vector2(32, 90)
+	voice_button = _button(hud, "Voice: ON", func() -> void:
+		voice.set_muted(not voice.muted)
+		voice_button.text = "Voice: OFF" if voice.muted else "Voice: ON"
+	)
+	voice_button.position = Vector2(185, 90)
+	voice_button.visible = not voice.clips.is_empty()
 	var panel := PanelContainer.new()
 	panel.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	panel.offset_left = 28
@@ -261,6 +309,8 @@ func refresh() -> void:
 	var state: Dictionary = session.view()
 	scene_label.text = scene_title
 	room.sync_state(state)
+	director.stage(room, player, state["speaking"])
+	voice.present(state["line"], state["speaking"])
 	story_label.text = state["line"] if state["speaking"] else completed_text if state["completed"] else Content.WANDER
 	next_button.visible = state["speaking"]
 	_refresh_zone(true)
