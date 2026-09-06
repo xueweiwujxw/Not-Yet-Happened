@@ -43,6 +43,7 @@ func run(root: Window) -> Array[String]:
 	var playback: AudioStream = voice.output.stream
 	voice.present("test line", true)
 	check(voice.output.stream == playback, "refresh does not replace same take", failures)
+	playback = null
 	voice.present("next line", true)
 	check(not voice.output.playing and voice.output.stream == null, "advancing stops previous take even if next is absent", failures)
 	voice.clips[key] = "res://assets/voice/../../secrets.ogg"
