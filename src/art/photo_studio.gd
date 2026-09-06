@@ -13,6 +13,7 @@ func _ready() -> void:
 		Art.box(self, Vector3(0, 0.061, z), Vector3(3.7, 0.01, 0.05), Art.material("ddcfac"))
 	for i: int in range(5):
 		Art.box(self, Vector3(-4.8, 1.1 + i * 0.17, -1.3), Vector3(0.3, 0.12, 0.6), Art.material("9b7d61" if i % 2 else "809d94"))
+	Art.box(self, Vector3(-4.75, 1, -1.3), Vector3(0.5, 0.08, 0.85), Art.material("97785c"))
 	Art.box(self, Vector3(-4.83, 1.6, 2.5), Vector3(0.06, 2.9, 1.4), Art.material("b88771"))
 	for i: int in range(6):
 		Art.box(self, Vector3(-4.77, 1.6, 1.85 + i * 0.23), Vector3(0.05, 2.9, 0.07), Art.material("ac7b68"))
