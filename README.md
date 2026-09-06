@@ -73,8 +73,12 @@ implemented; there is no random life/death selection. See [arc rules, routes and
 Directly load any saved point in the final arc from the initial screen, including pending dialogue
 and completed endings. Its save carries both earlier chapters. Returning to earlier records is
 read-only; explicitly loading/restarting an earlier attempt discards dependent live later progress,
-not disk saves. Chapters three through six remain text-first; voice assets and human-validated
-playtime are not yet available.
+not disk saves. Each chapter also has a **3D** entry: a photo studio, breakwater, evening store
+and farewell station. The same movement controls carry through automatic chapter transitions.
+Return with Tab / B to the notebook for manual saves. All dialogue, optional actions and four
+endings are available in these scenes; identity evidence remains textual. See
+[final-arc 3D scope and verification](docs/finale-3d.md). Voice assets and human-validated playtime
+are not yet available.
 
 ### Independent room prototype
 
@@ -131,10 +135,12 @@ not signed public releases.
 CI launches each exported binary headlessly without the editor. This checks packaging/startup,
 not GPU rendering, audio, or interactive usability on physical machines.
 
-**Render kitchen previews** additionally renders actual 1600×1000 and default 1280×720 Godot screenshots on
+**Render chapter previews** additionally renders actual 1600×1000 and default 1280×720 Godot screenshots on
 Ubuntu with Mesa software OpenGL and Xvfb. Download the `kitchen-previews` artifact (14 days).
 This is a reproducible visual-review aid, not physical-GPU coverage of all four platforms.
 The same workflow uploads `keeper-previews`: chapter-two present, outage and observed states.
+`finale-previews` covers all four remaining scenes, pending/committed ladder states, the preparation
+warning, relationship-dependent farewells and all four completed endings at 1280×720.
 
 To export locally, install Godot **4.5.1** and its matching export templates, create the output
 directory, then run `godot --headless --path . --export-release Linux` (or `Windows` / `macOS`).

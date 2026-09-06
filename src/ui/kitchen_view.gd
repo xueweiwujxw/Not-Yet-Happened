@@ -17,6 +17,7 @@ var room_script: GDScript = Room
 var spatial_script: GDScript = Spatial
 var action_labels: Dictionary = Chapter.LABELS
 var scene_title: String = Content.SUBTITLE
+var scene_label: Label
 var zone_names: Dictionary = Content.ZONES
 var completed_text: String = Content.DONE
 var initial_audio_muted := false
@@ -170,8 +171,8 @@ func _build_hud() -> void:
 	add_child(hud)
 	var title := _label(hud, Content.TITLE, 25)
 	title.position = Vector2(32, 23)
-	var subtitle := _label(hud, scene_title, 16)
-	subtitle.position = Vector2(33, 61)
+	scene_label = _label(hud, scene_title, 16)
+	scene_label.position = Vector2(33, 61)
 	back_button = _button(hud, Content.BACK, func() -> void: return_requested.emit())
 	back_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	back_button.offset_left = -280
@@ -258,6 +259,7 @@ func _act(action: StringName) -> void:
 
 func refresh() -> void:
 	var state: Dictionary = session.view()
+	scene_label.text = scene_title
 	room.sync_state(state)
 	story_label.text = state["line"] if state["speaking"] else completed_text if state["completed"] else Content.WANDER
 	next_button.visible = state["speaking"]

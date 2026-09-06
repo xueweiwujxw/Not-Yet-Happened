@@ -1,4 +1,4 @@
-name: Render kitchen previews
+name: Render chapter previews
 
 on:
   pull_request:
@@ -46,5 +46,15 @@ jobs:
         with:
           name: keeper-previews
           path: build/previews/keeper-*.png
+          if-no-files-found: error
+          retention-days: 14
+      - name: Render chapters three through six with Mesa OpenGL
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a -s '-screen 0 1280x720x24' bash scripts/check-godot.sh godot --path . --rendering-method gl_compatibility --audio-driver Dummy --script tests/render_finale.gd
+      - uses: actions/upload-artifact@v4
+        with:
+          name: finale-previews
+          path: build/previews/finale-*.png
           if-no-files-found: error
           retention-days: 14

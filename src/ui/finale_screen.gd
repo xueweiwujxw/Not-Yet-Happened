@@ -5,6 +5,7 @@ signal return_requested
 
 const Common := preload("res://src/content/chapter_one.gd")
 const Content := preload("res://src/content/finale_content.gd")
+const SpatialView := preload("res://src/ui/finale_view.gd")
 
 var session: RefCounted
 var save_store: RefCounted
@@ -20,6 +21,8 @@ var save_button: Button
 var load_button: Button
 var restart_button: Button
 var back_button: Button
+var spatial_button: Button
+var spatial_view: Control
 var action_buttons: Dictionary = {}
 var _actions: HFlowContainer
 var _shown_chapter := 0
@@ -39,6 +42,7 @@ func _ready() -> void:
 	column.add_theme_constant_override("separation", 16)
 	margin.add_child(column)
 	title_label = _label(column, "", 30)
+	spatial_button = _button(column, "3D", _show_spatial)
 	_label(column, Common.HELP, 16)
 	objective_label = _label(column, "", 20)
 	status_label = _label(column, "", 18)
@@ -79,6 +83,7 @@ func _button(parent: Node, text: String, callback: Callable) -> Button:
 
 func refresh() -> void:
 	var state: Dictionary = session.view()
+	spatial_button.text = "3D · " + state["title"]
 	if _shown_chapter != state["chapter"]:
 		for button: Button in action_buttons.values():
 			button.free()
@@ -133,6 +138,7 @@ func _load() -> void:
 	if not result["ok"]:
 		save_status.text = Common.SAVE_ERRORS[result["error"]]
 		return
+	_hide_spatial()
 	session = result["session"]
 	refresh()
 	focus_progress()
@@ -141,8 +147,31 @@ func _load() -> void:
 
 
 func _restart() -> void:
+	_hide_spatial()
 	session = session.new_attempt()
 	refresh()
 	focus_progress()
 	scroll.scroll_vertical = 0
 	save_status.text = Common.RESTART_INFO
+
+
+func _show_spatial() -> void:
+	if spatial_view != null:
+		return
+	spatial_view = SpatialView.new()
+	spatial_view.session = session
+	spatial_view.theme = theme
+	spatial_view.return_requested.connect(_hide_spatial)
+	add_child(spatial_view)
+	scroll.hide()
+
+
+func _hide_spatial() -> void:
+	if spatial_view == null:
+		return
+	spatial_view.hide()
+	spatial_view.queue_free()
+	spatial_view = null
+	scroll.show()
+	refresh()
+	spatial_button.grab_focus()
