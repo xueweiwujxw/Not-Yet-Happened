@@ -2,6 +2,7 @@ extends RefCounted
 ## Presentation-only camera blocking. Never advances dialogue or writes world facts.
 
 const Blocking := preload("res://src/art/dialogue_blocking.gd")
+var staging := preload("res://src/art/actor_staging.gd").new()
 
 var enabled := true
 var talking := false
@@ -20,6 +21,7 @@ func stage(room: Node3D, avatar: Node3D, speaking: bool, text: String = "") -> v
 		elapsed = 0.0
 	_line = text
 	_room = room
+	staging.bind(room)
 	_cue = Blocking.cue(text) if speaking else {}
 	player = avatar
 	talking = speaking
@@ -45,6 +47,7 @@ func stage(room: Node3D, avatar: Node3D, speaking: bool, text: String = "") -> v
 
 func tick(camera: Camera3D, delta: float) -> void:
 	elapsed += delta
+	staging.tick(actor, _cue, elapsed, enabled and talking, player, delta)
 	var close: bool = enabled and talking
 	var aim := focus if close else Vector3(0, 0.6, 0)
 	var offset := Vector3(11, 10, 14)
@@ -57,7 +60,8 @@ func tick(camera: Camera3D, delta: float) -> void:
 		var direction := player.global_position - actor.global_position
 		if Vector2(direction.x, direction.z).length() > 0.1:
 			var local_direction: Vector3 = actor.get_parent().global_basis.inverse() * direction
-			actor.rotation.y = rotate_toward(actor.rotation.y, atan2(local_direction.x, local_direction.z) + float(_cue.get("turn", 0.0)), delta * 1.8)
+			if not actor.get_meta("staging_walking", false):
+				actor.rotation.y = rotate_toward(actor.rotation.y, atan2(local_direction.x, local_direction.z) + float(_cue.get("turn", 0.0)), delta * 1.8)
 			if is_instance_valid(player_visual):
 				var player_direction: Vector3 = player_visual.get_parent().global_basis.inverse() * -direction
 				player_visual.rotation.y = rotate_toward(player_visual.rotation.y, atan2(player_direction.x, player_direction.z), delta * 2.5)

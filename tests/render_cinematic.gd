@@ -23,7 +23,7 @@ func _record() -> void:
 	screen.spatial_button.pressed.emit()
 	var view: Control = screen.spatial_view
 	view.set_physics_process(false)
-	for frame: int in range(560):
+	for frame: int in range(1100):
 		await physics_frame
 		if frame == 90:
 			view._advance()
@@ -43,7 +43,12 @@ func _record() -> void:
 			Fixture.approach(view, &"ask_audio")
 			view._act(&"ask_audio")
 			view.fade_in()
-		if frame in [60, 350, 530]:
+		if frame == 670:
+			view._advance()
+		if frame == 880:
+			Fixture.drain(view)
+			view._act(&"respect")
+		if frame in [60, 350, 630, 850, 1040]:
 			await RenderingServer.frame_post_draw
 			var img := root.get_texture().get_image()
 			if img.save_png("res://build/previews/cinematic-%d.png" % frame) != OK:

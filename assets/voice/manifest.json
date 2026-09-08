@@ -1,4 +1,7 @@
 {
   "28a2f5514fe039bf9f2cb2d39b5aba6d05c9b535055963a080762771f54b1c02": "res://assets/voice/c3-opening-1.ogg",
-  "62fb22779eb08894db79abd0379090fd1fec6e1d706439552cc48d0b68a52c02": "res://assets/voice/c3-opening-2.ogg"
+  "62fb22779eb08894db79abd0379090fd1fec6e1d706439552cc48d0b68a52c02": "res://assets/voice/c3-opening-2.ogg",
+  "4aa22d83c50770a60681ee4f3b0e8c8fef0e9411f105fc73655a21c0b0dc6ef2": "res://assets/voice/c3-refusal.ogg",
+  "1fb16fb58945f97556a292bc9715036fad8fe60a6f5d38c975a4ee334998d624": "res://assets/voice/c3-boundary.ogg",
+  "e0a8d46c4a0042f9351a7ecf61cd35437c6f9407685592663149115e939d70d8": "res://assets/voice/c3-respect.ogg"
 }
