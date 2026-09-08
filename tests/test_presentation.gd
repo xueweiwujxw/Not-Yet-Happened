@@ -11,6 +11,7 @@ func run(root: Window) -> Array[String]:
 	var failures: Array[String] = []
 	_review_blocking(root, failures)
 	await _review_staging(root, failures)
+	await _review_dialogue_layout(root, failures)
 	var speed := Motion.velocity(Vector2.ZERO, Vector2.RIGHT, 1.0 / 60.0, false)
 	check(speed.x > 0 and speed.x < Motion.SPEED, "walk accelerates instead of snapping", failures)
 	for fps: int in [30, 60, 120]:
@@ -196,3 +197,22 @@ func _review_staging(root: Window, failures: Array[String]) -> void:
 		driver.tick(actor, cue, 1, true, player, 1.0 / 60.0)
 	check(actor.position.z < 0.2, "staged step stops before solid scenery", failures)
 	stage.free()
+
+
+func _review_dialogue_layout(root: Window, failures: Array[String]) -> void:
+	var original_size := root.size
+	root.size = Vector2i(1280, 720)
+	var view := Fixture.View.new()
+	view.session = Fixture.fresh()
+	root.add_child(view)
+	view.set_process(false)
+	view.set_physics_process(false)
+	view.voice.set_muted(true)
+	view.story_label.text = preload("res://src/content/chapter_three.gd").LINES[&"respect"][0]
+	await root.get_tree().process_frame
+	await root.get_tree().process_frame
+	var panel: Control = view.story_label.get_parent().get_parent()
+	check(panel.get_global_rect().end.y <= root.size.y - 21, "three-line dialogue preserves bottom margin", failures)
+	view.free()
+	root.size = original_size
+	await root.get_tree().create_timer(0.1).timeout

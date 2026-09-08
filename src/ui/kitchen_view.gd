@@ -235,6 +235,7 @@ func _build_hud() -> void:
 	voice_button.visible = not voice.clips.is_empty()
 	var panel := PanelContainer.new()
 	panel.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	panel.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	panel.offset_left = 28
 	panel.offset_right = -28
 	panel.offset_top = -206
