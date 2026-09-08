@@ -62,7 +62,13 @@ func _capture() -> void:
 		Fixture.approach(view, &"portrait_join")
 		if ending in ["kitchen", "distance"]:
 			await shot(view, "station-" + ending)
-		Fixture.step(view, &"portrait_decline" if ending == "blank" else &"portrait_join", failures)
+		if ending == "kitchen":
+			view._act(&"portrait_join")
+			view.director.props.tick(0.6, true)
+			await shot(view, "camera-timer")
+			Fixture.drain(view)
+		else:
+			Fixture.step(view, &"portrait_decline" if ending == "blank" else &"portrait_join", failures)
 		Fixture.step(view, &"departure", failures)
 		await shot(view, "ending-" + ending)
 		host.free()
