@@ -10,6 +10,7 @@ const Fixture := preload("res://tests/test_finale_view.gd")
 func run(root: Window) -> Array[String]:
 	var failures: Array[String] = []
 	_review_blocking(root, failures)
+	await _review_staging(root, failures)
 	var speed := Motion.velocity(Vector2.ZERO, Vector2.RIGHT, 1.0 / 60.0, false)
 	check(speed.x > 0 and speed.x < Motion.SPEED, "walk accelerates instead of snapping", failures)
 	for fps: int in [30, 60, 120]:
@@ -69,7 +70,9 @@ func run(root: Window) -> Array[String]:
 	root.add_child(view)
 	view.set_physics_process(false)
 	view.set_process(false)
-	for line: String in preload("res://src/content/chapter_three.gd").OPENING:
+	var third := preload("res://src/content/chapter_three.gd")
+	var voiced: Array = third.OPENING + third.LINES[&"ask_audio"] + [third.LINES[&"respect"][0]]
+	for line: String in voiced:
 		var take: AudioStream = view.voice._resolve_stream(view.voice.clips.get(Voice.key_for(line), ""))
 		check(take != null and take.get_length() > 1.0, "bundled opening voice decodes without editor import", failures)
 	var saved: Dictionary = view.session.save_data()
@@ -114,14 +117,15 @@ func _review_blocking(root: Window, failures: Array[String]) -> void:
 	check(shiori.rotation.y == 0, "refusal holds before turning away", failures)
 	director.stage(room, avatar, true, refusal)
 	check(is_equal_approx(director.elapsed, 0.4), "same-line refresh preserves beat time", failures)
-	for i: int in range(120):
+	for i: int in range(600):
 		director.tick(camera, 1.0 / 60.0)
-	check(absf(angle_difference(shiori.rotation.y, -PI / 2 - 1.1)) < 0.01, "refusal turns away from listener", failures)
+	var direction := avatar.global_position - shiori.global_position
+	check(absf(angle_difference(shiori.rotation.y, atan2(direction.x, direction.z) - 1.1)) < 0.01, "refusal turns away from listener after stepping back", failures)
 	check(bystander.rotation.y == 0, "bystander does not perform another character's beat", failures)
 	var respect: String = preload("res://src/content/chapter_three.gd").LINES[&"respect"][0]
 	director.stage(room, avatar, true, respect)
 	check(director.elapsed == 0, "new line resets beat time", failures)
-	for i: int in range(120):
+	for i: int in range(360):
 		director.tick(camera, 1.0 / 60.0)
 	check(absf(angle_difference(shiori.rotation.y, -PI / 2)) < 0.01, "respect restores eye contact", failures)
 	shiori.hide()
@@ -150,4 +154,45 @@ func _review_blocking(root: Window, failures: Array[String]) -> void:
 	stage.add_child(room)
 	director.stage(room, avatar, true, refusal)
 	check(director.actor == null and director.elapsed == 0, "room replacement discards old actors and timing", failures)
+	stage.free()
+
+
+func _review_staging(root: Window, failures: Array[String]) -> void:
+	var stage := Node3D.new()
+	root.add_child(stage)
+	var player := Node3D.new()
+	stage.add_child(player)
+	player.position = Vector3(10, 0, 10)
+	var actor := Art.person(stage, Vector3.ZERO, "aabbcc")
+	var driver := preload("res://src/art/actor_staging.gd").new()
+	driver.bind(stage)
+	var cue := {"step": Vector3(0, 0, 1), "gesture": -0.3}
+	for fps: int in [30, 60, 120]:
+		actor.position = Vector3.ZERO
+		for i: int in range(fps * 6):
+			driver.tick(actor, cue, 1, true, player, 1.0 / fps)
+		check(absf(actor.position.z - 1) < 0.01, "staged step reaches mark at each frame rate", failures)
+	var before := actor.position
+	driver.tick(null, {}, 0, false, player, 1.0 / 60.0)
+	check(actor.position.distance_to(before) < 0.02, "skip cancels step without teleporting home", failures)
+	for i: int in range(360):
+		driver.tick(null, {}, 0, false, player, 1.0 / 60.0)
+	check(absf(actor.position.z) < 0.01 and absf(actor.get_node("ArmRight").rotation.z) < 0.01, "cancel settles position and gesture", failures)
+	actor.hide()
+	before = actor.position
+	driver.tick(actor, cue, 1, true, player, 1)
+	check(actor.position == before and not actor.visible, "staging never moves or reveals hidden actor", failures)
+	actor.show()
+	player.position = Vector3(0, 0, 0.9)
+	for i: int in range(180):
+		driver.tick(actor, cue, 1, true, player, 1.0 / 60.0)
+	check(actor.position.z <= 0.151, "staged actor leaves clearance around player", failures)
+	player.position = Vector3(10, 0, 10)
+	actor.position = Vector3.ZERO
+	Art.box(stage, Vector3(0, 0.8, 0.5), Vector3(2, 1.5, 0.2), Art.material("aabbcc"), true)
+	await root.get_tree().physics_frame
+	await root.get_tree().physics_frame
+	for i: int in range(180):
+		driver.tick(actor, cue, 1, true, player, 1.0 / 60.0)
+	check(actor.position.z < 0.2, "staged step stops before solid scenery", failures)
 	stage.free()

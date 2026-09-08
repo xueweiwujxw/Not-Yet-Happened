@@ -73,3 +73,34 @@ These are visual pauses, not input locks or automatic dialogue advances. Repeate
 refreshes preserve beat time; a new line or room resets it. Camera OFF disables the
 turns. Other dialogue retains the existing proximity framing. This is a small authored
 pass, not full chapter choreography or timed lip sync; no new voice takes are included.
+
+## Staged movement and recording conversation
+
+The next pass adds short authored NPC steps, eased arrival, distance-driven limb motion,
+and restrained hand gestures. Shiori steps aside on the recording refusal and returns
+smoothly after the line is skipped or respected. The station photo beat includes a step
+forward. Scene collision queries and 0.75-unit player clearance stop a blocked step;
+blocked movement never delays dialogue. Camera OFF eases actors back to their original
+marks. Hidden actors remain hidden and room replacement discards old movement state.
+These local steps are not general NPC pathfinding or full-scene choreography.
+
+Five additional AI Voice Generator auditions (2026-09-08) form three complete display
+blocks: the recording question/refusal, Shiori's boundary, and the player's acceptance/thanks.
+Only spoken text is voiced. The question uses the normal preset; Shiori uses delicate.
+The refusal step begins after the question, at 4.0 seconds. Manual advance can still
+interrupt audio and performance; no audio or movement completion changes game state.
+
+- Question: https://www.aidocmaker.com/g0/audio?name=f1f73cf7200c4dfbac33fcdad07f1c33
+- Refusal: https://www.aidocmaker.com/g0/audio?name=9c6121432d3f457eb417e9cab7cf9285
+- Boundary: https://www.aidocmaker.com/g0/audio?name=9a1cc769d34c4624b4dde99400463c35
+- Acceptance: https://www.aidocmaker.com/g0/audio?name=1a8897715cdc48869807350b9a7c926b
+- Thanks: https://www.aidocmaker.com/g0/audio?name=7cb6c42e65104f4c84955eb2f85a12db
+
+Complete short previews are converted to mono 24 kHz Vorbis q4, with 0.5/0.6-second
+inter-speaker gaps and 0.25-second tails. These remain auditions pending human listening;
+the game currently has five voiced display blocks, not a complete six-chapter dub.
+The real-engine reel now includes the entire question, refusal and respect sequence.
+
+Remaining production work: chapter-specific long walks and prop interactions, acting and
+voice coverage beyond these five blocks, character-specific rigs and facial expressions,
+environment art beyond procedural set dressing, final sound/music mix and physical-device QA.
