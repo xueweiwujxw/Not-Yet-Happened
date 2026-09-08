@@ -64,8 +64,11 @@ func _capture() -> void:
 			await shot(view, "station-" + ending)
 		if ending == "kitchen":
 			view._act(&"portrait_join")
+			# Hold an authored instant so slow software-render frames cannot outlive the lamp.
+			view.set_process(false)
 			view.director.props.tick(0.6, true)
 			await shot(view, "camera-timer")
+			view.set_process(true)
 			Fixture.drain(view)
 		else:
 			Fixture.step(view, &"portrait_decline" if ending == "blank" else &"portrait_join", failures)
@@ -83,6 +86,8 @@ func shot(view: Control, label: String) -> void:
 	for frame: int in range(5):
 		await process_frame
 	await RenderingServer.frame_post_draw
+	if label == "camera-timer" and not view.room.timer_lamp.visible:
+		failures.append("Portrait timer must be visible in its capture")
 	if view.shown_chapter == 4:
 		var top: Vector2 = view.camera.unproject_position(view.room.lighthouse_roof.global_position + Vector3(0, 0.15, 0))
 		if not Rect2(Vector2.ZERO, Vector2(root.size)).has_point(top):

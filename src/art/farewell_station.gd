@@ -3,6 +3,7 @@ extends "res://src/art/arc_stage.gd"
 
 var shiori: Node3D
 var inscription: MeshInstance3D
+var timer_lamp: MeshInstance3D
 
 
 func _ready() -> void:
@@ -32,7 +33,7 @@ func _ready() -> void:
 	var timer_material := Art.material("e8b969")
 	timer_material.emission_enabled = true
 	timer_material.emission = Color("e8b969")
-	var timer_lamp := Art.sphere(self, Vector3(0.18, 1.46, -2.56), Vector3(0.07, 0.07, 0.04), timer_material)
+	timer_lamp = Art.sphere(self, Vector3(0.18, 1.46, -2.54), Vector3(0.09, 0.09, 0.06), timer_material)
 	timer_lamp.set_meta("performance_id", &"camera")
 	timer_lamp.hide()
 	shiori = Art.person(self, Vector3(1.2, 0, -2.7), "b69078")
