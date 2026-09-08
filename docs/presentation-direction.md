@@ -104,3 +104,17 @@ The real-engine reel now includes the entire question, refusal and respect seque
 Remaining production work: chapter-specific long walks and prop interactions, acting and
 voice coverage beyond these five blocks, character-specific rigs and facial expressions,
 environment art beyond procedural set dressing, final sound/music mix and physical-device QA.
+
+## Equipment performance
+
+The chapter-three equipment scan now has a single 2.4-second light pass across the
+scanner glass. It runs only for the existing equipment-inspection display block and
+does not reveal the identity in the other photograph. The chapter-six chosen portrait
+has a small steady 1.8-second camera timer lamp for both shared and solo photographs.
+There is no full-screen flash or additional shutter sound/evidence.
+
+Skipping clears the previous cue immediately. Refreshing the same block preserves
+progress; changing rooms discards old references. Camera OFF suppresses these cues.
+Animation completion never advances dialogue, changes facts or saves a choice.
+The cinematic reel includes the scan; the finale capture includes the camera timer.
+This is equipment feedback, not hand-to-prop animation or general object manipulation.

@@ -25,6 +25,12 @@ func _ready() -> void:
 	paper(Vector3(-3.2, 0.94, -2.6))
 	Art.box(self, Vector3(0, 1, -2.6), Vector3(1.5, 0.15, 0.65), Art.material("536665"))
 	paper(Vector3(0, 1.1, -2.6), "c2d4cb")
+	var scan_material := Art.material("d6efd8")
+	scan_material.emission_enabled = true
+	scan_material.emission = Color("91cdb5")
+	var scan := Art.box(self, Vector3(0, 1.13, -2.6), Vector3(1.15, 0.015, 0.025), scan_material)
+	scan.set_meta("performance_id", &"scanner")
+	scan.hide()
 	for x: float in [-0.5, 0.5]:
 		Art.box(self, Vector3(x, 2.2, -3.65), Vector3(0.75, 0.95, 0.05), Art.material("536665"))
 		Art.box(self, Vector3(x, 2.2, -3.61), Vector3(0.62, 0.8, 0.01), Art.material("bec9c0"))

@@ -3,6 +3,7 @@ extends RefCounted
 
 const Blocking := preload("res://src/art/dialogue_blocking.gd")
 var staging := preload("res://src/art/actor_staging.gd").new()
+var props := preload("res://src/art/prop_performance.gd").new()
 
 var enabled := true
 var talking := false
@@ -22,6 +23,7 @@ func stage(room: Node3D, avatar: Node3D, speaking: bool, text: String = "") -> v
 	_line = text
 	_room = room
 	staging.bind(room)
+	props.stage(room, text, speaking)
 	_cue = Blocking.cue(text) if speaking else {}
 	player = avatar
 	talking = speaking
@@ -47,6 +49,7 @@ func stage(room: Node3D, avatar: Node3D, speaking: bool, text: String = "") -> v
 
 func tick(camera: Camera3D, delta: float) -> void:
 	elapsed += delta
+	props.tick(delta, enabled)
 	staging.tick(actor, _cue, elapsed, enabled and talking, player, delta)
 	var close: bool = enabled and talking
 	var aim := focus if close else Vector3(0, 0.6, 0)

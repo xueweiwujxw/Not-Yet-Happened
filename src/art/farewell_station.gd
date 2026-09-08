@@ -3,6 +3,7 @@ extends "res://src/art/arc_stage.gd"
 
 var shiori: Node3D
 var inscription: MeshInstance3D
+var timer_lamp: MeshInstance3D
 
 
 func _ready() -> void:
@@ -29,6 +30,12 @@ func _ready() -> void:
 	Art.box(self, Vector3(0, 1.4, -2.7), Vector3(0.5, 0.3, 0.25), metal)
 	var lens := Art.cylinder(self, Vector3(0, 1.4, -2.5), 0.1, 0.2, Art.material("263e42"))
 	lens.rotation.x = PI / 2
+	var timer_material := Art.material("e8b969")
+	timer_material.emission_enabled = true
+	timer_material.emission = Color("e8b969")
+	timer_lamp = Art.sphere(self, Vector3(0.18, 1.46, -2.54), Vector3(0.09, 0.09, 0.06), timer_material)
+	timer_lamp.set_meta("performance_id", &"camera")
+	timer_lamp.hide()
 	shiori = Art.person(self, Vector3(1.2, 0, -2.7), "b69078")
 	shiori.set_meta("actor_id", &"shiori")
 	# Bus is beyond the navigable slab; doors and wheels are decorative.
