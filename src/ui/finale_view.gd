@@ -40,6 +40,7 @@ func refresh() -> void:
 	var f: Dictionary = state["facts"]
 	var historical: bool = shown_chapter == 4 and f.has(&"c4_entered") and not f.has(&"c4_closed")
 	_visual.scale = Vector3.ONE * (0.7 if historical else 1.0)
+	Appearance.set_present(_visual, not historical)
 	super.refresh()
 	if shown_chapter == 4 and not state["speaking"] and not f.has(&"c4_closed"):
 		story_label.text = preload("res://src/content/chapter_four.gd").WARNING

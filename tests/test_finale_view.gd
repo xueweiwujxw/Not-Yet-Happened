@@ -61,6 +61,7 @@ func run(root: Window) -> Array[String]:
 		_expect(old_room.get_ref() == null and view.shown_chapter == 4, "transition disposes previous set", failures)
 		step(view, &"revisit", failures)
 		_expect(not view.room.backup.visible and is_equal_approx(view._visual.scale.x, 0.7), "historical window starts unprepared", failures)
+		_expect(not view._visual.get_node("Appearance/TravelBag").visible, "historical child has no adult bag", failures)
 		if ending in ["kitchen", "distance"]:
 			approach(view, &"connect_light")
 			view._act(&"connect_light")
@@ -77,6 +78,7 @@ func run(root: Window) -> Array[String]:
 		step(view, &"leave_blank" if ending == "blank" else &"confirm_platform", failures)
 		_expect(not view.session.view()["facts"].has(&"sister_fate"), "platform rendering does not invent fate", failures)
 		_expect(view._visual.scale.x == 1.0, "closed window restores present avatar", failures)
+		_expect(view._visual.get_node("Appearance/TravelBag").visible, "closed window restores adult bag", failures)
 		step(view, &"next", failures)
 		step(view, &"records", failures)
 		step(view, &"seal" if ending == "blank" else &"verify", failures)

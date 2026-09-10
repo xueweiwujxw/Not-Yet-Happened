@@ -2,6 +2,7 @@ extends Node3D
 ## Shared cutaway dimensions and original props; each chapter supplies its own set.
 
 const Art := preload("res://src/art/low_poly.gd")
+const Appearance := preload("res://src/art/character_appearance.gd")
 const Details := preload("res://src/art/coastal_details.gd")
 var sun: DirectionalLight3D
 var environment: WorldEnvironment

@@ -61,6 +61,8 @@ func run(root: Window) -> Array[String]:
 				_expect(not view.room.waiting_child.visible and view.room.door.rotation.y == 0, "pending observation does not reveal doorway", failures)
 			drain(screen.session)
 			view.refresh()
+			if action in [&"enter", &"listen", &"open", &"return"]:
+				_expect(view._visual.get_node("Appearance/TravelBag").visible == (action == &"return"), "bag follows committed historical phase", failures)
 			if action == &"listen":
 				_expect(not view.room.lamp.visible and not view.room.escort.visible, "outage is not identity evidence", failures)
 			if action == &"open":

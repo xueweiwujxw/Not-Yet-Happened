@@ -5,6 +5,7 @@ signal return_requested
 
 const Room := preload("res://src/art/kitchen_room.gd")
 const Art := preload("res://src/art/low_poly.gd")
+const Appearance := preload("res://src/art/character_appearance.gd")
 const Sound := preload("res://src/art/kitchen_audio.gd")
 const PersonAnimator := preload("res://src/art/person_animator.gd")
 const Spatial := preload("res://src/game/kitchen_interactions.gd")
@@ -70,6 +71,7 @@ func _ready() -> void:
 	player.add_child(shape)
 	add_child(player)
 	_visual = Art.person(player, Vector3.ZERO, "d49a70")
+	Appearance.apply(_visual, &"lin_che")
 	director.player_visual = _visual
 	_marker = _build_interaction_marker()
 	camera = Camera3D.new()

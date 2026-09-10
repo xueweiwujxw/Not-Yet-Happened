@@ -2,6 +2,7 @@ extends Node3D
 ## An open-front architectural diorama: plaster, oak, sage cabinetry and a framed summer sea.
 
 const Art := preload("res://src/art/low_poly.gd")
+const Appearance := preload("res://src/art/character_appearance.gd")
 var lamp: OmniLight3D
 var shiori: Node3D
 var shen: Node3D
@@ -20,8 +21,10 @@ func _ready() -> void:
 	_lighting()
 	shiori = Art.person(self, Vector3(2.3, 0.08, -1.45), "f0dbb7")
 	shiori.rotation.y = -0.65
+	Appearance.apply(shiori, &"shiori")
 	shen = Art.person(self, Vector3(-3.55, 0.08, 2.7), "7f9194", "ccc4ad")
 	shen.rotation.y = 0.6
+	Appearance.apply(shen, &"shen")
 	shiori.hide()
 	shen.hide()
 	letter.hide()

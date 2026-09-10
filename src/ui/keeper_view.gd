@@ -23,6 +23,7 @@ func refresh() -> void:
 	# Always expose time and consequence text, including pending dialogue.
 	var historical: bool = session.view()["phase"] in [SecondSession.Phase.BEFORE_OUTAGE, SecondSession.Phase.AFTER_OUTAGE, SecondSession.Phase.OBSERVED]
 	_visual.scale = Vector3.ONE * (0.7 if historical else 1.0)
+	Appearance.set_present(_visual, not historical)
 
 
 func _refresh_zone(force: bool = false) -> void:
