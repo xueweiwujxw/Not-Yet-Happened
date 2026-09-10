@@ -118,3 +118,15 @@ progress; changing rooms discards old references. Camera OFF suppresses these cu
 Animation completion never advances dialogue, changes facts or saves a choice.
 The cinematic reel includes the scan; the finale capture includes the camera timer.
 This is equipment feedback, not hand-to-prop animation or general object manipulation.
+
+## Character silhouettes
+
+Lin Che now carries a sage travel bag, Shiori has a short bob and a cream hair ribbon,
+Shen Qin wears round glasses with a grey bun, and Xu Lan wears a pocketed apron.
+These original procedural details follow the existing limb rigs without adding physics
+bodies or observation metadata. Hidden characters remain hidden. The adult travel bag
+disappears during both historical windows and returns with the present-day avatar.
+
+This pass differentiates clothing and silhouettes; bespoke rigs, facial expressions,
+cloth animation and final character models remain production work. Existing real-engine
+chapter captures and the cinematic reel cover the decorated characters in their sets.

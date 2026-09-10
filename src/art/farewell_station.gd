@@ -38,6 +38,7 @@ func _ready() -> void:
 	timer_lamp.hide()
 	shiori = Art.person(self, Vector3(1.2, 0, -2.7), "b69078")
 	shiori.set_meta("actor_id", &"shiori")
+	Appearance.apply(shiori, &"shiori")
 	# Bus is beyond the navigable slab; doors and wheels are decorative.
 	Art.box(self, Vector3(3.5, 1.2, -4.6), Vector3(3, 1.8, 1.5), Art.material("bda666"))
 	Art.box(self, Vector3(3.5, 1.55, -3.83), Vector3(2.6, 0.6, 0.03), Art.material("65888c"))
