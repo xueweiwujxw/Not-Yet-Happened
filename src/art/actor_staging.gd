@@ -2,6 +2,7 @@ extends RefCounted
 ## Small authored steps on the existing set. No navigation, facts or dialogue callbacks.
 
 const Animator := preload("res://src/art/person_animator.gd")
+const HandProp := preload("res://src/art/hand_prop.gd")
 var actors: Array[Dictionary] = []
 var _room: Node3D
 
@@ -45,6 +46,7 @@ func tick(active: Node3D, cue: Dictionary, elapsed: float, enabled: bool, player
 		if arm != null:
 			var gesture := float(cue.get("gesture", 0.0)) if performing else 0.0
 			arm.rotation.z = lerpf(arm.rotation.z, gesture, 1.0 - exp(-5.0 * dt))
+		HandProp.apply(person, performing and cue.get("hand_prop", &"") == &"bowl", elapsed - float(cue.get("delay", 0.0)))
 
 
 func _clear(person: Node3D, next: Vector3, player: Node3D) -> bool:

@@ -11,13 +11,15 @@ static func cue(text: String) -> Dictionary:
 		return {"actor": &"shiori", "delay": 0.4, "turn": 0.0}
 	if text in Three.LINES[&"ask_audio"]:
 		var pause := 4.0 if text == Three.LINES[&"ask_audio"][0] else 0.8
-		return {"actor": &"shiori", "delay": pause, "turn": -1.1, "step": Vector3(0, 0, 0.5)}
+		return {"actor": &"shiori", "delay": pause, "turn": -1.1, "step": Vector3(0, 0, 0.5), "emotion": &"reserved"}
 	if text in Three.LINES[&"respect"]:
-		return {"actor": &"shiori", "delay": 0.6, "turn": 0.0, "gesture": -0.18}
+		return {"actor": &"shiori", "delay": 0.6, "turn": 0.0, "gesture": -0.18, "emotion": &"warm"}
 	if text == Three.LINES[&"admission"][2]:
 		return {"actor": &"shen", "delay": 0.3, "turn": 0.0, "gesture": -0.3}
+	if text == Five.LINES[&"dinner"][0]:
+		return {"actor": &"xu", "delay": 0.5, "turn": 0.0, "emotion": &"warm", "hand_prop": &"bowl"}
 	if text in Five.OPENING or text in Five.LINES[&"dinner"]:
-		return {"actor": &"xu", "delay": 0.5, "turn": 0.0, "gesture": -0.25}
+		return {"actor": &"xu", "delay": 0.5, "turn": 0.0, "gesture": -0.25, "emotion": &"warm"}
 	if text in Six.LINES[&"join_together"] or text in Six.LINES[&"decline_together"]:
 		return {"actor": &"shiori", "delay": 0.5, "turn": 0.0, "step": Vector3(0, 0, 0.65), "gesture": -0.2}
 	return {}

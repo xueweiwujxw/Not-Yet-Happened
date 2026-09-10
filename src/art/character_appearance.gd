@@ -21,6 +21,11 @@ static func apply(person: Node3D, profile: StringName) -> void:
 			_shen(details)
 		&"xu":
 			_apron(details)
+			var hand := person.get_node_or_null("ArmRight") as Node3D
+			if hand != null:
+				var bowl := Art.cylinder(hand, Vector3(0, -0.5, 0), 0.09, 0.08, Art.material("eee0bd"), 0.15)
+				bowl.name = "HeldBowl"
+				bowl.hide()
 
 
 static func set_present(person: Node3D, present: bool) -> void:

@@ -95,5 +95,8 @@ static func person(parent: Node3D, at: Vector3, shirt: String, hair_color: Strin
 	sphere(person, Vector3(0, 1.38, 0), Vector3(0.53, 0.57, 0.48), skin)
 	sphere(person, Vector3(0, 1.55, -0.035), Vector3(0.57, 0.32, 0.5), material(hair_color))
 	for x: float in [-0.105, 0.105]:
-		sphere(person, Vector3(x, 1.4, 0.226), Vector3(0.035, 0.045, 0.025), material("443e38"))
+		var eye := sphere(person, Vector3(x, 1.4, 0.226), Vector3(0.035, 0.045, 0.025), material("443e38"))
+		eye.name = "EyeLeft" if x < 0 else "EyeRight"
+	var mouth := box(person, Vector3(0, 1.295, 0.226), Vector3(0.065, 0.012, 0.014), material("805d4b"))
+	mouth.name = "Mouth"
 	return person

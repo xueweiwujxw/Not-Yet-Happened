@@ -2,6 +2,7 @@ extends RefCounted
 ## Presentation-only camera blocking. Never advances dialogue or writes world facts.
 
 const Blocking := preload("res://src/art/dialogue_blocking.gd")
+const FacePose := preload("res://src/art/character_expression.gd")
 var staging := preload("res://src/art/actor_staging.gd").new()
 var props := preload("res://src/art/prop_performance.gd").new()
 
@@ -9,6 +10,7 @@ var enabled := true
 var talking := false
 var focus := Vector3.ZERO
 var elapsed := 0.0
+var expression_time := 0.0
 var actor: Node3D
 var player: Node3D
 var player_visual: Node3D
@@ -49,6 +51,12 @@ func stage(room: Node3D, avatar: Node3D, speaking: bool, text: String = "") -> v
 
 func tick(camera: Camera3D, delta: float) -> void:
 	elapsed += delta
+	expression_time += maxf(delta, 0.0)
+	for entry: Dictionary in staging.actors:
+		var person: Node3D = entry["node"]
+		var emotion: StringName = _cue.get("emotion", &"neutral") if person == actor and talking and elapsed >= float(_cue.get("delay", 0.0)) else &"neutral"
+		FacePose.apply(person, emotion, expression_time + float(entry["home"].x), enabled)
+	FacePose.apply(player_visual, &"neutral", expression_time, enabled)
 	props.tick(delta, enabled)
 	staging.tick(actor, _cue, elapsed, enabled and talking, player, delta)
 	var close: bool = enabled and talking
