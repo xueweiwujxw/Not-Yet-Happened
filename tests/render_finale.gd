@@ -95,7 +95,7 @@ func shot(view: Control, label: String) -> void:
 	if label == "camera-timer" and not view.room.timer_lamp.visible:
 		failures.append("Portrait timer must be visible in its capture")
 	if label == "dinner-serving":
-		var bowls := view.room.find_children("HeldBowl", "Node3D", true, false)
+		var bowls: Array[Node] = view.room.find_children("HeldBowl", "Node3D", true, false)
 		if bowls.size() != 1 or not bowls[0].is_visible_in_tree():
 			failures.append("Serving bowl must be visible during dinner")
 	if view.shown_chapter == 4:

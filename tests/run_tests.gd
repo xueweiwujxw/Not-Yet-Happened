@@ -28,6 +28,13 @@ func _initialize() -> void:
 
 
 func _run() -> void:
+	# Compile display-only entry points here too; headless tests do not execute them.
+	for script_path: String in ["render_kitchen", "render_keeper", "render_finale", "render_cinematic"]:
+		var renderer := load("res://tests/" + script_path + ".gd") as GDScript
+		if renderer == null or not renderer.can_instantiate():
+			printerr("Render entry point failed to compile: " + script_path)
+			quit(1)
+			return
 	var suites: Array[GDScript] = [
 		WorldStateTests,
 		ObservationTests,
