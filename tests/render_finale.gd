@@ -55,7 +55,13 @@ func _capture() -> void:
 		Fixture.step(view, &"seal" if ending == "blank" else &"verify", failures)
 		if ending in ["kitchen", "distance"]:
 			Fixture.step(view, &"invite" if ending == "kitchen" else &"no_invite", failures)
-		Fixture.step(view, &"dinner", failures)
+		if ending == "kitchen":
+			Fixture.approach(view, &"dinner")
+			view._act(&"dinner")
+			await shot(view, "dinner-serving")
+			Fixture.drain(view)
+		else:
+			Fixture.step(view, &"dinner", failures)
 		Fixture.step(view, &"correction", failures)
 		Fixture.step(view, &"next", failures)
 		Fixture.step(view, &"memorial", failures)
@@ -88,6 +94,10 @@ func shot(view: Control, label: String) -> void:
 	await RenderingServer.frame_post_draw
 	if label == "camera-timer" and not view.room.timer_lamp.visible:
 		failures.append("Portrait timer must be visible in its capture")
+	if label == "dinner-serving":
+		var bowls: Array[Node] = view.room.find_children("HeldBowl", "Node3D", true, false)
+		if bowls.size() != 1 or not bowls[0].is_visible_in_tree():
+			failures.append("Serving bowl must be visible during dinner")
 	if view.shown_chapter == 4:
 		var top: Vector2 = view.camera.unproject_position(view.room.lighthouse_roof.global_position + Vector3(0, 0.15, 0))
 		if not Rect2(Vector2.ZERO, Vector2(root.size)).has_point(top):

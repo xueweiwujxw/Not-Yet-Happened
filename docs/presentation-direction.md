@@ -130,3 +130,16 @@ disappears during both historical windows and returns with the present-day avata
 This pass differentiates clothing and silhouettes; bespoke rigs, facial expressions,
 cloth animation and final character models remain production work. Existing real-engine
 chapter captures and the cinematic reel cover the decorated characters in their sets.
+
+## Quiet faces and serving gesture
+
+Named eyes blink on a deterministic four-second clock that survives dialogue refreshes.
+Authored refusal uses lowered eyelids and a smaller mouth; respect and the dinner scene
+relax the face. Other lines return to neutral. Camera OFF resets expressions and disables
+blinking. These subtle cues are not lip sync or a replacement for facial acting.
+
+Xu Lan raises a small bowl in the first dinner block, keeping it level through arm rotation.
+Skipping the block or turning motion off hides it; the existing walk blend relaxes the arm.
+This is a serving gesture, not a physical transfer between characters or removal of table
+props. It carries no evidence, choice or dialogue-completion callbacks. The real-engine
+finale capture now includes the serving beat.

@@ -126,6 +126,7 @@ func _review_blocking(root: Window, failures: Array[String]) -> void:
 	var respect: String = preload("res://src/content/chapter_three.gd").LINES[&"respect"][0]
 	director.stage(room, avatar, true, respect)
 	check(director.elapsed == 0, "new line resets beat time", failures)
+	check(director.expression_time > 10, "new line does not restart blink clock", failures)
 	for i: int in range(360):
 		director.tick(camera, 1.0 / 60.0)
 	check(absf(angle_difference(shiori.rotation.y, -PI / 2)) < 0.01, "respect restores eye contact", failures)
@@ -138,6 +139,7 @@ func _review_blocking(root: Window, failures: Array[String]) -> void:
 	var heading := shiori.rotation.y
 	director.tick(camera, 2.0)
 	check(shiori.rotation.y == heading, "camera opt-out also disables authored turns", failures)
+	check(is_equal_approx(shiori.get_node("EyeLeft").scale.y, 0.045) and shiori.get_node("Mouth").scale == Vector3.ONE, "camera opt-out restores neutral face", failures)
 	director.stage(room, avatar, false, "")
 	check(director._cue.is_empty(), "leaving dialogue clears authored cue", failures)
 	director.stage(room, avatar, true, "An unauthored line")
