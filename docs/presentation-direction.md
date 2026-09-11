@@ -21,16 +21,16 @@ soft-colored low-poly scenery and give each location a recognizable silhouette a
 
 ## Voice handoff
 
-Two Chinese audition takes cover the third-chapter opening's three spoken sentences. They are
-generated samples, not approved final casting or a full dub. Stage directions remain unvoiced.
+The current manifest covers 55 dialogue blocks across all six chapters, including the keeper
+recording. These are generated auditions, not approved final casting. Stage directions remain unvoiced.
 Missing manifest entries mean silent dialogue; kitchen cues are not character voices. The voice control is shown
 only when a manifest has takes. It mutes locally; missing clips remain silent; advancing/stopping or
 hiding the view stops old audio. Audio completion never advances the story.
 
 Run `godot --headless --path . --script scripts/export_voice_lines.gd` to produce
 `build/voice/lines.csv`: 154 unique authored dialogue blocks with source references and exact-text
-SHA-256 identifiers. This is a recording worklist, not a complete validated dub: dynamically composed
-chapter-two lines also need their final displayed strings checked when recording.
+SHA-256 identifiers. Coverage tests check all explicitly labelled spoken lines and the keeper tape.
+Chapter-two replay uses the same authored called/uncalled strings and therefore the same takes.
 
 Put accepted original/licensed takes in `assets/voice/` and map the exact display-text SHA-256 to
 `res://assets/voice/<take>.ogg` in `manifest.json`. Changing a subtitle intentionally invalidates its
@@ -143,3 +143,32 @@ Skipping the block or turning motion off hides it; the existing walk blend relax
 This is a serving gesture, not a physical transfer between characters or removal of table
 props. It carries no evidence, choice or dialogue-completion callbacks. The real-engine
 finale capture now includes the serving beat.
+
+## Dinner and farewell voice auditions
+
+Six more display blocks now have voiced spoken lines: Xu Lan's opening invitation,
+the first two dinner blocks, the deceased-sister memorial dialogue, the shared portrait
+invitation and the shared landscape choice. Ten generated short takes use normal for
+Lin Che, delicate for Shiori and fancy for Xu Lan. Sources and exact transcripts are in
+`assets/voice/farewell-provenance.json`. Stage directions remain silent.
+
+All short previews are below the service's 30-second preview limit and decode successfully.
+They are mixed to mono 24 kHz Vorbis q4 with 0.5-second gaps and 0.25-second tails.
+This initial batch covered eleven display blocks. Synthetic auditions
+still need human listening and casting approval; duration/decoding checks do not certify
+pronunciation or acting quality. Solo portrait routes do not play Shiori's shared-photo lines.
+
+## Six-chapter spoken-dialogue coverage
+
+The subsequent pass fills 43 more spoken blocks plus the original keeper tape: 55 voiced
+display blocks in total. Narration, stage directions and written evidence remain unvoiced.
+Lin Che uses normal, his explicitly labelled younger recording uses clear, Shiori uses
+delicate, Lin Yao uses clear, Shen Qin and Xu Lan use fancy, and Zhou Qiming uses deep.
+These are service presets, not guaranteed distinct actors or final child casting.
+
+`dialogue-provenance.json` records 67 unique new spoken takes and their block order;
+`keeper-tape-provenance.json` records the additional original tape line. Exact subtitle hashes
+prevent one route from reusing another route's recording. Tests traverse all six chapter
+sources, reject missing spoken mappings and stale manifest entries, and decode every Ogg
+without requiring editor import. Preview duration/decoding has been checked; pronunciation,
+emotion, child/adult casting and the final mix still require listening review.
