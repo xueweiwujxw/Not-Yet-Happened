@@ -24,14 +24,15 @@ the sister's fate unknown. Tab and Enter / Space support keyboard play.
 The bundled Noto Sans CJK subset provides Chinese glyphs on all four platforms; the font license
 is accessible from the chapter screen. See [font provenance and rebuild instructions](assets/fonts/README.md).
 Automated tests cover glyph coverage, progression, scene controls and narrow-window layout.
-Photo and recording contents are represented by text; there is no voice acting yet.
+Photos and evidence retain text descriptions; spoken dialogue and the keeper tape have generated Chinese voice auditions.
 Use **探索 3D 老屋** to enter the first chapter's low-poly kitchen: WASD / arrow keys or a
 gamepad left stick move; E / gamepad A interacts or continues dialogue; Tab / gamepad B returns
 to the notebook and manual save/load. The player eases into motion, brakes and turns smoothly,
 and blends the walk cycle back to rest. Dialogue pushes in gently and nearby visible characters
 turn toward each other; `Camera: OFF` restores wide framing. See [presentation direction and voice
-handoff](docs/presentation-direction.md). Third-chapter opening dialogue has two generated Chinese
-audition takes; the rest is not dubbed yet. Missing takes stay silent and dialogue always advances
+handoff](docs/presentation-direction.md). All six chapters' explicitly labelled spoken dialogue and
+the keeper tape are covered by 55 voiced display blocks. Narration remains unvoiced; casting,
+pronunciation and acting still need human listening review. Missing takes stay silent and dialogue always advances
 manually. `Voice: ON/OFF` controls these takes separately from kitchen ambience.
 Quiet synthesized ambience, footsteps and accepted-interaction tones accompany the kitchen.
 Use `Audio: ON/OFF` to mute this view; this setting resets on reopening. These are placeholder

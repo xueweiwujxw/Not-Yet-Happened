@@ -98,11 +98,11 @@ interrupt audio and performance; no audio or movement completion changes game st
 
 Complete short previews are converted to mono 24 kHz Vorbis q4, with 0.5/0.6-second
 inter-speaker gaps and 0.25-second tails. These remain auditions pending human listening;
-the game currently has five voiced display blocks, not a complete six-chapter dub.
+that pass brought the game to five voiced display blocks, before the later coverage pass below.
 The real-engine reel now includes the entire question, refusal and respect sequence.
 
 Remaining production work: chapter-specific long walks and prop interactions, acting and
-voice coverage beyond these five blocks, character-specific rigs and facial expressions,
+voice pronunciation/casting review, character-specific rigs and richer facial expressions,
 environment art beyond procedural set dressing, final sound/music mix and physical-device QA.
 
 ## Equipment performance
