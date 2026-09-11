@@ -1,0 +1,68 @@
+{
+  "provider": "AI Voice Generator / AI Doc Maker",
+  "date": "2026-09-10",
+  "status": "generated auditions; human casting and performance review pending",
+  "processing": "Complete short previews; mono 24 kHz Vorbis q4; 0.5 second inter-speaker gaps; 0.25 second tails. Only spoken text, no stage directions.",
+  "takes": [
+    {
+      "id": "xu-opening",
+      "voice_id": "fancy",
+      "transcript": "看不清字的时候别硬看。饭还热着。",
+      "source": "https://www.aidocmaker.com/g0/audio?name=b2dcf7f4b99b43eb93b75fdcc3de8be0"
+    },
+    {
+      "id": "xu-dinner",
+      "voice_id": "fancy",
+      "transcript": "以前我总说你是被小遥救回来的。好像你每过一天，都要还一次。",
+      "source": "https://www.aidocmaker.com/g0/audio?name=f496ef8ef20b411ca6c94135504fdd47"
+    },
+    {
+      "id": "shiori-dinner",
+      "voice_id": "delicate",
+      "transcript": "妈，我也很想她。但我不想再为回来道歉。",
+      "source": "https://www.aidocmaker.com/g0/audio?name=f794aa021b8a476187d044e0fca30051"
+    },
+    {
+      "id": "lin-memorial1",
+      "voice_id": "normal",
+      "transcript": "最后一页写，她考上了想去的学校。",
+      "source": "https://www.aidocmaker.com/g0/audio?name=6895f5fdfec646f3b68cafb138e8fe86"
+    },
+    {
+      "id": "shiori-memorial",
+      "voice_id": "delicate",
+      "transcript": "不是写她救了我们吗？",
+      "source": "https://www.aidocmaker.com/g0/audio?name=56627815e40e4d32b6d3979349002f7e"
+    },
+    {
+      "id": "lin-memorial2",
+      "voice_id": "normal",
+      "transcript": "前面写过了。这也是她。",
+      "source": "https://www.aidocmaker.com/g0/audio?name=9423bfc0b86f46fab3615b85888ca4ad"
+    },
+    {
+      "id": "shiori-portrait",
+      "voice_id": "delicate",
+      "transcript": "这次站进来吗？",
+      "source": "https://www.aidocmaker.com/g0/audio?name=ca8448371e884504a24bea03c5109282"
+    },
+    {
+      "id": "lin-landscape",
+      "voice_id": "normal",
+      "transcript": "这次拍风景吧。",
+      "source": "https://www.aidocmaker.com/g0/audio?name=7a268839856c4aa8bf67d626cedb6f85"
+    },
+    {
+      "id": "shiori-landscape",
+      "voice_id": "delicate",
+      "transcript": "好。",
+      "source": "https://www.aidocmaker.com/g0/audio?name=0229b9dcd53148b5823eee155a089042"
+    },
+    {
+      "id": "xu-serving",
+      "voice_id": "fancy",
+      "transcript": "栞，明天想吃什么？",
+      "source": "https://www.aidocmaker.com/g0/audio?name=9072a44426c9420e8cfa51d45276fff5"
+    }
+  ]
+}

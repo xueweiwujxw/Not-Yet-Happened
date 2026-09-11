@@ -21,6 +21,8 @@ const PresentationTests := preload("res://tests/test_presentation.gd")
 const PropTests := preload("res://tests/test_prop_performance.gd")
 const AppearanceTests := preload("res://tests/test_character_appearance.gd")
 const ExpressionTests := preload("res://tests/test_character_expression.gd")
+const FarewellVoiceTests := preload("res://tests/test_farewell_voice.gd")
+const VoiceCoverageTests := preload("res://tests/test_voice_coverage.gd")
 
 
 func _initialize() -> void:
@@ -57,6 +59,8 @@ func _run() -> void:
 		PropTests,
 		AppearanceTests,
 		ExpressionTests,
+		FarewellVoiceTests,
+		VoiceCoverageTests,
 	]
 	for suite: GDScript in suites:
 		if not suite.can_instantiate():
@@ -86,6 +90,8 @@ func _run() -> void:
 	failures.append_array(await PropTests.new().run(root))
 	failures.append_array(AppearanceTests.new().run())
 	failures.append_array(ExpressionTests.new().run(root))
+	failures.append_array(FarewellVoiceTests.new().run())
+	failures.append_array(VoiceCoverageTests.new().run())
 
 	if failures.is_empty():
 		print("All tests passed.")

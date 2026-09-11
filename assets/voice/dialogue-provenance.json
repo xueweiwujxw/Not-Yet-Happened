@@ -1,0 +1,872 @@
+{
+  "provider": "AI Voice Generator / AI Doc Maker",
+  "date": "2026-09-11",
+  "status": "Generated auditions; human pronunciation and acting review pending",
+  "processing": "Complete short previews, mono 24 kHz Vorbis q4, 0.5s speaker gaps and 0.25s tails",
+  "takes": [
+    {
+      "id": "line-001",
+      "speaker": "林澈",
+      "transcript": "还是第二把。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=9c964280bf9c4c90832c1107c2423feb",
+      "duration_seconds": 1.008
+    },
+    {
+      "id": "line-002",
+      "speaker": "林澈",
+      "transcript": "你写这么大，是怕谁看不见。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=807f4be395ad45b6a149710b858b0eb7",
+      "duration_seconds": 2.568
+    },
+    {
+      "id": "line-003",
+      "speaker": "林澈",
+      "transcript": "我不记得拍过这张。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=50d46d96248043098a10c11f894acfe5",
+      "duration_seconds": 1.776
+    },
+    {
+      "id": "line-004",
+      "speaker": "栞",
+      "transcript": "你那天一直问，拍完能不能去买冰棒。",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=47d8c3a3b25043d1b5d0ce0d2e1d56cf",
+      "duration_seconds": 3.6
+    },
+    {
+      "id": "line-005",
+      "speaker": "林澈",
+      "transcript": "把化的那根给我。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=efe724791e764d1ea4aa476890240635",
+      "duration_seconds": 1.608
+    },
+    {
+      "id": "line-006",
+      "speaker": "栞",
+      "transcript": "你小时候可不这样。",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=6c70dd0a862c48b5943a2282417e9f78",
+      "duration_seconds": 1.92
+    },
+    {
+      "id": "line-007",
+      "speaker": "林澈",
+      "transcript": "那先别说话，快吃。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=ffa1f8b1fa26472f94809642d93b89e1",
+      "duration_seconds": 1.752
+    },
+    {
+      "id": "line-008",
+      "speaker": "林澈",
+      "transcript": "拍一张？",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=ceb86bdb862f46d9bf37b2b428838e35",
+      "duration_seconds": 0.696
+    },
+    {
+      "id": "line-009",
+      "speaker": "栞",
+      "transcript": "现在？我嘴上都是。",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=2098834117124903b8319b7ee57f2e23",
+      "duration_seconds": 1.776
+    },
+    {
+      "id": "line-010",
+      "speaker": "林澈",
+      "transcript": "那等一下。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=cb49dcd30f96406dadbe0eca07d3b4db",
+      "duration_seconds": 0.936
+    },
+    {
+      "id": "line-011",
+      "speaker": "栞",
+      "transcript": "不用。就这样。",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=682b99d5e81a48afae0dc06c0ef9c120",
+      "duration_seconds": 1.272
+    },
+    {
+      "id": "line-012",
+      "speaker": "林澈",
+      "transcript": "她知道自己会出事？",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=8bb7ca84d52548478380dfb39cfaf731",
+      "duration_seconds": 1.872
+    },
+    {
+      "id": "line-013",
+      "speaker": "沈琴",
+      "transcript": "她那天说的是去上学。",
+      "voice_id": "fancy",
+      "source": "https://www.aidocmaker.com/g0/audio?name=a4892b39474e4eea88aa840e6b5f66db",
+      "duration_seconds": 2.112
+    },
+    {
+      "id": "line-014",
+      "speaker": "栞",
+      "transcript": "走之前关灯吗？",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=5cbc8626a6014314a399cb3a448f5e17",
+      "duration_seconds": 1.44
+    },
+    {
+      "id": "line-015",
+      "speaker": "林澈",
+      "transcript": "关吧。回来还能打开。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=fe7b651c8f774c44b002d059552c79d9",
+      "duration_seconds": 1.896
+    },
+    {
+      "id": "line-016",
+      "speaker": "栞",
+      "transcript": "灯修好了？",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=0206178410d54f62a81fbde3ad060751",
+      "duration_seconds": 1.032
+    },
+    {
+      "id": "line-017",
+      "speaker": "林澈",
+      "transcript": "嗯。回来就能打开。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=eeb28dc3830c424291e6a0cfe6a4541d",
+      "duration_seconds": 1.656
+    },
+    {
+      "id": "line-018",
+      "speaker": "栞",
+      "transcript": "灯还是坏的。",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=addbc6deb1594f5bb1b22b3a6c087b78",
+      "duration_seconds": 1.224
+    },
+    {
+      "id": "line-019",
+      "speaker": "林澈",
+      "transcript": "回来再修。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=c7dcf2eb9e5a42f38341972b068a0b74",
+      "duration_seconds": 0.936
+    },
+    {
+      "id": "line-020",
+      "speaker": "年幼的林澈",
+      "transcript": "这个可以录多久？",
+      "voice_id": "clear",
+      "source": "https://www.aidocmaker.com/g0/audio?name=257f79c708664077bf42331d0e42bb27",
+      "duration_seconds": 1.488
+    },
+    {
+      "id": "line-021",
+      "speaker": "林遥",
+      "transcript": "录到你终于不问问题。",
+      "voice_id": "clear",
+      "source": "https://www.aidocmaker.com/g0/audio?name=f69108e4dd8a4a65995383ed81852e1e",
+      "duration_seconds": 2.112
+    },
+    {
+      "id": "line-022",
+      "speaker": "年幼的林澈",
+      "transcript": "那会不会不够？",
+      "voice_id": "clear",
+      "source": "https://www.aidocmaker.com/g0/audio?name=da57c9964d4f49b5ad9696b3081bbfb9",
+      "duration_seconds": 1.128
+    },
+    {
+      "id": "line-023",
+      "speaker": "栞",
+      "transcript": "有一根化了。",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=938228a1d67649569c506a72cb870423",
+      "duration_seconds": 1.176
+    },
+    {
+      "id": "line-024",
+      "speaker": "林澈",
+      "transcript": "你拿来的时候就化了？",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=fb2654e43c184a5e89d9813186302b23",
+      "duration_seconds": 1.992
+    },
+    {
+      "id": "line-025",
+      "speaker": "栞",
+      "transcript": "你开门太慢。",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=7fb3a455c614449b8a0c6959d42f0353",
+      "duration_seconds": 1.2
+    },
+    {
+      "id": "line-026",
+      "speaker": "沈琴",
+      "transcript": "应该早点给你的。",
+      "voice_id": "fancy",
+      "source": "https://www.aidocmaker.com/g0/audio?name=a665e80d36a7425090438ecf23281d35",
+      "duration_seconds": 1.56
+    },
+    {
+      "id": "line-027",
+      "speaker": "林澈",
+      "transcript": "什么时候寄来的？",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=32842d6fe9904700a3955b7b816fb328",
+      "duration_seconds": 1.44
+    },
+    {
+      "id": "line-028",
+      "speaker": "沈琴",
+      "transcript": "不是寄来的。是她交给我的。",
+      "voice_id": "fancy",
+      "source": "https://www.aidocmaker.com/g0/audio?name=3d93bc32a32641d9bcb0851a57c905a2",
+      "duration_seconds": 2.64
+    },
+    {
+      "id": "line-029",
+      "speaker": "林澈",
+      "transcript": "那你为什么现在才给？",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=81d5e1f6d054465e9549f3917e9b4763",
+      "duration_seconds": 2.088
+    },
+    {
+      "id": "line-030",
+      "speaker": "沈琴",
+      "transcript": "我以前总觉得，再等一等，就不用寄了。",
+      "voice_id": "fancy",
+      "source": "https://www.aidocmaker.com/g0/audio?name=962b34f6e44540818f02fdb3a7293d1b",
+      "duration_seconds": 3.576
+    },
+    {
+      "id": "line-031",
+      "speaker": "栞",
+      "transcript": "以前觉得这门好重。",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=44aba3184f2e48c6806592ac36b35917",
+      "duration_seconds": 1.92
+    },
+    {
+      "id": "line-032",
+      "speaker": "林澈",
+      "transcript": "门换过了。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=171f36dde3344a26a0358315d2658946",
+      "duration_seconds": 1.008
+    },
+    {
+      "id": "line-033",
+      "speaker": "栞",
+      "transcript": "嗯。可我还是习惯先用肩膀。",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=d49dfe520f4142cd882c767353385998",
+      "duration_seconds": 2.688
+    },
+    {
+      "id": "line-034",
+      "speaker": "林澈",
+      "transcript": "周叔，我们在值班室。请到入口接我们。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=750975a471d440b1bc47d8b69e6d65bb",
+      "duration_seconds": 3.48
+    },
+    {
+      "id": "line-035",
+      "speaker": "周启明",
+      "transcript": "别去堤边。我到门口接应。备用照明柜在门内左边，接线等大人来。",
+      "voice_id": "deep",
+      "source": "https://www.aidocmaker.com/g0/audio?name=00e93d2cd6fd4fe78c80231b276cc6c1",
+      "duration_seconds": 6.144
+    },
+    {
+      "id": "line-036",
+      "speaker": "林澈",
+      "transcript": "我们等你。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=04858b53b6ae4330aa4175d1e656c2ac",
+      "duration_seconds": 0.984
+    },
+    {
+      "id": "line-037",
+      "speaker": "周启明",
+      "transcript": "跟紧，别踩外面的水。",
+      "voice_id": "deep",
+      "source": "https://www.aidocmaker.com/g0/audio?name=1847333526114d7598335e132b1e108c",
+      "duration_seconds": 1.92
+    },
+    {
+      "id": "line-038",
+      "speaker": "林遥",
+      "transcript": "先送你们上船。别回去捡东西。",
+      "voice_id": "clear",
+      "source": "https://www.aidocmaker.com/g0/audio?name=2018fa448ed947de87dfdd157f1ef7d9",
+      "duration_seconds": 2.904
+    },
+    {
+      "id": "line-039",
+      "speaker": "林澈",
+      "transcript": "我在。我来开门。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=20f8ab5db16a453fa4d694fbca2c10ff",
+      "duration_seconds": 1.488
+    },
+    {
+      "id": "line-040",
+      "speaker": "林遥",
+      "transcript": "手给我。我先带你们去船边。",
+      "voice_id": "clear",
+      "source": "https://www.aidocmaker.com/g0/audio?name=38f0acc3ba9742aa9766f7f08c65c632",
+      "duration_seconds": 2.544
+    },
+    {
+      "id": "line-041",
+      "speaker": "林澈",
+      "transcript": "如果我再来一次……",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=d34ae59c2b2b4052a080900012ef9231",
+      "duration_seconds": 1.68
+    },
+    {
+      "id": "line-042",
+      "speaker": "栞",
+      "transcript": "你记得我那时很害怕吗？",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=e197f96158494b808d94dd010b105137",
+      "duration_seconds": 2.376
+    },
+    {
+      "id": "line-043",
+      "speaker": "林澈",
+      "transcript": "记得。你一直攥着带子。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=4459646bd14247c4869f21c9556b5648",
+      "duration_seconds": 1.944
+    },
+    {
+      "id": "line-044",
+      "speaker": "栞",
+      "transcript": "我怕你也不见了。",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=ac2d2ef6482743ee94bd30e2456329c7",
+      "duration_seconds": 1.632
+    },
+    {
+      "id": "line-045",
+      "speaker": "林澈",
+      "transcript": "你们都知道，就我不知道？",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=40cee7c0cd18451a8b0f46c3f731ffa5",
+      "duration_seconds": 1.992
+    },
+    {
+      "id": "line-046",
+      "speaker": "栞",
+      "transcript": "你那时只有十岁。现在不是了。",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=2dc0f6e4b6db4c32a25d375ba9ce078a",
+      "duration_seconds": 2.928
+    },
+    {
+      "id": "line-047",
+      "speaker": "沈琴",
+      "transcript": "她托我寄的，是离开家的信，不是告别世界的信。",
+      "voice_id": "fancy",
+      "source": "https://www.aidocmaker.com/g0/audio?name=cd7342023a9b437baf0860ed914f1b85",
+      "duration_seconds": 4.584
+    },
+    {
+      "id": "line-048",
+      "speaker": "周启明",
+      "transcript": "我只到过停电的入口。我怕再往下走。",
+      "voice_id": "deep",
+      "source": "https://www.aidocmaker.com/g0/audio?name=decbbdfe6bcf43608e5f9a2be155550a",
+      "duration_seconds": 3.6
+    },
+    {
+      "id": "line-049",
+      "speaker": "林澈",
+      "transcript": "那你为什么写无人？",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=c6a2fe081e2540cc90d9859a412df9a6",
+      "duration_seconds": 1.632
+    },
+    {
+      "id": "line-050",
+      "speaker": "周启明",
+      "transcript": "我想把没看见的地方也算成看过。对不起。",
+      "voice_id": "deep",
+      "source": "https://www.aidocmaker.com/g0/audio?name=b7977f2cde4e4b61b6145dd98b2d4a59",
+      "duration_seconds": 3.816
+    },
+    {
+      "id": "line-051",
+      "speaker": "周启明",
+      "transcript": "图给你。你愿不愿意原谅我，都不该影响你拿到它。",
+      "voice_id": "deep",
+      "source": "https://www.aidocmaker.com/g0/audio?name=404d4910c3ab473494d0e15db7dbed28",
+      "duration_seconds": 4.752
+    },
+    {
+      "id": "line-052",
+      "speaker": "林澈",
+      "transcript": "谢谢你说出来。我接受道歉，但报告要留着，更正也要留着。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=eb644657e5d4433c8e207a21ee0aab5c",
+      "duration_seconds": 5.52
+    },
+    {
+      "id": "line-053",
+      "speaker": "林澈",
+      "transcript": "我现在没办法说没关系。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=fc32b1698ea148a0a61d25f365fe4213",
+      "duration_seconds": 2.136
+    },
+    {
+      "id": "line-054",
+      "speaker": "周启明",
+      "transcript": "不必。你拿好图。",
+      "voice_id": "deep",
+      "source": "https://www.aidocmaker.com/g0/audio?name=ac275065e0844b6f9851f48194114fe3",
+      "duration_seconds": 1.416
+    },
+    {
+      "id": "line-055",
+      "speaker": "栞",
+      "transcript": "我刚才已经回答了。",
+      "voice_id": "delicate",
+      "source": "https://www.aidocmaker.com/g0/audio?name=e0846af52015441a9816bda5703e44cc",
+      "duration_seconds": 1.92
+    },
+    {
+      "id": "line-056",
+      "speaker": "林澈",
+      "transcript": "你能不能不要走？",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=13ffd552d6d344eb9a5b8bc1511e58c0",
+      "duration_seconds": 1.344
+    },
+    {
+      "id": "line-057",
+      "speaker": "林遥",
+      "transcript": "我先送你们上船。",
+      "voice_id": "clear",
+      "source": "https://www.aidocmaker.com/g0/audio?name=ca711d15ec8f47c39a2a8eadc8221d92",
+      "duration_seconds": 1.32
+    },
+    {
+      "id": "line-058",
+      "speaker": "林澈",
+      "transcript": "我不是说现在。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=93937f4ad1644b17b1dbc5c999527a00",
+      "duration_seconds": 1.344
+    },
+    {
+      "id": "line-059",
+      "speaker": "林遥",
+      "transcript": "阿澈，手给我。",
+      "voice_id": "clear",
+      "source": "https://www.aidocmaker.com/g0/audio?name=eb0f9a27611c496483d5e3092ac64b81",
+      "duration_seconds": 1.224
+    },
+    {
+      "id": "line-060",
+      "speaker": "林遥",
+      "transcript": "抓紧绳子！阿澈，你又把鞋带系死了？",
+      "voice_id": "clear",
+      "source": "https://www.aidocmaker.com/g0/audio?name=238a662dff544cd89ff975aea1dfee37",
+      "duration_seconds": 3.408
+    },
+    {
+      "id": "line-061",
+      "speaker": "林遥",
+      "transcript": "我不是没有想你。我是每一年都比上一年更不知道怎么回来。",
+      "voice_id": "clear",
+      "source": "https://www.aidocmaker.com/g0/audio?name=2ead9ffddfcd49608d7f7f699e7ea213",
+      "duration_seconds": 5.232
+    },
+    {
+      "id": "line-062",
+      "speaker": "林遥",
+      "transcript": "开始是住院。后来，是我不知道怎么说，我真的想离开。再后来，听说你们已经安葬了我……我就一直躲着。",
+      "voice_id": "clear",
+      "source": "https://www.aidocmaker.com/g0/audio?name=b9ea7234508d4034aa590969b0b52398",
+      "duration_seconds": 9.648
+    },
+    {
+      "id": "line-063",
+      "speaker": "林澈",
+      "transcript": "这些年，我确实很生气。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=131d28fefe47495f95fa8ff90f71d78b",
+      "duration_seconds": 2.184
+    },
+    {
+      "id": "line-064",
+      "speaker": "林遥",
+      "transcript": "我知道。我不能用难过，把这些都算成没有发生。",
+      "voice_id": "clear",
+      "source": "https://www.aidocmaker.com/g0/audio?name=c5256af471524ea68c34aed1d6c9e57d",
+      "duration_seconds": 4.536
+    },
+    {
+      "id": "line-065",
+      "speaker": "林澈",
+      "transcript": "这次住多久？",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=cb74a5b816a64e61b4c1d73bad2f01d2",
+      "duration_seconds": 1.056
+    },
+    {
+      "id": "line-066",
+      "speaker": "林遥",
+      "transcript": "周日回去。那边还有活。",
+      "voice_id": "clear",
+      "source": "https://www.aidocmaker.com/g0/audio?name=a5738c00d640480cb3965d2c7ab9358b",
+      "duration_seconds": 2.208
+    },
+    {
+      "id": "line-067",
+      "speaker": "林澈",
+      "transcript": "那我买三天的菜。",
+      "voice_id": "normal",
+      "source": "https://www.aidocmaker.com/g0/audio?name=9a1d44f9251e4f97a1c121f8fa83cc1c",
+      "duration_seconds": 1.632
+    }
+  ],
+  "blocks": [
+    {
+      "source": "chapter_one.LINES.opening.0",
+      "sha256": "9f848dd65d094b381b6f9084a087cb44e9c5dad87f3d9b30929449a8eedecb52",
+      "takes": [
+        "line-001"
+      ]
+    },
+    {
+      "source": "chapter_one.LINES.unsafe_repair.0",
+      "sha256": "a59fde911f35b17d96d387eea24c57fd92c4ff541cdb6f24aaf18ab91b501e71",
+      "takes": [
+        "line-002"
+      ]
+    },
+    {
+      "source": "chapter_one.LINES.photo_alone.1",
+      "sha256": "fea9038f8baf0ed2ee23cb1386e827527b5e66424b7b63687f51cf82b8afdd69",
+      "takes": [
+        "line-003"
+      ]
+    },
+    {
+      "source": "chapter_one.LINES.photo_together.1",
+      "sha256": "64421d9dd7426100824947065d1bfae47a361edbf5d5936f1293896cacef1105",
+      "takes": [
+        "line-003",
+        "line-004"
+      ]
+    },
+    {
+      "source": "chapter_one.LINES.melted.0",
+      "sha256": "d0d44daf793820044e68361e44fb3dfe48f32a99d8f66ac2a65daefef165daf4",
+      "takes": [
+        "line-005",
+        "line-006"
+      ]
+    },
+    {
+      "source": "chapter_one.LINES.eat.0",
+      "sha256": "cbe2f510c030382aca2196abcc051827a9f2d820868f759c917a1dd01251597d",
+      "takes": [
+        "line-007"
+      ]
+    },
+    {
+      "source": "chapter_one.LINES.portrait.0",
+      "sha256": "53dc2315a2d24b81445a41b45ab021bd15ab7ee408fb437032763acab58580c8",
+      "takes": [
+        "line-008",
+        "line-009"
+      ]
+    },
+    {
+      "source": "chapter_one.LINES.portrait.1",
+      "sha256": "ac4fb008ce6d4178a0c372d7e30844b31afb2b23027b6c4a263e731780789aab",
+      "takes": [
+        "line-010",
+        "line-011"
+      ]
+    },
+    {
+      "source": "chapter_one.LINES.letter_end.0",
+      "sha256": "c6fd1feda8dd759f92d1ef6333989d0529f80bcb7ce31cb36382dad7ad19484e",
+      "takes": [
+        "line-012",
+        "line-013"
+      ]
+    },
+    {
+      "source": "chapter_one.LINES.leave_repaired.0",
+      "sha256": "547f901a5b0e13b8911ff7f2a26ca932587a51dd71d76e5c19ed9c40f968231e",
+      "takes": [
+        "line-014",
+        "line-015"
+      ]
+    },
+    {
+      "source": "chapter_one.LINES.leave_repaired_off.0",
+      "sha256": "7b4715475a8f56eca201e6b02ba547631268bc4338f67651583753372ba7fd25",
+      "takes": [
+        "line-016",
+        "line-017"
+      ]
+    },
+    {
+      "source": "chapter_one.LINES.leave_dark.0",
+      "sha256": "41b9714c79a1b02ec2338d14f9e2455dfbfa3334fe55e1a172fa4a1a64c254b7",
+      "takes": [
+        "line-018",
+        "line-019"
+      ]
+    },
+    {
+      "source": "chapter_one.RECORDING.0",
+      "sha256": "5e602839126681725a233c7cfff180321d052b504712c20067aec5799ee5d4bb",
+      "takes": [
+        "line-020"
+      ]
+    },
+    {
+      "source": "chapter_one.RECORDING.1",
+      "sha256": "a27c8ecce307af337f037c007b0b6f38c1f4ac9a3f76cf7e780e6b60a4ede5e8",
+      "takes": [
+        "line-021"
+      ]
+    },
+    {
+      "source": "chapter_one.RECORDING.2",
+      "sha256": "a7c259f6ca38dc4b1cfb690ce951c7196c1e54a2c728e64b5c94d57fac0b1dea",
+      "takes": [
+        "line-022"
+      ]
+    },
+    {
+      "source": "chapter_one.ARRIVAL.1",
+      "sha256": "71b32e970cddb0efc76fb47dde3402584f3c6ea2676220764613a8f2e53bb737",
+      "takes": [
+        "line-023",
+        "line-024",
+        "line-025"
+      ]
+    },
+    {
+      "source": "chapter_one.ARRIVAL.3",
+      "sha256": "1267bed8850a5177edef535b4e33b45a16ae932ad1dacd75afc45509e8e3e543",
+      "takes": [
+        "line-026",
+        "line-027",
+        "line-028"
+      ]
+    },
+    {
+      "source": "chapter_one.ARRIVAL.4",
+      "sha256": "45041c50a3808aad7b4d4139d7040ae2e32c7194df09bb490f697149e6fa6017",
+      "takes": [
+        "line-029",
+        "line-030"
+      ]
+    },
+    {
+      "source": "chapter_two.DIALOGUE.opening.0",
+      "sha256": "06c292b2f415049366120086c5323a4513d9bf54a45755363929595743622c65",
+      "takes": [
+        "line-031"
+      ]
+    },
+    {
+      "source": "chapter_two.DIALOGUE.opening.1",
+      "sha256": "cf521c23f6ef4fab6aec86264d1e9fbb56ec309ddcb4de01181d4ea9adc3f7ab",
+      "takes": [
+        "line-032",
+        "line-033"
+      ]
+    },
+    {
+      "source": "chapter_two.DIALOGUE.call.0",
+      "sha256": "2073fe070f9d8485b637db64ce835c7c7dacb161c651c7e51f1257d1e0800f67",
+      "takes": [
+        "line-034",
+        "line-035"
+      ]
+    },
+    {
+      "source": "chapter_two.DIALOGUE.call.1",
+      "sha256": "53e889b686310cbebf1d2b51f418e1f6ff19a6630185108175337a1187263b1f",
+      "takes": [
+        "line-036"
+      ]
+    },
+    {
+      "source": "chapter_two.DIALOGUE.open_called.0",
+      "sha256": "d3a66412337e71313e3bd4f7d120b136362be4c1a28c16f73c985f818c3c6808",
+      "takes": [
+        "line-037"
+      ]
+    },
+    {
+      "source": "chapter_two.DIALOGUE.open_called.1",
+      "sha256": "4f9cb42a5e3918d94ec1c7288388fd9c3e1af38732ded9883e2b88aafe799ef1",
+      "takes": [
+        "line-038"
+      ]
+    },
+    {
+      "source": "chapter_two.DIALOGUE.open_alone.1",
+      "sha256": "85b82e73f2d55e273e8f60ac992a736d2d476fe5e0dda25608a6365bb0e53ceb",
+      "takes": [
+        "line-039"
+      ]
+    },
+    {
+      "source": "chapter_two.DIALOGUE.open_alone.2",
+      "sha256": "8a1b0567217f965fe466fea3632e6fdb714a47185e46bbc91eef2357e89b10d4",
+      "takes": [
+        "line-040"
+      ]
+    },
+    {
+      "source": "chapter_two.DIALOGUE.return.1",
+      "sha256": "44924d2cd99219ee759612ad21049d03c4854f2289e35a2526b381db03738302",
+      "takes": [
+        "line-041",
+        "line-042"
+      ]
+    },
+    {
+      "source": "chapter_two.DIALOGUE.leave.0",
+      "sha256": "35d5fd138021d804a7c5041cfd6c3db5082198a8b95ae414b022594c86393d0b",
+      "takes": [
+        "line-043",
+        "line-044"
+      ]
+    },
+    {
+      "source": "chapter_three.LINES.admission.1",
+      "sha256": "50bd3d7e6541f0d8a3b6022a6a46b326f2ba9ecb848015a1b9737f31c7be7b17",
+      "takes": [
+        "line-045",
+        "line-046"
+      ]
+    },
+    {
+      "source": "chapter_three.LINES.admission.2",
+      "sha256": "394febc18747cf79bf018826e532e7b0d7dbb075c622d87d34bd426cb739d0e2",
+      "takes": [
+        "line-047"
+      ]
+    },
+    {
+      "source": "chapter_three.LINES.patrol.1",
+      "sha256": "7aa16ebe9288ba5d9b40081c89c06ed8083dd30e259b1e6f2adbdc9d00ff7121",
+      "takes": [
+        "line-048",
+        "line-049"
+      ]
+    },
+    {
+      "source": "chapter_three.LINES.patrol.2",
+      "sha256": "38d7bb00f32f362e672772355c45f8a2aa31e878560d3f13ee82fe14618bfeb9",
+      "takes": [
+        "line-050"
+      ]
+    },
+    {
+      "source": "chapter_three.LINES.diagram.2",
+      "sha256": "0c85e93396b8873019c6b1f528187d429583b0492ecc2540d268d1c06ade5bd3",
+      "takes": [
+        "line-051"
+      ]
+    },
+    {
+      "source": "chapter_three.LINES.forgive.0",
+      "sha256": "db10cc5a5da8be03c6a40bfdf5e46f061d6cf6033ca130c55c8a42d120b8525c",
+      "takes": [
+        "line-052"
+      ]
+    },
+    {
+      "source": "chapter_three.LINES.withhold.0",
+      "sha256": "0db610c2c0055560b02c777c457ea97b481df4f7bbd651595ebe54c070864112",
+      "takes": [
+        "line-053",
+        "line-054"
+      ]
+    },
+    {
+      "source": "chapter_three.LINES.play_anyway.0",
+      "sha256": "3193822f6ddc07e217ff998fca0454b4a3e82c9b881a94ff08bfe150a7f43b62",
+      "takes": [
+        "line-055"
+      ]
+    },
+    {
+      "source": "chapter_four.LINES.boarding.1",
+      "sha256": "daa88de7ac8fcd8bd452433a23bc35e9f2b0a295578bd0f4367a953f17aaf68f",
+      "takes": [
+        "line-056",
+        "line-057",
+        "line-058"
+      ]
+    },
+    {
+      "source": "chapter_four.LINES.boarding.2",
+      "sha256": "19611180a362261de418c07c38e0157cae0645fc259343bc2eea96156c6fac21",
+      "takes": [
+        "line-059"
+      ]
+    },
+    {
+      "source": "chapter_five.LINES.verify_dead.2",
+      "sha256": "5c5ed4208a0fd3f6b7086e82810a38ccfd7eca8f6b477b55e28558a3d7ea7153",
+      "takes": [
+        "line-060"
+      ]
+    },
+    {
+      "source": "chapter_five.LINES.invite.1",
+      "sha256": "e2540f92247858a72e56a49dcf3c48de89eccdd28c821c75ecde01e8c63e9d64",
+      "takes": [
+        "line-061"
+      ]
+    },
+    {
+      "source": "chapter_five.LINES.invite.2",
+      "sha256": "0db8e5d4f83cb90347a65cebe22ace620abb46cac368722db0a78296f86abaac",
+      "takes": [
+        "line-062"
+      ]
+    },
+    {
+      "source": "chapter_five.LINES.invite.3",
+      "sha256": "1a6ffa9469846cbb52213df21597df4b2ad34176d46a7c89f2ef204e690b1149",
+      "takes": [
+        "line-063",
+        "line-064"
+      ]
+    },
+    {
+      "source": "chapter_six.LINES.kitchen.2",
+      "sha256": "7f78434271468927c58a0fb0ee887acbde848988aa50cd3bf030a3ea7e396810",
+      "takes": [
+        "line-065",
+        "line-066",
+        "line-067"
+      ]
+    }
+  ]
+}
