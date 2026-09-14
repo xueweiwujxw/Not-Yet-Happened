@@ -28,18 +28,31 @@ func present(text: String, speaking: bool) -> void:
 		return
 	stop()
 	current_key = key
-	if muted or not clips.has(key):
+	if not clips.has(key):
 		return
 	var path: Variant = clips[key]
 	if not path is String or not path.begins_with("res://assets/voice/") or ".." in path:
 		return
 	output.stream = resolve_stream.call(path)
-	if output.stream != null:
+	if output.stream != null and not muted:
 		_start_take.call_deferred(_ticket)
 
 
+func can_replay() -> bool:
+	return is_inside_tree() and not is_queued_for_deletion() and not muted and not current_key.is_empty() and output != null and output.stream != null
+
+
+func replay() -> bool:
+	if not can_replay():
+		return false
+	_ticket += 1
+	output.stop()
+	_start_take.call_deferred(_ticket)
+	return true
+
+
 func _start_take(ticket: int) -> void:
-	if ticket == _ticket and not muted and is_inside_tree() and output.stream != null:
+	if ticket == _ticket and can_replay():
 		output.play()
 
 

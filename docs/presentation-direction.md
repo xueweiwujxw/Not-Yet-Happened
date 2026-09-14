@@ -172,3 +172,11 @@ prevent one route from reusing another route's recording. Tests traverse all six
 sources, reject missing spoken mappings and stale manifest entries, and decode every Ogg
 without requiring editor import. Preview duration/decoding has been checked; pronunciation,
 emotion, child/adult casting and the final mix still require listening review.
+
+## Replay without repeating a choice
+
+Voiced dialogue shows a `重听对白` button beside Continue. It restarts only the current
+audio on the existing player, preserving story events, camera timing and character cues.
+Muted lines still resolve their local take so unmuting can enable explicit replay, but
+unmuting never starts playback by itself. Missing/unvoiced blocks hide the button.
+Rapid replay clicks replace the pending start; skip, mute, hide and stop cancel it.
