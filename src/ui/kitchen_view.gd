@@ -170,6 +170,9 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_A:
 		_trigger_primary_action()
 		get_viewport().set_input_as_handled()
+	elif event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_Y:
+		_replay_voice()
+		get_viewport().set_input_as_handled()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -178,6 +181,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	var keyboard_action: bool = event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_E
 	if keyboard_action:
 		_trigger_primary_action()
+		get_viewport().set_input_as_handled()
+	elif event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_R:
+		_replay_voice()
 		get_viewport().set_input_as_handled()
 
 
@@ -266,7 +272,7 @@ func _build_hud() -> void:
 	var row := HBoxContainer.new()
 	column.add_child(row)
 	next_button = _button(row, Chapter.NEXT, _advance)
-	replay_button = _button(row, "重听对白", _replay_voice)
+	replay_button = _button(row, "重听对白（R / Y）", _replay_voice)
 	_actions = HFlowContainer.new()
 	_actions.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(_actions)

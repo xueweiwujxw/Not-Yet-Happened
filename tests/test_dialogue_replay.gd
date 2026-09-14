@@ -51,6 +51,23 @@ func run(root: Window) -> Array[String]:
 	check(view.replay_button.visible and not view.replay_button.disabled, "voiced block exposes replay", failures)
 	view.replay_button.pressed.emit()
 	check(view.session.save_data() == saved and view.director.elapsed == 0.7 and view.camera.transform == camera_transform, "replay preserves facts, choices and camera timing", failures)
+	var ticket: int = view.voice._ticket
+	var key_press := InputEventKey.new()
+	key_press.physical_keycode = KEY_R
+	key_press.pressed = true
+	view._unhandled_input(key_press)
+	check(view.voice._ticket == ticket + 1, "R requests replay", failures)
+	key_press.echo = true
+	view._unhandled_input(key_press)
+	check(view.voice._ticket == ticket + 1, "held R does not continually restart audio", failures)
+	var pad := InputEventJoypadButton.new()
+	pad.button_index = JOY_BUTTON_Y
+	pad.pressed = true
+	view._input(pad)
+	check(view.voice._ticket == ticket + 2 and view.session.save_data() == saved, "controller Y replays without advancing dialogue", failures)
+	pad.pressed = false
+	view._input(pad)
+	check(view.voice._ticket == ticket + 2, "controller release does not replay", failures)
 	view.voice_button.pressed.emit()
 	check(view.replay_button.disabled, "mute disables replay button", failures)
 	view.voice_button.pressed.emit()
