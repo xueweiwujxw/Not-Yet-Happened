@@ -103,7 +103,7 @@ func shot(view: Control, label: String) -> void:
 		if not Rect2(Vector2.ZERO, Vector2(root.size)).has_point(top):
 			failures.append("Lighthouse silhouette clipped: " + label)
 	# Catch dialogue/button overflow on the actual rendered layout, not just PNG existence.
-	for control: Control in [view.story_label, view.zone_label, view.next_button]:
+	for control: Control in [view.story_label, view.zone_label, view.next_button, view.replay_button]:
 		if control.visible and not Rect2(Vector2.ZERO, Vector2(root.size)).encloses(control.get_global_rect()):
 			failures.append("Finale layout overflow: " + label)
 	for button: Button in view.action_buttons.values():

@@ -30,6 +30,7 @@ var voice: Node
 var director := Director.new()
 var motion_button: Button
 var voice_button: Button
+var replay_button: Button
 var transition: ColorRect
 var transition_tween: Tween
 var mute_button: Button
@@ -90,6 +91,7 @@ func _ready() -> void:
 	visibility_changed.connect(func() -> void:
 		if not is_visible_in_tree():
 			voice.stop()
+		_update_replay()
 	)
 
 
@@ -168,6 +170,9 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_A:
 		_trigger_primary_action()
 		get_viewport().set_input_as_handled()
+	elif event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_Y:
+		_replay_voice()
+		get_viewport().set_input_as_handled()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -176,6 +181,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	var keyboard_action: bool = event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_E
 	if keyboard_action:
 		_trigger_primary_action()
+		get_viewport().set_input_as_handled()
+	elif event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_R:
+		_replay_voice()
 		get_viewport().set_input_as_handled()
 
 
@@ -232,6 +240,7 @@ func _build_hud() -> void:
 	voice_button = _button(hud, "Voice: ON", func() -> void:
 		voice.set_muted(not voice.muted)
 		voice_button.text = "Voice: OFF" if voice.muted else "Voice: ON"
+		_update_replay()
 	)
 	voice_button.position = Vector2(185, 90)
 	voice_button.visible = not voice.clips.is_empty()
@@ -263,6 +272,7 @@ func _build_hud() -> void:
 	var row := HBoxContainer.new()
 	column.add_child(row)
 	next_button = _button(row, Chapter.NEXT, _advance)
+	replay_button = _button(row, "重听对白（R / Y）", _replay_voice)
 	_actions = HFlowContainer.new()
 	_actions.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(_actions)
@@ -294,6 +304,16 @@ func _advance() -> void:
 	refresh()
 
 
+func _replay_voice() -> void:
+	if is_visible_in_tree() and not is_queued_for_deletion() and session.speaking():
+		voice.replay()
+
+
+func _update_replay() -> void:
+	replay_button.visible = session.speaking() and voice.output.stream != null
+	replay_button.disabled = not voice.can_replay()
+
+
 func _toggle_audio() -> void:
 	sound.set_muted(not sound.muted)
 	mute_button.text = "Audio: OFF" if sound.muted else "Audio: ON"
@@ -316,6 +336,7 @@ func refresh() -> void:
 	voice.present(state["line"], state["speaking"])
 	story_label.text = state["line"] if state["speaking"] else completed_text if state["completed"] else Content.WANDER
 	next_button.visible = state["speaking"]
+	_update_replay()
 	_refresh_zone(true)
 
 
