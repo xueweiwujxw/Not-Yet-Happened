@@ -194,3 +194,19 @@ The shot follows the current authored subtitle, including while its observation 
 facts still commit only when the existing dialogue finishes. Refreshing preserves timing,
 skipping clears it, and animation never advances the session. This is a stylized procedural
 performance; final character art, storm sound and physical-device review remain outstanding.
+
+## Family dinner staging
+
+All three dinner blocks now frame Lin Che, Shiori and Xu Lan around a table in the shop
+interior. Xu sets a level bowl down, walks back to her stool and sits. Split hip/knee joints
+keep the seated lower legs vertical. Shiori's guarded expression softens during her answer;
+the last block includes Xu's small nod. The exploration dining corner and avatar return
+on skip/end or Camera OFF. Shop shelves, lights and archive props remain in the background.
+
+The serving beat lasts 5.4 seconds if allowed to play. Later blocks start with the bowl
+already placed and Xu seated, including after a skip or saved-dialogue restore. Refresh
+does not restart the beat; no motion callback commits family_conversation or advances text.
+Both studio-boundary routes retain this authored mother/daughter conversation. Existing
+voice clips and dialogue are unchanged. This is procedural blocking, not lip sync or a
+final acting pass. Headless tests cover lifecycle and state isolation; real-engine captures
+cover serving, seated composition and the conversation.
