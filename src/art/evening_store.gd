@@ -3,6 +3,8 @@ extends "res://src/art/arc_stage.gd"
 
 var seal: MeshInstance3D
 var correction: MeshInstance3D
+var dining_corner: Node3D
+var performance: Node3D
 
 
 func _ready() -> void:
@@ -26,12 +28,17 @@ func _ready() -> void:
 	Art.box(self, Vector3(0, 1.18, -2.7), Vector3(0.9, 0.12, 0.16), Art.material("36494c"))
 	notice(Vector3(3.2, 2, -3.65), 1)
 	correction = Art.box(self, Vector3(3.55, 2, -3.58), Vector3(0.55, 0.83, 0.02), Art.material("d2e0cc"))
-	desk(Vector3(4.15, 0, 0.7), 1.0)
+	# Keep the exploration corner as one explicitly owned presentation group.
+	dining_corner = Node3D.new()
+	add_child(dining_corner)
+	Art.box(dining_corner, Vector3(4.15, 0.85, 0.7), Vector3(1, 0.14, 0.8), Art.material("97785c"), true)
+	for x: float in [3.75, 4.55]:
+		Art.box(dining_corner, Vector3(x, 0.4, 0.7), Vector3(0.12, 0.8, 0.65), Art.material("526360"))
 	for z: float in [0.45, 0.95]:
-		Art.cylinder(self, Vector3(4.15, 0.98, z), 0.18, 0.13, Art.material("eadfc2"), 0.23)
-	var shiori := Art.person(self, Vector3(4.3, 0, 1.9), "b69078")
+		Art.cylinder(dining_corner, Vector3(4.15, 0.98, z), 0.18, 0.13, Art.material("eadfc2"), 0.23)
+	var shiori := Art.person(dining_corner, Vector3(4.3, 0, 1.9), "b69078")
 	Appearance.apply(shiori, &"shiori")
-	var xu := Art.person(self, Vector3(4.3, 0, -0.5), "8fa68a", "807467")
+	var xu := Art.person(dining_corner, Vector3(4.3, 0, -0.5), "8fa68a", "807467")
 	xu.set_meta("actor_id", &"xu")
 	Appearance.apply(xu, &"xu")
 	for y: float in [0.7, 1.5, 2.3]:
@@ -41,9 +48,17 @@ func _ready() -> void:
 	lamp(Vector3(-2.5, 2.8, -1.5))
 	lamp(Vector3(3.5, 2.8, 0.5))
 	exit_mat()
+	performance = preload("res://src/art/dinner_performance.gd").new()
+	performance.exploration_corner = dining_corner
+	add_child(performance)
 
 
 func sync_state(state: Dictionary) -> void:
+	performance.present(state)
 	var f: Dictionary = state["facts"]
 	seal.visible = f.get(&"identity_sealed", false)
 	correction.visible = f.has(&"report_correction")
+
+
+func tick_performance(delta: float, enabled: bool) -> bool:
+	return performance.tick(delta, enabled)

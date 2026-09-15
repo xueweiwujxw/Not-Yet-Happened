@@ -50,11 +50,11 @@ func stage(room: Node3D, avatar: Node3D, speaking: bool, text: String = "") -> v
 
 
 func tick(camera: Camera3D, delta: float) -> void:
-	var observation_shot := false
+	var staged_shot := false
 	if is_instance_valid(_room) and _room.has_method("tick_performance"):
-		observation_shot = _room.tick_performance(delta, enabled)
+		staged_shot = _room.tick_performance(delta, enabled)
 	if is_instance_valid(player_visual):
-		player_visual.visible = not observation_shot
+		player_visual.visible = not staged_shot
 	elapsed += delta
 	expression_time += maxf(delta, 0.0)
 	for entry: Dictionary in staging.actors:
@@ -65,7 +65,7 @@ func tick(camera: Camera3D, delta: float) -> void:
 	props.tick(delta, enabled)
 	staging.tick(actor, _cue, elapsed, enabled and talking, player, delta)
 	var close: bool = enabled and talking
-	var aim := focus if close and not observation_shot else Vector3(0, 0.6, 0)
+	var aim := focus if close and not staged_shot else Vector3(0, 0.6, 0)
 	var offset := Vector3(11, 10, 14)
 	var weight := 1.0 - exp(-3.0 * delta)
 	camera.global_position = camera.global_position.lerp(aim + offset, weight)

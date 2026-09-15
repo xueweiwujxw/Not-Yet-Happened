@@ -70,7 +70,15 @@ func _capture() -> void:
 		if ending == "kitchen":
 			Fixture.approach(view, &"dinner")
 			view._act(&"dinner")
+			view.set_process(false)
+			view.director.tick(view.camera, 1.5)
 			await shot(view, "dinner-serving")
+			view.director.tick(view.camera, 4.5)
+			await shot(view, "dinner-seated")
+			view._advance()
+			view.director.tick(view.camera, 7.5)
+			await shot(view, "dinner-conversation")
+			view.set_process(true)
 			Fixture.drain(view)
 		else:
 			Fixture.step(view, &"dinner", failures)
@@ -106,10 +114,15 @@ func shot(view: Control, label: String) -> void:
 	await RenderingServer.frame_post_draw
 	if label == "camera-timer" and not view.room.timer_lamp.visible:
 		failures.append("Portrait timer must be visible in its capture")
-	if label == "dinner-serving":
-		var bowls: Array[Node] = view.room.find_children("HeldBowl", "Node3D", true, false)
-		if bowls.size() != 1 or not bowls[0].is_visible_in_tree():
-			failures.append("Serving bowl must be visible during dinner")
+	if label.begins_with("dinner-"):
+		var meal: Node3D = view.room.performance
+		if not meal.bowl.is_visible_in_tree() or view.room.dining_corner.visible:
+			failures.append("Staged meal must replace the exploration corner")
+		var frame := Rect2(Vector2.ZERO, Vector2(root.size))
+		for person: Node3D in [meal.xu, meal.shiori, meal.lin]:
+			for height: float in [0.0, 1.8]:
+				if not frame.has_point(view.camera.unproject_position(person.global_position + Vector3.UP * height)):
+					failures.append("Dinner actor clipped: " + label)
 	if view.shown_chapter == 4 and view.room.lighthouse_roof.is_visible_in_tree():
 		var top: Vector2 = view.camera.unproject_position(view.room.lighthouse_roof.global_position + Vector3(0, 0.15, 0))
 		if not Rect2(Vector2.ZERO, Vector2(root.size)).has_point(top):
