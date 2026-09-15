@@ -28,6 +28,8 @@ func run(root: Window) -> Array[String]:
 		var before: Dictionary = view.session.save_data()
 		view.director.tick(view.camera, 0.5)
 		check(shot.visible == (outcome != "blank"), "only explicit observation enables shot", failures)
+		if outcome != "blank":
+			check(is_equal_approx(view.room.sun.light_energy, 0.25), "early confirmation also reaches storm lighting", failures)
 		check(not shot.sister.is_visible_in_tree(), "establishing line does not reveal the sister early", failures)
 		check(view.session.save_data() == before, "shot never advances pending observation", failures)
 		view._advance()

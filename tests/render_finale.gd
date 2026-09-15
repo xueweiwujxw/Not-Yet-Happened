@@ -110,10 +110,24 @@ func shot(view: Control, label: String) -> void:
 		var bowls: Array[Node] = view.room.find_children("HeldBowl", "Node3D", true, false)
 		if bowls.size() != 1 or not bowls[0].is_visible_in_tree():
 			failures.append("Serving bowl must be visible during dinner")
-	if view.shown_chapter == 4:
+	if view.shown_chapter == 4 and view.room.lighthouse_roof.is_visible_in_tree():
 		var top: Vector2 = view.camera.unproject_position(view.room.lighthouse_roof.global_position + Vector3(0, 0.15, 0))
 		if not Rect2(Vector2.ZERO, Vector2(root.size)).has_point(top):
 			failures.append("Lighthouse silhouette clipped: " + label)
+	if label.begins_with("platform-"):
+		var tableau: Node3D = view.room.performance
+		if not tableau.is_visible_in_tree() or view.room.lighthouse_roof.is_visible_in_tree():
+			failures.append("Observation shot must replace exploration: " + label)
+		var frame := Rect2(Vector2.ZERO, Vector2(root.size))
+		for point: Vector3 in [Vector3(-3.8, 0.9, -1.6), Vector3(2.5, 0.9, 0.4)]:
+			if not frame.has_point(view.camera.unproject_position(tableau.to_global(point))):
+				failures.append("Observed platform clipped: " + label)
+		if tableau.sister.is_visible_in_tree():
+			for height: float in [0.0, 1.8]:
+				if not frame.has_point(view.camera.unproject_position(tableau.sister.global_position + Vector3.UP * height)):
+					failures.append("Observed sister clipped: " + label)
+		elif label != "platform-obscured":
+			failures.append("Witnessed sister missing: " + label)
 	# Catch dialogue/button overflow on the actual rendered layout, not just PNG existence.
 	for control: Control in [view.story_label, view.zone_label, view.next_button, view.replay_button]:
 		if control.visible and not Rect2(Vector2.ZERO, Vector2(root.size)).encloses(control.get_global_rect()):

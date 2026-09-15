@@ -56,7 +56,7 @@ func sync_state(state: Dictionary) -> void:
 	backup.visible = historical and f.get(&"backup_connected", false)
 	indicator.material_override = Art.material("e8cf7a" if backup.visible else "374947")
 	ladder.rotation.x = PI if historical and f.get(&"ladder_lowered", false) else 0.0
-	sun.light_energy = 0.25 if historical and f.has(&"c4_boarding") else 0.65
+	sun.light_energy = 0.25 if performance.active or (historical and f.has(&"c4_boarding")) else 0.65
 
 
 func tick_performance(delta: float, enabled: bool) -> bool:
