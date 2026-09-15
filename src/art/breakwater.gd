@@ -1,10 +1,11 @@
 extends "res://src/art/arc_stage.gd"
-## Chapter four staging. The far platform stays screened; no unconfirmed person or fate is drawn.
+## Exploration keeps the far platform screened; explicit observations have a separate shot.
 
 var backup: OmniLight3D
 var ladder: Node3D
 var indicator: MeshInstance3D
 var lighthouse_roof: MeshInstance3D
+var performance: Node3D
 
 
 func _ready() -> void:
@@ -44,12 +45,19 @@ func _ready() -> void:
 	Art.box(self, Vector3(4.2, 0.3, 0.7), Vector3(0.7, 0.6, 0.7), metal, true)
 	Art.cylinder(self, Vector3(4.2, 0.65, 0.7), 0.22, 0.1, Art.material("c1ad83"))
 	exit_mat()
+	performance = preload("res://src/art/platform_performance.gd").new()
+	add_child(performance)
 
 
 func sync_state(state: Dictionary) -> void:
+	performance.present(state)
 	var f: Dictionary = state["facts"]
 	var historical: bool = f.has(&"c4_entered") and not f.has(&"c4_closed")
 	backup.visible = historical and f.get(&"backup_connected", false)
 	indicator.material_override = Art.material("e8cf7a" if backup.visible else "374947")
 	ladder.rotation.x = PI if historical and f.get(&"ladder_lowered", false) else 0.0
 	sun.light_energy = 0.25 if historical and f.has(&"c4_boarding") else 0.65
+
+
+func tick_performance(delta: float, enabled: bool) -> bool:
+	return performance.tick(delta, enabled)

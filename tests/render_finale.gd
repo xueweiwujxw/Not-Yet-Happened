@@ -47,7 +47,19 @@ func _capture() -> void:
 			Fixture.drain(view)
 			if ending == "kitchen":
 				await shot(view, "ladder-lowered")
-		Fixture.step(view, &"leave_blank" if ending == "blank" else &"confirm_platform", failures)
+		var observation: StringName = &"leave_blank" if ending == "blank" else &"confirm_platform"
+		Fixture.approach(view, observation)
+		view._act(observation)
+		if ending in ["kitchen", "name"]:
+			view._advance()
+			view.set_process(false)
+			view.director.tick(view.camera, 2.8 if ending == "kitchen" else 1.0)
+			await shot(view, "platform-safe" if ending == "kitchen" else "platform-slip")
+			if ending == "name":
+				view.director.tick(view.camera, 2.0)
+				await shot(view, "platform-obscured")
+			view.set_process(true)
+		Fixture.drain(view)
 		Fixture.step(view, &"next", failures)
 		if ending == "kitchen":
 			await shot(view, "evening-store")

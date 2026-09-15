@@ -83,8 +83,8 @@ not disk saves. Each chapter also has a **3D** entry: a photo studio, breakwater
 and farewell station. The same movement controls carry through automatic chapter transitions.
 Return with Tab / B to the notebook for manual saves. All dialogue, optional actions and four
 endings are available in these scenes; identity evidence remains textual. See
-[final-arc 3D scope and verification](docs/finale-3d.md). Voice assets and human-validated playtime
-are not yet available.
+[final-arc 3D scope and verification](docs/finale-3d.md). Generated voice auditions are included;
+human-validated playtime remains unmeasured.
 
 ### Independent room prototype
 
