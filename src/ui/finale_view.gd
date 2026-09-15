@@ -53,3 +53,9 @@ func _refresh_zone(force: bool = false) -> void:
 	# Always expose the active time window. Full warnings and evidence remain in the notebook.
 	if shown_chapter == 4:
 		zone_label.text = session.view()["status"].split("\n")[0]
+		if room.performance.active:
+			zone_label.text = "往事 · 18:28 · 船上的观察位置"
+		else:
+			var four := preload("res://src/content/chapter_four.gd")
+			if session.view()["line"] in [four.LINES[&"safe"][2], four.LINES[&"fall"][2]]:
+				zone_label.text = four.CLOSED

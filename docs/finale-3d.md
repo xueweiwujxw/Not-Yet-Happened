@@ -15,7 +15,9 @@ to the notebook for manual save/load. There is no autosave or saved player posit
   stand and an exit point. The playable slab is a staging space, not an exact engineering model.
   Lamp and ladder reflect committed preparations only during the historical window. The status
   names the window and the idle text preserves the early-confirmation warning. The far platform
-  and sister are never drawn: the explicit observation is conveyed by the existing dialogue.
+  and sister stay hidden during exploration. Explicit platform dialogue now has a separate
+  boat-side observation shot: the safe route follows the ladder; the fall route shows only
+  lost footing before spray obscures the aftermath. No later fate is depicted.
   Free movement cannot confirm a route or sister's fate. Closed windows return to the present.
 - Chapter 5 combines the evening store and archive workspace: source packet, telephone, old
   report plus separate correction, family table. Sealing leaves the records intact. Identity
@@ -27,7 +29,7 @@ to the notebook for manual save/load. There is no autosave or saved player posit
   and leave a named completion screen; the autumn kitchen epilogue is textual, not a new cutscene.
 
 All art is original code-native low-poly geometry. No imported models or plugins. The last four
-sets are silent, like the keeper office; audio design and voice acting are outstanding. These are
+sets have generated spoken-dialogue auditions; environmental audio and final voice review remain outstanding. These are
 playable prototype sets, not finished cinematic environments. Default visual review is 1280×720;
 the text notebook remains the smaller-window/accessibility fallback.
 

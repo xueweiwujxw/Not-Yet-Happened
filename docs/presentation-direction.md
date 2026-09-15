@@ -181,3 +181,16 @@ audio on the existing player, preserving story events, camera timing and charact
 Muted lines still resolve their local take so unmuting can enable explicit replay, but
 unmuting never starts playback by itself. Missing/unvoiced blocks hide the button.
 Rapid replay clicks replace the pending start; skip, mute, hide and stop cancel it.
+
+## Platform observation performance
+
+Chapter four now cuts from exploration to the boat-side view during its explicit safe/fall
+observation dialogue. The establishing line shows the platform; the next line shows Lin Yao
+walking down the prepared route or losing her footing. Spray covers the fall aftermath;
+there is no impact, body, rescue or implied death. Returning to the present restores the set.
+Leaving the platform unknown never starts this shot. Camera OFF suppresses it.
+
+The shot follows the current authored subtitle, including while its observation is pending;
+facts still commit only when the existing dialogue finishes. Refreshing preserves timing,
+skipping clears it, and animation never advances the session. This is a stylized procedural
+performance; final character art, storm sound and physical-device review remain outstanding.
