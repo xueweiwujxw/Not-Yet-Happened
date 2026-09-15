@@ -7,6 +7,7 @@ const Walk := preload("res://src/art/person_animator.gd")
 var sister: Node3D
 var route: Node3D
 var lamp: OmniLight3D
+var bulb: MeshInstance3D
 var rain: Node3D
 var spray: Node3D
 var elapsed := 0.0
@@ -37,8 +38,9 @@ func _ready() -> void:
 	lamp.omni_range = 5
 	add_child(lamp)
 	Art.cylinder(self, Vector3(-1.9, 1.8, -1.2), 0.05, 1.8, Art.material("4b6367"))
-	Art.cylinder(self, Vector3(-1.9, 2.7, -1.2), 0.23, 0.14, Art.material("dfc68e"))
+	bulb = Art.cylinder(self, Vector3(-1.9, 2.7, -1.2), 0.23, 0.14, Art.material("dfc68e"))
 	sister = Art.person(self, Vector3(0.8, 0.92, -0.6), "c9ad78")
+	Art.sphere(sister, Vector3(0, 1.33, -0.17), Vector3(0.59, 0.64, 0.36), Art.material("41433e"))
 	# This figure belongs to the observation shot, not proximity dialogue staging.
 	sister.remove_meta("rest_y")
 	rain = Node3D.new()
@@ -64,6 +66,7 @@ func present(state: Dictionary) -> void:
 	_safe = line in Four.LINES[&"safe"]
 	_movement = line == Four.LINES[&"safe"][1] or line == Four.LINES[&"fall"][1]
 	lamp.visible = state["facts"].get(&"backup_connected", false)
+	bulb.material_override = Art.material("dfc68e" if lamp.visible else "596b70")
 	route.visible = state["facts"].get(&"ladder_lowered", false)
 	if not active:
 		_show_shot(false)
@@ -75,7 +78,7 @@ func tick(delta: float, enabled: bool) -> bool:
 	if not visible:
 		return false
 	var travel := smoothstep(0.4, 3.4, elapsed) if _movement else 0.0
-	spray.visible = not _safe and _movement
+	spray.visible = not _safe and _movement and elapsed > 1.2
 	spray.scale.y = maxf(0.001, smoothstep(1.2, 2.0, elapsed))
 	sister.visible = _movement and (_safe or elapsed < 2.0)
 	sister.rotation = Vector3.ZERO

@@ -30,6 +30,7 @@ func run(root: Window) -> Array[String]:
 		check(shot.visible == (outcome != "blank"), "only explicit observation enables shot", failures)
 		if outcome != "blank":
 			check(is_equal_approx(view.room.sun.light_energy, 0.25), "early confirmation also reaches storm lighting", failures)
+			check("18:28" in view.zone_label.text, "observation caption shows boat time instead of preparation time", failures)
 		check(not shot.sister.is_visible_in_tree(), "establishing line does not reveal the sister early", failures)
 		check(view.session.save_data() == before, "shot never advances pending observation", failures)
 		view._advance()
@@ -37,6 +38,7 @@ func run(root: Window) -> Array[String]:
 		view.director.tick(view.camera, 0.6)
 		if outcome != "blank":
 			check(shot.sister.is_visible_in_tree(), "movement line reveals witnessed sister", failures)
+			check(not shot.spray.visible, "spray stays hidden before its entrance", failures)
 			check(shot.lamp.visible == (outcome in ["safe", "light-only"]), "shot preserves lighting preparation", failures)
 			check(shot.route.visible == (outcome in ["safe", "ladder-only"]), "shot preserves ladder preparation", failures)
 			check(not view._visual.visible, "boat viewpoint hides exploration avatar", failures)
@@ -64,6 +66,7 @@ func run(root: Window) -> Array[String]:
 			check(shot.visible, "reenabling restores current shot", failures)
 			view._advance()
 			check(not shot.visible, "present-day line cancels immediately", failures)
+			check(view.zone_label.text.begins_with("现在"), "present-day line restores present caption", failures)
 		Fixture.drain(view)
 		view.director.tick(view.camera, 0.1)
 		check(not shot.visible and view._visual.visible, "dialogue end restores scene", failures)
