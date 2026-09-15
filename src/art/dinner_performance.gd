@@ -6,7 +6,7 @@ const Appearance := preload("res://src/art/character_appearance.gd")
 const Face := preload("res://src/art/character_expression.gd")
 const Walk := preload("res://src/art/person_animator.gd")
 const Five := preload("res://src/content/chapter_five.gd")
-const BOWL_PLACE := Vector3(0.93, 0.91, 0.25)
+const BOWL_PLACE := Vector3(-0.93, 0.91, 0.25)
 var exploration_corner: Node3D
 var xu: Node3D
 var shiori: Node3D
@@ -25,16 +25,16 @@ func _ready() -> void:
 		for z: float in [0.08, 1.02]:
 			Art.box(self, Vector3(x, 0.37, z), Vector3(0.12, 0.74, 0.12), wood)
 	xu = _person(Vector3(0, -0.2, -0.9), "8fa68a", &"xu", 0.0)
-	shiori = _person(Vector3(1.55, -0.2, 0.55), "b69078", &"shiori", -PI / 2)
-	lin = _person(Vector3(-1.55, -0.2, 0.55), "78979a", &"lin_che", PI / 2)
+	shiori = _person(Vector3(-1.55, -0.2, 0.55), "b69078", &"shiori", PI / 2)
+	lin = _person(Vector3(1.55, -0.2, 0.55), "78979a", &"lin_che", -PI / 2)
 	# A bag beside the stool, rather than clipping through a seated body.
 	Appearance.set_present(lin, false)
-	Art.box(self, Vector3(-2.05, 0.22, 0.6), Vector3(0.35, 0.44, 0.25), Art.material("647e71"))
+	Art.box(self, Vector3(2.05, 0.22, 0.6), Vector3(0.35, 0.44, 0.25), Art.material("647e71"))
 	for at: Vector3 in [Vector3(0, 0, -0.9), Vector3(1.55, 0, 0.55), Vector3(-1.55, 0, 0.55)]:
 		Art.box(self, at + Vector3(0, 0.36, 0), Vector3(0.56, 0.1, 0.5), wood)
 		for x: float in [-0.2, 0.2]:
 			Art.box(self, at + Vector3(x, 0.16, 0), Vector3(0.07, 0.32, 0.36), wood)
-	for at: Vector3 in [Vector3(-0.9, 0.91, 0.55), Vector3(0, 0.91, 0.05)]:
+	for at: Vector3 in [Vector3(0.9, 0.91, 0.55), Vector3(0, 0.91, 0.05)]:
 		_bowl(at)
 	bowl = _bowl(BOWL_PLACE)
 	Art.cylinder(self, Vector3(0, 0.87, 0.65), 0.27, 0.035, Art.material("d8c9a7"))
@@ -51,7 +51,7 @@ func _bowl(at: Vector3) -> Node3D:
 
 
 func _person(at: Vector3, shirt: String, profile: StringName, facing: float) -> Node3D:
-	var person := Art.person(self, at, shirt)
+	var person := Art.person(self, at, shirt, "807467" if profile == &"xu" else "41433e")
 	Appearance.apply(person, profile)
 	person.remove_meta("rest_y")
 	person.rotation.y = facing
@@ -89,15 +89,15 @@ func tick(delta: float, enabled: bool) -> bool:
 	var time := elapsed if serving else 6.0
 	var home := smoothstep(2.8, 4.8, time)
 	var step_in := smoothstep(0.9, 1.3, time) * (1.0 - smoothstep(2.0, 2.7, time))
-	xu.position = Vector3(1.27, 0, -0.95).lerp(Vector3(0, 0, -0.9), home)
+	xu.position = Vector3(-1.27, 0, -0.95).lerp(Vector3(0, 0, -0.9), home)
 	xu.position.z += step_in * 0.4
-	xu.rotation = Vector3(0, -PI / 2 * sin(home * PI), 0)
+	xu.rotation = Vector3(0, PI / 2 * sin(home * PI), 0)
 	Walk.apply(xu, home * 14.0 + step_in * 2.0, (home > 0 and home < 1) or (step_in > 0 and step_in < 1))
 	_pose_seated(xu, smoothstep(4.8, 5.4, time))
 	_pose_seated(shiori, 1.0)
 	_pose_seated(lin, 1.0)
 	var reach := smoothstep(0.4, 1.3, time) * (1.0 - smoothstep(2.0, 2.7, time))
-	var arm := xu.get_node("ArmLeft") as Node3D
+	var arm := xu.get_node("ArmRight") as Node3D
 	if home == 0:
 		arm.rotation.x = -1.55 * reach
 	var hand: Vector3 = to_local(arm.to_global(Vector3(0, -0.48, 0)))

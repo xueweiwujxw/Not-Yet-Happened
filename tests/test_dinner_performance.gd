@@ -28,6 +28,8 @@ func run(root: Window) -> Array[String]:
 		view.director.tick(view.camera, 0.8)
 		check(meal.visible and not view.room.dining_corner.visible and not view._visual.visible, "meal replaces only exploration diners and avatar", failures)
 		check(meal.shiori.is_visible_in_tree(), "authored family conversation includes Shiori in both boundary routes", failures)
+		var to_camera: Vector3 = (view.camera.global_position - meal.shiori.global_position).normalized()
+		check(meal.shiori.global_basis.z.dot(to_camera) > 0, "Shiori faces the audience during her reply", failures)
 		check(not meal.bowl.position.is_equal_approx(Dinner.BOWL_PLACE), "bowl begins in serving hand", failures)
 		view.refresh()
 		check(is_equal_approx(meal.elapsed, 0.8), "refresh preserves serving time", failures)
