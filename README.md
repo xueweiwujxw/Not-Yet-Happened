@@ -15,8 +15,9 @@ Open the repository with Godot 4.x and run the project.
 
 ### Playable chapters
 
-The project opens **厨房的灯**, a Chinese text-first chapter with investigation, sequential
-dialogue, an optional lamp repair and portrait, an evidence notebook, and chapter completion.
+The project opens directly in the 3D **厨房的灯** scene. A persistent objective, visible
+interactable labels and context-sensitive controls guide exploration. The evidence notebook
+remains available with Tab / Escape / gamepad B; it includes manual saves and the text interface.
 Read the recording, old photograph and letter in any supported order; optional interactions
 do not block completion. The notebook distinguishes confirmed contents from testimony and keeps
 the sister's fate unknown. Tab and Enter / Space support keyboard play.
@@ -25,19 +26,27 @@ The bundled Noto Sans CJK subset provides Chinese glyphs on all four platforms; 
 is accessible from the chapter screen. See [font provenance and rebuild instructions](assets/fonts/README.md).
 Automated tests cover glyph coverage, progression, scene controls and narrow-window layout.
 Photos and evidence retain text descriptions; spoken dialogue and the keeper tape have generated Chinese voice auditions.
-Use **探索 3D 老屋** to enter the first chapter's low-poly kitchen: WASD / arrow keys or a
+Use **探索 3D 老屋** to return from the notebook to the kitchen: WASD / arrow keys or a
 gamepad left stick move; E / gamepad A interacts or continues dialogue; Tab / gamepad B returns
 to the notebook and manual save/load. The player eases into motion, brakes and turns smoothly,
 and blends the walk cycle back to rest. Dialogue pushes in gently and nearby visible characters
-turn toward each other; `Camera: OFF` restores wide framing. See [presentation direction and voice
+turn toward each other; `动态镜头：关` restores wide framing. See [presentation direction and voice
 handoff](docs/presentation-direction.md). All six chapters' explicitly labelled spoken dialogue and
 the keeper tape are covered by 55 voiced display blocks. Narration remains unvoiced; casting,
 pronunciation and acting still need human listening review. Missing takes stay silent and dialogue always advances
-manually. `Voice: ON/OFF` controls these takes separately from kitchen ambience.
+manually. Unreviewed auditions default to OFF in the shipping entry point. `试音：开/关` controls
+them separately from kitchen ambience; voice and camera preferences persist across chapters and restarts.
+Enabling auditions does not restart the current line; R / Y explicitly replays it.
+This update does not replace the recorded performances.
 Quiet synthesized ambience, footsteps and accepted-interaction tones accompany the kitchen.
 Use `Audio: ON/OFF` to mute this view; this setting resets on reopening. These are placeholder
 effects, not voice acting or audible evidence. Physical-device listening QA remains outstanding.
-Walk near an object to reveal its available actions. The 3D view shares the exact chapter session;
+Walk near a labelled object to reveal its actions. For multiple choices, Q / F or LB / RB
+selects an option, then E / Space / Enter / A confirms; the first confirm selects rather than
+silently executing a default. Mouse buttons remain available. In guided play, listening/opening
+the keeper door, confirming/leaving the platform window, and overriding Shiori's refusal display
+a consequence warning before commitment; Q / LB or Cancel leaves facts unchanged.
+Chapter completion offers **继续旅程** directly in the scene. The 3D view shares the exact chapter session;
 moving the camera or seeing a prop does not confirm evidence. Character position is not saved.
 See [art, controls and rendering checks](docs/kitchen-3d.md).
 Manual Save/Load preserves dialogue,
@@ -45,7 +54,7 @@ progress and facts; Restart clears only the active attempt, not the disk save. S
 recovery rules](docs/save-format.md). There are separate slots for chapter one, chapter two, and
 the sequential chapters-three-to-six arc, each with a last-valid backup and no autosave.
 
-Complete chapter one to enter **门后有人**, the second chapter with an optional **3D** keeper-office
+Complete chapter one to enter **门后有人**, the second chapter with a **3D** keeper-office
 view using the same session and movement controls as the kitchen. Approach the desk telephone,
 tape recorder or back door to interact; Tab returns to the notebook/save controls. Past figures
 remain hidden until the door observation is committed. Investigate the old
@@ -74,7 +83,7 @@ From chapter two, continue through the four remaining chapters:
 - **下一班车**: write fact-appropriate memorial text, choose a farewell photograph and depart.
   Four endings follow from earlier history, identity and invitation choices, not four ending buttons.
 
-The six-chapter Chinese text-first story is playable from start to finish. All four endings are
+The six-chapter Chinese story is playable through the 3D scenes and the text notebook. All four endings are
 implemented; there is no random life/death selection. See [arc rules, routes and review](docs/chapters-03-06.md).
 Directly load any saved point in the final arc from the initial screen, including pending dialogue
 and completed endings. Its save carries both earlier chapters. Returning to earlier records is

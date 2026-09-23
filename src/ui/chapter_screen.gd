@@ -15,6 +15,9 @@ const KitchenView := preload("res://src/ui/kitchen_view.gd")
 const KeeperView := preload("res://src/ui/keeper_view.gd")
 const KitchenContent := preload("res://src/content/kitchen_visual.gd")
 
+var guided_play := false
+var preferences: RefCounted
+
 var session: RefCounted = Session.new()
 var save_store := SaveStore.new()
 var second_store := SaveStore.new("user://chapter-two.json", Second)
@@ -246,12 +249,16 @@ func _enter_second() -> void:
 		second_screen.show()
 		second_back_button.show()
 		second_back_button.grab_focus()
+		if guided_play:
+			second_screen._show_kitchen()
 
 
 func _show_second(next_session: RefCounted) -> void:
 	_clear_second()
-	second_screen = get_script().new()
+	second_screen = load("res://src/ui/chapter_screen.gd").new()
 	second_screen.is_second = true
+	second_screen.guided_play = guided_play
+	second_screen.preferences = preferences
 	second_screen.session = next_session
 	second_screen.save_store = second_store
 	second_screen.continue_story.connect(finale_navigation.enter)
@@ -266,6 +273,8 @@ func _show_second(next_session: RefCounted) -> void:
 		second_screen.next_button.grab_focus()
 	else:
 		second_back_button.grab_focus()
+	if guided_play:
+		second_screen._show_kitchen()
 
 
 func _load_second() -> void:
@@ -307,16 +316,31 @@ func _show_kitchen() -> void:
 		return
 	kitchen_view = KeeperView.new() if is_second else KitchenView.new()
 	kitchen_view.session = session
+	kitchen_view.preferences = preferences
+	kitchen_view.journey_continuation = guided_play
+	kitchen_view.confirm_decisions = guided_play
+	kitchen_view.continue_requested.connect(_continue_journey)
 	kitchen_view.theme = theme
 	kitchen_view.return_requested.connect(_hide_kitchen)
 	add_child(kitchen_view)
 	chapter_scroll.hide()
 
 
+func _continue_journey() -> void:
+	if not session.view()["completed"]:
+		return
+	_hide_kitchen()
+	if is_second:
+		continue_story.emit()
+	else:
+		_enter_second()
+
+
 func _hide_kitchen() -> void:
 	# Rendering/movement never owns facts. Both interfaces have used the exact same session.
 	if kitchen_view == null:
 		return
+	kitchen_view.hide()
 	kitchen_view.queue_free()
 	kitchen_view = null
 	chapter_scroll.show()

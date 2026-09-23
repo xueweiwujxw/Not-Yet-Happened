@@ -7,6 +7,8 @@ const Common := preload("res://src/content/chapter_one.gd")
 const Content := preload("res://src/content/finale_content.gd")
 const SpatialView := preload("res://src/ui/finale_view.gd")
 
+var guided_play := false
+var preferences: RefCounted
 var session: RefCounted
 var save_store: RefCounted
 var scroll: ScrollContainer
@@ -160,6 +162,8 @@ func _show_spatial() -> void:
 		return
 	spatial_view = SpatialView.new()
 	spatial_view.session = session
+	spatial_view.preferences = preferences
+	spatial_view.confirm_decisions = guided_play
 	spatial_view.theme = theme
 	spatial_view.return_requested.connect(_hide_spatial)
 	add_child(spatial_view)

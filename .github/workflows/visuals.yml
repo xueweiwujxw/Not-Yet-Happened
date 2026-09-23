@@ -72,3 +72,13 @@ jobs:
             build/previews/cinematic.mp4
           if-no-files-found: error
           retention-days: 14
+      - name: Render shipping entry and guided choices
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a -s '-screen 0 1280x720x24' bash scripts/check-godot.sh godot --path . --rendering-method gl_compatibility --audio-driver Dummy --script tests/render_playability.gd
+      - uses: actions/upload-artifact@v4
+        with:
+          name: playability-previews
+          path: build/previews/playability-*.png
+          if-no-files-found: error
+          retention-days: 14

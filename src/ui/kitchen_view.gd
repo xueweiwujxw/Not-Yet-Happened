@@ -2,6 +2,7 @@ extends Control
 ## 3D presentation of the same first-chapter session, not a parallel story implementation.
 
 signal return_requested
+signal continue_requested
 
 const Room := preload("res://src/art/kitchen_room.gd")
 const Art := preload("res://src/art/low_poly.gd")
@@ -14,7 +15,20 @@ const Content := preload("res://src/content/kitchen_visual.gd")
 const Chapter := preload("res://src/content/chapter_one.gd")
 const Motion := preload("res://src/game/character_motion.gd")
 const Director := preload("res://src/art/scene_director.gd")
+const Guide := preload("res://src/game/exploration_guide.gd")
 const Voice := preload("res://src/art/dialogue_voice.gd")
+
+var preferences: RefCounted
+var journey_continuation := false
+var confirm_decisions := false
+var continue_button: Button
+var objective_label: Label
+var hint_label: Label
+var _pending_action: StringName = &""
+var confirm_button: Button
+var cancel_button: Button
+var _selected_action := -1
+var _target_labels: Array[Label] = []
 
 var session: RefCounted
 var room_script: GDScript = Room
@@ -59,6 +73,9 @@ func _ready() -> void:
 	add_child(sound)
 	voice = Voice.new()
 	add_child(voice)
+	if preferences != null:
+		voice.set_muted(not preferences.voice_enabled)
+		director.enabled = preferences.camera_enabled
 	room = room_script.new()
 	add_child(room)
 	player = CharacterBody3D.new()
@@ -98,6 +115,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if is_visible_in_tree() and not is_queued_for_deletion() and not _manual_camera:
 		director.tick(camera, delta)
+	_position_targets()
 
 
 func fade_in() -> void:
@@ -161,8 +179,22 @@ func move_player(input: Vector2, delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if not is_visible_in_tree() or is_queued_for_deletion():
 		return
+	if event is InputEventKey and event.pressed and not event.echo:
+		match event.physical_keycode:
+			KEY_E, KEY_SPACE, KEY_ENTER:
+				_trigger_primary_action()
+				get_viewport().set_input_as_handled()
+				return
+			KEY_Q, KEY_F:
+				_cycle_choice(-1 if event.physical_keycode == KEY_Q else 1)
+				get_viewport().set_input_as_handled()
+				return
+	if event is InputEventJoypadButton and event.pressed and event.button_index in [JOY_BUTTON_LEFT_SHOULDER, JOY_BUTTON_RIGHT_SHOULDER]:
+		_cycle_choice(-1 if event.button_index == JOY_BUTTON_LEFT_SHOULDER else 1)
+		get_viewport().set_input_as_handled()
+		return
 	# Reserve controller face buttons and Tab before GUI focus handling consumes them.
-	var keyboard_back: bool = event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_TAB
+	var keyboard_back: bool = event is InputEventKey and event.pressed and not event.echo and event.physical_keycode in [KEY_TAB, KEY_ESCAPE]
 	var gamepad_back: bool = event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_B
 	if keyboard_back or gamepad_back:
 		return_requested.emit()
@@ -190,8 +222,17 @@ func _unhandled_input(event: InputEvent) -> void:
 func _trigger_primary_action() -> void:
 	if session.speaking():
 		_advance()
-	elif not action_buttons.is_empty():
+	elif not _pending_action.is_empty():
+		_act(_pending_action)
+	elif session.view()["completed"] and journey_continuation:
+		continue_requested.emit()
+	elif action_buttons.size() == 1:
 		_act(action_buttons.keys()[0])
+	elif not action_buttons.is_empty():
+		if _selected_action < 0:
+			_cycle_choice(1)
+		else:
+			_act(action_buttons.keys()[_selected_action])
 
 
 func _build_interaction_marker() -> MeshInstance3D:
@@ -232,18 +273,21 @@ func _build_hud() -> void:
 	mute_button.offset_right = -28
 	mute_button.offset_top = 76
 	mute_button.offset_bottom = 112
-	motion_button = _button(hud, "Camera: ON", func() -> void:
-		director.enabled = not director.enabled
-		motion_button.text = "Camera: ON" if director.enabled else "Camera: OFF"
-	)
+	motion_button = _button(hud, "", _toggle_camera)
+	motion_button.text = "动态镜头：开" if director.enabled else "动态镜头：关"
 	motion_button.position = Vector2(32, 90)
-	voice_button = _button(hud, "Voice: ON", func() -> void:
-		voice.set_muted(not voice.muted)
-		voice_button.text = "Voice: OFF" if voice.muted else "Voice: ON"
-		_update_replay()
-	)
+	voice_button = _button(hud, "", _toggle_voice)
+	voice_button.text = "试音：关" if voice.muted else "试音：开"
+	voice_button.tooltip_text = "当前为未审校的合成试音。关闭不影响字幕、剧情和环境声。"
 	voice_button.position = Vector2(185, 90)
 	voice_button.visible = not voice.clips.is_empty()
+	objective_label = _label(hud, "", 18)
+	objective_label.position = Vector2(32, 140)
+	objective_label.size.x = 780
+	objective_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	objective_label.add_theme_color_override("font_color", Color("fff3d5"))
+	objective_label.add_theme_color_override("font_shadow_color", Color("172b32"))
+	objective_label.add_theme_constant_override("shadow_outline_size", 5)
 	var panel := PanelContainer.new()
 	panel.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	panel.grow_vertical = Control.GROW_DIRECTION_BEGIN
@@ -269,14 +313,22 @@ func _build_hud() -> void:
 	zone_label = _label(column, Content.WANDER, 16)
 	story_label = _label(column, "", 19)
 	story_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	var row := HBoxContainer.new()
+	var row := HFlowContainer.new()
+	row.add_theme_constant_override("h_separation", 12)
+	row.add_theme_constant_override("v_separation", 8)
 	column.add_child(row)
-	next_button = _button(row, Chapter.NEXT, _advance)
+	next_button = _button(row, "继续（E / 空格 / A）", _advance)
+	confirm_button = _button(row, "确定（E / A）", func() -> void: _act(_pending_action))
+	cancel_button = _button(row, "取消，继续探索（Q / LB）", _cancel_decision)
+	confirm_button.hide()
+	cancel_button.hide()
+	continue_button = _button(row, "继续旅程（E / A）", func() -> void: continue_requested.emit())
 	replay_button = _button(row, "重听对白（R / Y）", _replay_voice)
 	_actions = HFlowContainer.new()
 	_actions.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(_actions)
-	_label(column, Content.HELP, 13)
+	hint_label = _label(column, Content.HELP, 14)
+	hint_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
 
 func _label(parent: Node, text: String, size_px: int) -> Label:
@@ -323,6 +375,14 @@ func _act(action: StringName) -> void:
 	var available: Dictionary = spatial_script.nearby(player.position, session)
 	if action not in available.get("actions", []):
 		return
+	var warning := Guide.consequence(action, session.view()) if confirm_decisions else ""
+	if not warning.is_empty() and _pending_action != action:
+		_pending_action = action
+		story_label.text = warning
+		confirm_button.show()
+		cancel_button.show()
+		return
+	_pending_action = &""
 	if session.act(action):
 		sound.cue()
 	refresh()
@@ -330,13 +390,19 @@ func _act(action: StringName) -> void:
 
 func refresh() -> void:
 	var state: Dictionary = session.view()
+	_pending_action = &""
+	confirm_button.hide()
+	cancel_button.hide()
 	scene_label.text = scene_title
 	room.sync_state(state)
 	director.stage(room, player, state["speaking"], state["line"])
 	voice.present(state["line"], state["speaking"])
 	story_label.text = state["line"] if state["speaking"] else completed_text if state["completed"] else Content.WANDER
 	next_button.visible = state["speaking"]
+	continue_button.visible = state["completed"] and journey_continuation
+	objective_label.text = Guide.objective(state)
 	_update_replay()
+	_refresh_targets()
 	_refresh_zone(true)
 
 
@@ -345,7 +411,10 @@ func _refresh_zone(force: bool = false) -> void:
 	var id: StringName = nearby.get("id", &"")
 	if not force and id == _active_zone:
 		return
+	if id != _active_zone and not _pending_action.is_empty():
+		_cancel_decision()
 	_active_zone = id
+	_selected_action = -1
 	_marker.visible = not nearby.is_empty()
 	if _marker.visible:
 		var at: Vector2 = nearby["at"]
@@ -357,5 +426,81 @@ func _refresh_zone(force: bool = false) -> void:
 	var actions: Array = nearby.get("actions", [])
 	for index: int in range(actions.size()):
 		var action: StringName = actions[index]
-		var label: String = ("E / A · " if index == 0 else "") + action_labels[action]
-		action_buttons[action] = _button(_actions, label, _act.bind(action))
+		action_buttons[action] = _button(_actions, action_labels[action], _act.bind(action))
+	_update_choice_labels()
+
+
+func _cycle_choice(step: int) -> void:
+	if not _pending_action.is_empty():
+		_cancel_decision()
+		return
+	if session.speaking() or action_buttons.is_empty():
+		return
+	_selected_action = (0 if step > 0 else action_buttons.size() - 1) if _selected_action < 0 else posmod(_selected_action + step, action_buttons.size())
+	_update_choice_labels()
+
+
+func _update_choice_labels() -> void:
+	var index := 0
+	for action: StringName in action_buttons:
+		var selected := index == _selected_action or action_buttons.size() == 1
+		action_buttons[action].text = ("▶ " if selected else "") + action_labels[action]
+		index += 1
+	if session.speaking():
+		hint_label.text = "E / 空格 / A 继续对白 · R / Y 重听 · 不会自动跳过，按自己的速度阅读。"
+	elif action_buttons.size() > 1:
+		hint_label.text = "这里有多个选择：Q / F 或 LB / RB 切换 · E / A 确认 · 也可直接点击选项。"
+	elif action_buttons.size() == 1:
+		hint_label.text = "E / 空格 / A 调查 · WASD / 方向键 / 左摇杆移动 · Tab / B 打开笔记。"
+	else:
+		hint_label.text = "走向场景中标出的物件 · WASD / 方向键 / 左摇杆移动 · Tab / B 打开笔记。"
+
+
+func _refresh_targets() -> void:
+	for label: Label in _target_labels:
+		label.free()
+	_target_labels.clear()
+	for zone: Dictionary in Guide.locations(spatial_script, session):
+		var label := _label(hud, "◇ " + String(zone_names.get(zone["id"], action_labels[zone["actions"][0]])), 15)
+		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		label.add_theme_color_override("font_color", Color("fff3d5"))
+		label.add_theme_color_override("font_shadow_color", Color("172b32"))
+		label.add_theme_constant_override("shadow_outline_size", 5)
+		label.set_meta("at", zone["at"])
+		_target_labels.append(label)
+	_position_targets()
+
+
+func _position_targets() -> void:
+	for label: Label in _target_labels:
+		var at: Vector2 = label.get_meta("at")
+		label.position = hud.get_global_transform_with_canvas().affine_inverse() * camera.unproject_position(Vector3(at.x, 0.7, at.y)) - Vector2(label.size.x * 0.5, 20)
+
+
+func _toggle_voice() -> void:
+	voice.set_muted(not voice.muted)
+	voice_button.text = "试音：关" if voice.muted else "试音：开"
+	if preferences != null:
+		preferences.voice_enabled = not voice.muted
+		_store_preferences()
+	_update_replay()
+
+
+func _toggle_camera() -> void:
+	director.enabled = not director.enabled
+	motion_button.text = "动态镜头：开" if director.enabled else "动态镜头：关"
+	if preferences != null:
+		preferences.camera_enabled = director.enabled
+		_store_preferences()
+
+
+func _store_preferences() -> void:
+	if preferences.save_settings() != OK:
+		hint_label.text = "设置已应用，但未能保存到磁盘。下次启动可能恢复默认值。"
+
+
+func _cancel_decision() -> void:
+	_pending_action = &""
+	confirm_button.hide()
+	cancel_button.hide()
+	story_label.text = Content.WANDER
