@@ -12,7 +12,7 @@ func _ready() -> void:
 	scene_title = Second.CHAPTER_TITLE
 	completed_text = Second.END_TEXT
 	initial_audio_muted = true
-	zone_names = {&"telephone": Second.ACTION_LABELS[&"telephone"], &"tape": Second.ACTION_LABELS[&"tape"], &"door": Second.ACTION_LABELS[&"open"], &"exit": Second.ACTION_LABELS[&"leave"]}
+	zone_names = {&"telephone": "电话", &"tape": "录音机", &"door": "值班室的门", &"exit": "出口"}
 	super._ready()
 	# No invented audible footsteps beyond the door; chapter evidence remains textual.
 	mute_button.hide()

@@ -22,6 +22,8 @@ func run(root: Window) -> Array[String]:
 	screen.kitchen_button.pressed.emit()
 	var view: Control = screen.kitchen_view
 	view.set_physics_process(false)
+	# Ambience starts after scene creation; allow the queued start before muting.
+	await root.get_tree().process_frame
 	_expect(view.session == screen.session, "3D and text use the same session", failures)
 	_expect(not view.room.shiori.visible and not view.room.letter.visible, "NPCs and letter hidden before arrival", failures)
 	var initial: Dictionary = screen.session.save_data()

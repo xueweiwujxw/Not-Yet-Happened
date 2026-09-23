@@ -14,7 +14,11 @@ func _ready() -> void:
 	ambience = _player(synthesize(true), -24.0)
 	effects = _player(synthesize(false), -18.0)
 	footsteps = _player(synthesize(false, 110.0), -22.0)
-	if not muted:
+	_start_ambience.call_deferred()
+
+
+func _start_ambience() -> void:
+	if is_inside_tree() and not is_queued_for_deletion() and not get_parent().is_queued_for_deletion() and not muted:
 		ambience.play()
 
 

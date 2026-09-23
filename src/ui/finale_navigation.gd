@@ -49,6 +49,8 @@ func load_arc() -> void:
 func _create_screen(session: RefCounted) -> void:
 	screen = Screen.new()
 	screen.session = session
+	screen.preferences = owner_screen.preferences
+	screen.guided_play = owner_screen.guided_play
 	screen.save_store = save_store
 	screen.theme = owner_screen.theme
 	screen.return_requested.connect(return_to_records)
@@ -61,6 +63,8 @@ func _show() -> void:
 	owner_screen.second_back_button.hide()
 	screen.show()
 	screen.focus_progress()
+	if owner_screen.guided_play:
+		screen._show_spatial()
 
 
 func return_to_records() -> void:
