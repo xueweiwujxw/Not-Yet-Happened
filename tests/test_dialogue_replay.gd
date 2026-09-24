@@ -45,6 +45,8 @@ func run(root: Window) -> Array[String]:
 	root.add_child(view)
 	view.set_process(false)
 	view.set_physics_process(false)
+	# The opening now starts with silent narration, followed by Shiori's own turn.
+	view._continue_dialogue()
 	var saved: Dictionary = view.session.save_data()
 	view.director.elapsed = 0.7
 	var camera_transform: Transform3D = view.camera.transform

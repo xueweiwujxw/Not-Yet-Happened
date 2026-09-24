@@ -1,0 +1,1316 @@
+{
+  "provider": "Microsoft Edge Read Aloud via edge-tts",
+  "locale": "zh-CN",
+  "status": "Generated Mandarin auditions; human acting/pronunciation approval pending",
+  "production": {
+    "encoding": "mono 24 kHz Ogg Vorbis q5",
+    "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+  },
+  "takes": [
+    {
+      "key": "681cee8985fa97decbb20e19318fd14c7cf4977233e5ea13b89dcbde90d77f45",
+      "speaker": "林澈",
+      "text": "还是第二把。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "d48c46c461070d74d8734517b8dadfc61c948b2b9b9b41c02c8566eafb2b3423",
+      "duration_seconds": 1.92,
+      "asset_sha256": "a73ebd744d9bb89e033a06aad6c0250f85d86f87dee47f079cf2190680afd143"
+    },
+    {
+      "key": "7bb54944518b6f538cc007d0449712e36c4ca695a36f12912418447265fedf64",
+      "speaker": "林澈",
+      "text": "你写这么大，是怕谁看不见。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "46147bcd8e3f2d208c28432f41d93f9f63647b7ce80ca0f3f760b9090ccce850",
+      "duration_seconds": 3.298667,
+      "asset_sha256": "6fb06bbc14bdfd6df250b04faabf90f93737bb2ef433497a0abb8f4e3ba32052"
+    },
+    {
+      "key": "3ea76a02d1c621a1c84b8fecffd9fb9db916a62e49d37d93031fce75d541c51b",
+      "speaker": "林澈",
+      "text": "我不记得拍过这张。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "d666f3a07e042e5af3fabe818d0b9a41fc2deee8f9f01b3458d209c58da138d8",
+      "duration_seconds": 2.304,
+      "asset_sha256": "d2130a619bf3c70b8ea45cba0d9e2a3a8a80d5129da1cc03f2f5ee9235adf512"
+    },
+    {
+      "key": "e395b2e75d2b9c939dce2b4522d1bf344f1a27236709924dfb86ebf66d1f470e",
+      "speaker": "栞",
+      "text": "你那天一直问，拍完能不能去买冰棒。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "87a2833f4edaf7025746fc17c4008529024f25b40a6f17b6c0c89ef7a8470fc9",
+      "duration_seconds": 3.826667,
+      "asset_sha256": "cc5e56352fbca4c557aa43be4b17a37b4eacbd50ff410f871658a036471af514"
+    },
+    {
+      "key": "958e0e7377b699130997cf6c1f27ed09c3151fec223016280b95263e207e1272",
+      "speaker": "林澈",
+      "text": "把化的那根给我。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "8dcb22fd2bb3013e496529e3c355a7a2da09477433f832cb55bbc6efca3af045",
+      "duration_seconds": 2.112,
+      "asset_sha256": "48d9ae84c63fd496e31d9e320bb78a2ee8cbed54d341113cbe72faa28e6c4079"
+    },
+    {
+      "key": "e9c6a7fb14f64fc756118a80f95b73028d8bb90e122dc6bef1f7d4d3a499e96e",
+      "speaker": "栞",
+      "text": "你小时候可不这样。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "71f9d74e96ea4b48ef9a7d5b51f4993da05ec2273171c88361fafd9ea91a7ad3",
+      "duration_seconds": 2.04,
+      "asset_sha256": "3a484b741341908826d0420db735886c7ab50614fc497a219b1161f549a02de6"
+    },
+    {
+      "key": "9f0c08daeb94adff0c93833f7aba8a7095c189c29e43a131e321c2b32fb6b365",
+      "speaker": "林澈",
+      "text": "那先别说话，快吃。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "bc21518766d9709447e2d9895cd3e028be257e2a04601447bfe4484e2dab8bde",
+      "duration_seconds": 2.664,
+      "asset_sha256": "4de7bd097a6cf8b82e77c0861dcc7de3ef9f78d62a8aa034217ed1eff7ae49e5"
+    },
+    {
+      "key": "44d6ca49d6c6827d11bdb49decff70fc7a42179843aefd2bdf28bc4b3bbe6680",
+      "speaker": "林澈",
+      "text": "拍一张？",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "dd124d20e5dfe4d9eb7dd5ba26a76dbbcbb52b54628379c2f840dc9d028752f9",
+      "duration_seconds": 1.872,
+      "asset_sha256": "8dcce952a0f93d426add24d39901b1f49633b42a60f5bdcf54775b0139dbd359"
+    },
+    {
+      "key": "2e9436fa4a0b8ad398a0c75e7cab031f0044c61952a64ffe5eede76f6475a604",
+      "speaker": "栞",
+      "text": "现在？我嘴上都是。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "f751c6eabca084230552daa5d95798d8f47f01fd42042a3f315a2436f003dcc9",
+      "duration_seconds": 3.034667,
+      "asset_sha256": "cee49ded3d1f48258e259ad7100bad1edd36a828bec524903b9403e34b2a0dc3"
+    },
+    {
+      "key": "e620b999d3d8c4dd06420664de460de0d94753a084f67cdd9d8769746a366001",
+      "speaker": "林澈",
+      "text": "那等一下。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "2b68e2fbb6e29c7c6dfecacfd1cb49cb36308d07fcef327a5963b69b24a9b2f4",
+      "duration_seconds": 1.728,
+      "asset_sha256": "327c0e0d16b04c814fb436195969ae0e6473862b585cbbcae05c9d12e355b9d1"
+    },
+    {
+      "key": "e5fc14c69320c8ef87209d48990edd09e8f33dd65ba3458d3147b17e31734818",
+      "speaker": "栞",
+      "text": "不用。就这样。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "81309322855b61ce65cafa04b5109536c27d440c5be59c99ec59d56429f9a0e5",
+      "duration_seconds": 2.496,
+      "asset_sha256": "9be4f3176773e54dbc06bd30ec6bb66633e6ec1b638fb565d78da4f7cf0a0dcd"
+    },
+    {
+      "key": "0878abe701c785c651b7bf0a9e0e640818a4d8ae0277928e9783f34abd03fcd9",
+      "speaker": "林澈",
+      "text": "她知道自己会出事？",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "639afff2262abe3ed8e258f5fa22f061cbf996b9a9f0686ca0910041dcc073f1",
+      "duration_seconds": 2.304,
+      "asset_sha256": "2a44ab15d63bd4ec9a1f77d96774916fd2cbeb0ed909e486587487482f9d8817"
+    },
+    {
+      "key": "064908be597346f7fcd787ac5d676fc19883b7f9f293f985e6abbd9d9ed5af54",
+      "speaker": "沈琴",
+      "text": "她那天说的是去上学。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "5a7a06851b0d37e01775854e95a10a27fed231bb1944aa65689fcfa52343dda1",
+      "duration_seconds": 2.712,
+      "asset_sha256": "c9801d0fda60696ab22f34aa03ed8e4dbd402c9121860a0ca232af615f88a949"
+    },
+    {
+      "key": "52b96a17ae6224e404dc204b4b1c850aaea2352fe19e462197aaf8294cd5a4e4",
+      "speaker": "栞",
+      "text": "走之前关灯吗？",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "5726ecbbaf6d4dc3add0c6c099843e044ab7086234371ec1541ee82c970e8897",
+      "duration_seconds": 1.944,
+      "asset_sha256": "49d6fd848256a8519d6bbf9b7381d503caaca6440f0078be45a8aa61983e4e70"
+    },
+    {
+      "key": "7055fc68b51e2804fdbd4c3e3eb8752667ce56f7b5e2da3408c857bea1c6a48a",
+      "speaker": "林澈",
+      "text": "关吧。回来还能打开。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "f485aa103b41b2ca7991bed8f2e951092f00d6919218904f1219b34a86a212c4",
+      "duration_seconds": 3.250667,
+      "asset_sha256": "d030a90733c0161a1b6be13bb9e04487228738530fa8237344351a7ca86a42fb"
+    },
+    {
+      "key": "3b7da498a5dafd56e086c66fae16fab54ea6b79b731b8525a2e17ae0426b989c",
+      "speaker": "栞",
+      "text": "灯修好了？",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "ee74bf52132ab07a842bc7d410dfb7dc6f1ea112ac745806670bc2cc384c790e",
+      "duration_seconds": 1.872,
+      "asset_sha256": "9a8df0aa802b39acc14500869ba4ce5975bc485b81e1f548e457e958fde450a1"
+    },
+    {
+      "key": "9deb9924ac27a1ed10585aa2aa2d7f4749706cc20a0a5ae3da2325155855ac74",
+      "speaker": "林澈",
+      "text": "嗯。回来就能打开。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "450e05d7d1c94fc28f060ad8869c9944fd96316ff0f822af5df982af4effc27a",
+      "duration_seconds": 3.538667,
+      "asset_sha256": "6b6d0e4f4e86fc9c57617dae87337c3c2f58eee9c68e882209741a4bf627abff"
+    },
+    {
+      "key": "ec3af66171bdaec938aa5cd6ab46ce265c594e70e675b9fcc7b6ed76e1e8346a",
+      "speaker": "栞",
+      "text": "灯还是坏的。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "4c3b1987092790845af693def1e9c26d20af3f52599f722c9ef802a133978375",
+      "duration_seconds": 1.872,
+      "asset_sha256": "7811f37d53dd767162fb08aa816ef46443693a2f210016ca9ef3ab7968f10518"
+    },
+    {
+      "key": "4c2bae3a6f595ac8b1c2773105e4bf9b70b15beab77b3f0a4d021f02201bb4b9",
+      "speaker": "林澈",
+      "text": "回来再修。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "0291818f183ee6ffdc61a22b3be993d2972e9151eeb9b6ec3d17684785450a91",
+      "duration_seconds": 1.872,
+      "asset_sha256": "5344fc652f0bbbae0cf3d4fcdf049e3f997aaaaf6117baadf4eca45b32e17094"
+    },
+    {
+      "key": "7e9b3f0eeb3b64726009bda0551c30a18ea46abbe927b6c4066145af637efa09",
+      "speaker": "年幼的林澈",
+      "text": "这个可以录多久？",
+      "voice": "zh-CN-YunxiaNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "d7a576692b2655bcaa6eeccba6258a69e14de1b5fe5d076a399d73f05565f940",
+      "duration_seconds": 2.28,
+      "asset_sha256": "bcf0dd728b53f6104f0cd4ab9f0d770811bc1e119e5bacd326b0fb6f39ea9596"
+    },
+    {
+      "key": "6259ade9a343ca0b87f142963343d543c0c1e1f529ad308fac104e12e86916ee",
+      "speaker": "林遥",
+      "text": "录到你终于不问问题。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "3db0c8a67b29b2f0dfb594ad6536b987e270b27fba86d4acccf35c9287674483",
+      "duration_seconds": 2.592,
+      "asset_sha256": "552d5a342ecb179acffff469b6d3ab4b6f881b0d38c2a8ed00b7e9c7e09750e3"
+    },
+    {
+      "key": "1dca6498389504870c65d56437d2b3692a780f143b0fdd3fb7c01fa7823aae4f",
+      "speaker": "年幼的林澈",
+      "text": "那会不会不够？",
+      "voice": "zh-CN-YunxiaNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "860a291b341f2bd8d22f2459e2a9334cdccc81748079a0d980c7b74e99505f5e",
+      "duration_seconds": 2.088,
+      "asset_sha256": "334463be870c866eea89fab82d247e64c0e39a0383298ca38ccb2ee9214bc581"
+    },
+    {
+      "key": "86bcf4f10e4c613ab5cd01ed6f28ec984958636f814ac38b6ece690748e90e28",
+      "speaker": "林遥",
+      "text": "可能不够。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "6845b77e663f876e4fdfa60b64f7af30f3f8c497b4dc7edbabb2313d19340d49",
+      "duration_seconds": 1.872,
+      "asset_sha256": "e75537296bc2812c4ff6653259d155217ef70c32530764154fc458f9f27f5214"
+    },
+    {
+      "key": "492fef1444815d8bc79fa7a0456335129fb8f966da5440fc74499dd8893c750e",
+      "speaker": "栞",
+      "text": "有一根化了。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "548321a78bb7607e5b2cddc107ef890a49ccfd95a7dfbe00373fdd43fdfd6a10",
+      "duration_seconds": 1.872,
+      "asset_sha256": "1b524e90d45b6d5e4d269c831af4422d0a876d1887af44114f165bcf41bde1fe"
+    },
+    {
+      "key": "4291f20ea11679dc061fb6a9eb3de4468c9cc95efc6163998f33e83acce9a4a4",
+      "speaker": "林澈",
+      "text": "你拿来的时候就化了？",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "08ad32001c890fd81dbca40ad37cb89ddb1b2f232e43d4366f6112653db967ec",
+      "duration_seconds": 2.328,
+      "asset_sha256": "388a5c2d3ef7a727523c7df1a2fe53757e2f18a23a5a8a3e6a12d944e658f9b6"
+    },
+    {
+      "key": "a535b34bb39c6cc3e501af483a2bf5f4e94b56d57b198620fbfd6d3e753a584c",
+      "speaker": "栞",
+      "text": "你开门太慢。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "36aa84433a31690a5da0ba5b96423b34e21aa628a55946b57669f42636cd6ace",
+      "duration_seconds": 1.872,
+      "asset_sha256": "cc6df38fc305b6fc10bd9f3424c7f1cafc7548cc46afab173bd1229dfda66ead"
+    },
+    {
+      "key": "809ad737c59885acc2d1d1281309003195802b57785f5bfd915ce0e2e125d54d",
+      "speaker": "沈琴",
+      "text": "应该早点给你的。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "4bd84b93cc40ac9507f0944a6a4852e37f410574240fdbe452e052d9042788f6",
+      "duration_seconds": 2.256,
+      "asset_sha256": "a68cc61a2711383a4c430b4662696bd139e0181b610c5d1c3d71c4beb478ee84"
+    },
+    {
+      "key": "7a7dd968328c32cb36f3352c04d8402b4273ff1bcba2a8c84eed27fade3d3a0a",
+      "speaker": "林澈",
+      "text": "什么时候寄来的？",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "76949f8a99f66a474deebd8e11e534aa43861109c8161308220d88b54f976f99",
+      "duration_seconds": 1.968,
+      "asset_sha256": "e443e19a599c8cfd78c476cd4d4e414bdbd9b929779e259aa9994ad01f9689fe"
+    },
+    {
+      "key": "c9e7a1e53aa5c6422e41a09a4e4300787db70af287c060dcb197e630bbe21d9d",
+      "speaker": "沈琴",
+      "text": "不是寄来的。是她交给我的。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "f1bc222dd18b353ac764315f455dc56bb55d0a11658100f77e84b411748223d4",
+      "duration_seconds": 3.682667,
+      "asset_sha256": "f5e1d4f2e7c807042baf3cc18c400a581ac73a6cd8f8bce66b7ef954bd05a872"
+    },
+    {
+      "key": "a4bb2dcc42030549f9f60efa3d59bbe80f97cbaa57c33ed2e9b20bc731bc01a0",
+      "speaker": "林澈",
+      "text": "那你为什么现在才给？",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "68d587ba2bd9717d84ccdacf5348a53a7d134ab8f98bf2498b2ce642036b5e56",
+      "duration_seconds": 2.28,
+      "asset_sha256": "ea0295e23b96c838c79afd94cb6c50de85a3fb1b0944848db3a6a355153f856b"
+    },
+    {
+      "key": "ebc93eef3972163b256307657f4c62abceb15f720c49bba22b37e34f2f171c73",
+      "speaker": "沈琴",
+      "text": "我以前总觉得，再等一等，就不用寄了。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "d5b31e9b6d612c372d6bc137a1fd2abd552fcc82db6c3b5cd7546d91473b9536",
+      "duration_seconds": 4.2,
+      "asset_sha256": "ee325c791b7d93b96a0d5ecf1834ebad733ec39df93d2085fd14dcf466d2b48e"
+    },
+    {
+      "key": "67f75151d7a7e58f821c59154b761fae11aca7fc49ec847c36c2f0e19148e9df",
+      "speaker": "栞",
+      "text": "以前觉得这门好重。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "356778e7480502944ef086ce34ed69deaaa4a0a68aa7d81f9961dc9f5146c0c3",
+      "duration_seconds": 2.496,
+      "asset_sha256": "eecf2e2e38ae5a9264bb11d63538a3f8c51089c895dc4be3ae16f816e28260f4"
+    },
+    {
+      "key": "d81a7e565d471eb34c3aa6a94f7a15978bb6a48f16cc0b909f507e77d6b10c72",
+      "speaker": "林澈",
+      "text": "门换过了。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "dbcc8a07a3fd252a7624facad9081f1ab627a403dcd1e1edce2dc6154bc9b568",
+      "duration_seconds": 1.872,
+      "asset_sha256": "627fb36d6ec76715196988f72dfb8f1576851d56fe41e785f12ae0e6be3ce6e2"
+    },
+    {
+      "key": "90ee02b689318ecab5413a94238b9969b42e73a1991e9bf5d570b440ad1252df",
+      "speaker": "栞",
+      "text": "嗯。可我还是习惯先用肩膀。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "5de4e897d22a622af1d4b76a2ecc10e64a0ad673a93c589ea1ad3ba9cb733a0a",
+      "duration_seconds": 3.442667,
+      "asset_sha256": "1748303f0860231eadddb4ed2eb6d92cd469b4ce79c6d736d14de9d5f09956e1"
+    },
+    {
+      "key": "24a87081681b351b5e089426cf1192caeec6f15a61412945ee9dd5c9dd39b19d",
+      "speaker": "年幼的栞",
+      "text": "阿澈，你还在吗？",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "4b5811248dfc71261d3714c446e6f162b6a7b1c332e8195018fdb75706510c0a",
+      "duration_seconds": 2.328,
+      "asset_sha256": "b3de567e0cb5f7b63abfea4f20ef0b89edb5c9b4e5a90d2a2a84f15a34e5f158"
+    },
+    {
+      "key": "65b5ad94dda97231c050fb00bd01cbdd229da4e2f7417c696a1a9eef6dbc7356",
+      "speaker": "林澈",
+      "text": "周叔，我们在值班室。请到入口接我们。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "93f41060d3d7b06bb54c1a601db4d959fca38a68a6ad7df5a95e7952daa862f0",
+      "duration_seconds": 4.7,
+      "asset_sha256": "23953c13287595d4a6d5512cf8f1d3e4e4a46499a1086db5fbe89d025cd72ddd"
+    },
+    {
+      "key": "a0c9954449e58b30d5de8526a3969287cd99eb75bbf5daf7b5f5129e0d3afd72",
+      "speaker": "周启明",
+      "text": "别去堤边。我到门口接应。备用照明柜在门内左边，接线等大人来。",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "7b91f2871084870f224ee4389cb592ffa45017e4e04b358808a9c6535d1b9f83",
+      "duration_seconds": 7.1,
+      "asset_sha256": "88eddb85a4ef6353ef41dfcf4d1ec4837d01031f3d41173c18f17dec20352345"
+    },
+    {
+      "key": "c2ceaa47c24c5988b8d676e05dfc05df8f446646808febbbfdd4473a1ccb9cc5",
+      "speaker": "林澈",
+      "text": "我们等你。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "53e42a4a0c1272581a11d367fed1bd6f7b776be5073e73dbdd035fad69ddaac7",
+      "duration_seconds": 1.872,
+      "asset_sha256": "1f4ce4afd659eee4cbf41434c217fe3dd8af163f1da3c12e16cedc3ff2bf5d63"
+    },
+    {
+      "key": "eee0f19d649d30b325b83dbbaa59dea3c9a42f7ec8963925d49a231e0abb350e",
+      "speaker": "周启明",
+      "text": "跟紧，别踩外面的水。",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "15889e4bd21ef932b488129eae8679db8572b6e03753f114e2101e563fa0c4c3",
+      "duration_seconds": 2.544,
+      "asset_sha256": "ad2b0f19fc049e352e3b6fc60fe40aba6a86ecaccff1c88b0381d925a4bb0f27"
+    },
+    {
+      "key": "511b61a43fb12182a38b8d69423888e498b504a7bb2f6a75c7dc6e3c33814515",
+      "speaker": "林遥",
+      "text": "先送你们上船。别回去捡东西。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "392065dfc6520c03704ae6cf62eacca26b93c6e8d75e9219760580e7674e0e8e",
+      "duration_seconds": 3.778667,
+      "asset_sha256": "da22f9cb06d8236367d2a8f9760c1c61f0b8ccce93f46d331c01ace8ca98b8f3"
+    },
+    {
+      "key": "4846cb8c88ca4856bc5735b4a21b77fd27d9b7081b99338864b121095df3ce0c",
+      "speaker": "林澈",
+      "text": "我在。我来开门。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "d3b4889e5ae37d190c6529921377b416d93fcd7103954851d53335cd2bf9ebbd",
+      "duration_seconds": 3.058667,
+      "asset_sha256": "c6e4dec13361c241102513c15448fdfaea90e0a35679a47ef5c7b4e7b9f24af6"
+    },
+    {
+      "key": "682862ad7f7be02c2f67ba719642e78ba9da758ccd093edf3f4dc1beba94901e",
+      "speaker": "林遥",
+      "text": "手给我。我先带你们去船边。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "c1ff8d0ce790d37c439f1da0dfe211b178d3ec330cb7fd511fde304ff5b1231b",
+      "duration_seconds": 3.418667,
+      "asset_sha256": "82613d4c05b3cd2fc069c517f1172ee308fb7be6bbfdcd1b4697277853d5c850"
+    },
+    {
+      "key": "c81d1ce30d83fb8cd9374539b6fa42a788fa682a1f2ccaf64b0da9340481769e",
+      "speaker": "林澈",
+      "text": "如果我再来一次……",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "927ab0131f645cb8d11cca497678b18b13ce54d393265b28c65edf0549694809",
+      "duration_seconds": 2.064,
+      "asset_sha256": "c954e63c85283a3ea8aac80985b7df12270d0363e8297a58dc9d586de1600f1d"
+    },
+    {
+      "key": "19a5bc49d5eaaa508adcf4f887ee2ad80577d4c3dfca973393a64adada6b65ff",
+      "speaker": "栞",
+      "text": "你记得我那时很害怕吗？",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "f277360887d5f907d5476aff2caa3ffed8df41b688fbe1d65ee748807de01b64",
+      "duration_seconds": 2.448,
+      "asset_sha256": "03a6989eed393a57a7cd7c301fc2167c25c52d03b27f6600053076ef25f10aab"
+    },
+    {
+      "key": "75b3e7db1e44af0cad1f4dfcd922a5ce325953964e076a379275844a6da2f4a8",
+      "speaker": "林澈",
+      "text": "记得。你一直攥着带子。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "5109c63901c84debc59f71ab9966c788f0ff03877b9619652df2d11913af9905",
+      "duration_seconds": 3.226667,
+      "asset_sha256": "37429865f1a9f70e50ec30f90d2a0145f6f3af3488b8f04823adbb624e0c1c92"
+    },
+    {
+      "key": "5fb1dd3882ed60d55ff585867fd8906ff79224c023bd5988135104d1d5ed0671",
+      "speaker": "栞",
+      "text": "我怕你也不见了。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "4f853c3f58cd3ebdb8f294ecff444eeb12839e191975dc7ff4c50dc9db1efcee",
+      "duration_seconds": 1.872,
+      "asset_sha256": "a1c4e78c1b48499a5039eb1d06a1cd8b8e296d6863e2fb6b3d4a9e5fc86f4af6"
+    },
+    {
+      "key": "539ed8d2aadb8dc2f6c9481c4fb2d89fcd75cba99b32da908c4bde970aef7c31",
+      "speaker": "栞",
+      "text": "那杯没糖。你以前嫌甜。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "6d4b068bb61cde3fb58d5941dd06a5dac536dd4fe1e5d9f29ed3ae6b698a592c",
+      "duration_seconds": 3.274667,
+      "asset_sha256": "b597165993e4c2850614ec33628672055b64df7386d4fdb350f50f362132c14b"
+    },
+    {
+      "key": "3773ab701f6bd15b96a3ad23b9c4d86393afdba53f49617bdcd3a4a6fdda3ded",
+      "speaker": "林澈",
+      "text": "你怎么什么都记得。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "1416b874e53985c376fdb2b499a3a528457022c84fd7cfcef73fd4dd58db929c",
+      "duration_seconds": 2.04,
+      "asset_sha256": "2d69342b1854489b681513bab3e02c9216a28230b25e9710ce18c8ce0e4a6cc3"
+    },
+    {
+      "key": "d23f113a8311556b6facadffecb005f8db8eecf58e33b5ff4760da8bf3e9b1eb",
+      "speaker": "栞",
+      "text": "也不是。有些事，我宁愿你别替我记。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "aca636835c14e5083f72555b1dfe9bc390247cec92b8eca0a5c1d4565bfb929e",
+      "duration_seconds": 4.4,
+      "asset_sha256": "e5e9d320905a018d2c3392027e9e5eaaeefce16b37e256b9052b33ecf019f32f"
+    },
+    {
+      "key": "4263c8cc6a9ec64c382fe9388e3ef87ebee9adc8e57815e29966fa34ec5373e7",
+      "speaker": "林澈",
+      "text": "你们都知道，就我不知道？",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "e4388e8f75c0fe42cbf0fe4bbd772166ab28b34962cc427aa76c66366daf2a1f",
+      "duration_seconds": 3.178667,
+      "asset_sha256": "1ca8f963b8677cc85d1d7555feffc1120ff30f3cba6da19cd28121bca7a62dd5"
+    },
+    {
+      "key": "1db41d689c32cf178f13fe5a7d2ec224eca88c077bbb29885bfd0c7c293cfd20",
+      "speaker": "栞",
+      "text": "你那时只有十岁。现在不是了。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "9e520a33bf1b4f5aba7e0401cc8d4f30930d5e4c0ff3ba73bee5dffe82c436c1",
+      "duration_seconds": 3.826667,
+      "asset_sha256": "3763a33d2fd28014e18a60576c6593b648f19632fddac8decc6da5f7f17b848b"
+    },
+    {
+      "key": "e7a9a53c22ace923db2e540351addd243d54619579d484eedf5dbe8dddad0a1c",
+      "speaker": "沈琴",
+      "text": "她托我寄的，是离开家的信，不是告别世界的信。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "a33a208b7f93e4850bcfdee60ef8fbd08a244cdce205d43bceef31f797f8eb3a",
+      "duration_seconds": 5.0,
+      "asset_sha256": "a6d7eaf9dfaa904802bf2defba87391df266bfd48b7583589809348d31498fee"
+    },
+    {
+      "key": "a0627b705ff67feaa82b2d7a670eebff856dbb1f08cb1969dc4a3e65f86ff720",
+      "speaker": "周启明",
+      "text": "我只到过停电的入口。我怕再往下走。",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "fe353a4b359946166a28efbfddf9d844e2592969953baeed357ba6a4d33b807d",
+      "duration_seconds": 4.2,
+      "asset_sha256": "ce9ac4af15fac938a0b06eb772a2bafea90a9aae3f63112e69d2a9227b0088d4"
+    },
+    {
+      "key": "45439bf6347554333ca267d9565c96bcde9b6925744bc87d9c6d576d810c14ac",
+      "speaker": "林澈",
+      "text": "那你为什么写无人？",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "e6a0c82a20627edf1157581b5d1a6945f1239016630ee1c7b2d5d236a63e0e75",
+      "duration_seconds": 2.136,
+      "asset_sha256": "b7cdbd9bb8b5a53777dd9aaa0684ac2c8460d5dd48bccf8a608a3a2fd6f8d27e"
+    },
+    {
+      "key": "67f90cc9191c991edb88a061561cb2c4bda6a2b8a7ce6475b5e2747fc9e6b0e6",
+      "speaker": "周启明",
+      "text": "我想把没看见的地方也算成看过。对不起。",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "e75ddf0064afbae82fb561237e94f33272729d45d8b2003d328e4b64bf773342",
+      "duration_seconds": 4.5,
+      "asset_sha256": "cc4a0a1d7109ed9ec276d30055f28e4ecc1b8d4328f25918992f4133806087ad"
+    },
+    {
+      "key": "6cff57382286942edf13e76ee89a3aacf1f78191c08abe7e56519f972aa1c24c",
+      "speaker": "周启明",
+      "text": "图给你。你愿不愿意原谅我，都不该影响你拿到它。",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "3943fe355a7aaa0fcce8f67b058413e61b076c35aa10c09dca78c53d751543f9",
+      "duration_seconds": 5.4,
+      "asset_sha256": "b9b2508a45d7940584440b931ea5a6834e160d896e91897498e0ff7a53c5ea9a"
+    },
+    {
+      "key": "323e24507f849cd23954f8582755b7861d2bc7cdc63457ea3d242b5fdcdebc7b",
+      "speaker": "林澈",
+      "text": "谢谢你说出来。我接受道歉，但报告要留着，更正也要留着。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "a4a33f263635cb7c98b057a14c3744809e0de7174bc7aa5338b6fa34d79f6c43",
+      "duration_seconds": 6.0,
+      "asset_sha256": "eb464d54495a134ca1611362878a98dcc14becdf10b9240191bc387d4ec73e41"
+    },
+    {
+      "key": "6ca06c6f55789052966bb2ec8979b83a1d680cc803636dde2f8208ee00d5b953",
+      "speaker": "林澈",
+      "text": "我现在没办法说没关系。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "2062e40b1f4bc624349b4e5e0d225c0c99f0903a18ce2598c5c3359a8bed5b84",
+      "duration_seconds": 2.568,
+      "asset_sha256": "43f0228a5ee1b08db7f939005244c9f4cd65189cfb01e0b0a29c944172fa3ef1"
+    },
+    {
+      "key": "7e4584e745cc2826482a384c0fb50318b6a8a3be629c2ba94d54917103f5aba6",
+      "speaker": "周启明",
+      "text": "不必。你拿好图。",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "6293e5f21537240f6de529321fe0be45a262c65fff3a96e3d52afa0e77870739",
+      "duration_seconds": 2.592,
+      "asset_sha256": "78b50406782816ba5f7c13d799da896646d37353b34e47340abdef193bd51d31"
+    },
+    {
+      "key": "9197c158f9a501b57fce84d00b3ac0a5efe3e73638d67a4114ef93ffbfd0f323",
+      "speaker": "林澈",
+      "text": "那段录音，可能有你的声音。一起听吗？",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "e282e24e4b1544a5c1c06f3fee676ca21167ea1c8852f64a502b1484017c6c21",
+      "duration_seconds": 4.7,
+      "asset_sha256": "2147c365a590cac50a4d823e223ced9d6801d245fb0426cde1b652c2ba4a2d6a"
+    },
+    {
+      "key": "a9326a3707d4437287e016be0469c664f3ae9e8f15a71fcd41a7f69f0f931e99",
+      "speaker": "栞",
+      "text": "不要。我记得。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "e8d4a594cfd43aa4a4dd20cb5c526a6ceaffb54e500e2c66bcc1e833f7904683",
+      "duration_seconds": 2.496,
+      "asset_sha256": "574b2076a561d009aed7a5e1c8e352b6c24fef4c7c69933970bbb547c67aa549"
+    },
+    {
+      "key": "5cd7e3179a4abaea0137fc07406a9147b2d5834964f670a567ebaa0b911e4c20",
+      "speaker": "栞",
+      "text": "你每问一次她为什么没回来，就像在问我为什么回来了。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "5f6ec2976e684424c829961701c73b4c459f7f30a195ab242901b9d5d495619e",
+      "duration_seconds": 5.3,
+      "asset_sha256": "8fdc6d0caebaac39c1b6f89a4d27dc9b0e5d3b7169a1c46c58a926b25b5ad883"
+    },
+    {
+      "key": "cb31a5d5d2ffc2cfa7383648791cc3dc4c016a9ccbc20854bb997f9aa060406e",
+      "speaker": "林澈",
+      "text": "好。不听。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "b32fca2d8bc757d277778b6adad8094ad106ade84d3fe6bd9c2308f7cf1a972c",
+      "duration_seconds": 2.736,
+      "asset_sha256": "60ade48cc4fb4a7b6044fad721953b78b6334293c73551823a5847e91c089263"
+    },
+    {
+      "key": "262f7f50f2d0b29f4a02842df95ac3470fd1a76f0b77f3b9fcab6bc836ada57f",
+      "speaker": "栞",
+      "text": "谢谢。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "90b103a19a47e23a0b70d96187ad103771759045aa47348d3f8e558dd99cdd56",
+      "duration_seconds": 1.872,
+      "asset_sha256": "0a23f87e7ca025997bd0ba20fdef3bf2502da6b989227c0689101dc6588737dd"
+    },
+    {
+      "key": "95917be9e3b9e1a808d65c109e8531b1b4e0ea457246a1a036037158cbbd2422",
+      "speaker": "栞",
+      "text": "我刚才已经回答了。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "36e48ebf8462e0e7466b4fcc24f75ed415cc5638787f1e0cf1e7e97502947802",
+      "duration_seconds": 2.208,
+      "asset_sha256": "0486658413a72115ae9f5ef2c76a1f9605fd8747a49f2ec52d66dc7460dbca05"
+    },
+    {
+      "key": "bfb3a00c12514f27d3bd18ebdc73fa2694dd618c07c0dc15ef92e0f2609be051",
+      "speaker": "林澈",
+      "text": "你能不能不要走？",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "1c64396842e83a369805a6215ee12a7078ae7af23a0002f5d6e1e45dace5dba7",
+      "duration_seconds": 2.064,
+      "asset_sha256": "6bd3793ccb098b3b2d5910d06bb50c3010ceb4fd1d12f1b9cdafb61cfa04c74f"
+    },
+    {
+      "key": "a807030c3036f323bf35611cc308da0781d2db6a29845571d0938b3d6fd1237c",
+      "speaker": "林遥",
+      "text": "我先送你们上船。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "1966c042e627d1e0adae43d82d0cfcf2488713bf976218aa4c2321a2c8d50a74",
+      "duration_seconds": 2.136,
+      "asset_sha256": "c8f0d79ad844cf4f5d04d5ef39aef3987fa548cdd5077115953c305a8b9d825a"
+    },
+    {
+      "key": "4212dc99bff403526b485bf924a8e7fe24e7b34a9ddc73286d90118884392d63",
+      "speaker": "林澈",
+      "text": "我不是说现在。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "5a25048b8ea9a074c99e708e5467b653b7d296164cc6f17dbd1cf2f069e27fb7",
+      "duration_seconds": 2.088,
+      "asset_sha256": "8c1e648f00ff318c992fa64ecb695a0eb106208cdd63864f3301e6b05a3e7d43"
+    },
+    {
+      "key": "dc10aab773ed99dd9fea4fc5440e41bd40c60515adeea351fc6ebc7010294340",
+      "speaker": "林遥",
+      "text": "阿澈，手给我。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "facb0274d0f2dd83634ecea185e04bc60231ed152a0820c6a67afd806a81efb7",
+      "duration_seconds": 2.328,
+      "asset_sha256": "a2962563ad2a31c55e30987d5cd5890cb8d37b02cd7e453ca026a321d3a3e751"
+    },
+    {
+      "key": "815534c234baed8cc8e3b4400c3cbeeef3392194e6170eab8b684ebd83d16029",
+      "speaker": "许岚",
+      "text": "看不清字的时候别硬看。饭还热着。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "50c8df7ffd8ac5d52523cbb49d6cf4af8f1608a8f816b1f4d30c05b217b4198c",
+      "duration_seconds": 4.5,
+      "asset_sha256": "eed581b44a8000f410b70d87a0f148f73d985eb9795e2a6f2a7e94128e6e8fed"
+    },
+    {
+      "key": "7384f690c5715342a12d1989134129a408fc237190472e61148a1bd9f88992ad",
+      "speaker": "林遥",
+      "text": "抓紧绳子！阿澈，你又把鞋带系死了？",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "1e694da937d857a49f3c9200f466e4eecd9fce4a6a35269b8da3e0dd7b6283c2",
+      "duration_seconds": 4.5,
+      "asset_sha256": "f55749eb021997fde37a1a975585cbbbb71c42023a6b046aaa55f9e831753fa7"
+    },
+    {
+      "key": "53a68c8d91b0716158c9fe1ddeb82b9b5199c3683171f047a9de3edb9e3d90b5",
+      "speaker": "林遥",
+      "text": "我不是没有想你。我是每一年都比上一年更不知道怎么回来。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "15ca5ae556ec11840b064c30ce01df202609953583c3aec537b09fdb88a00e01",
+      "duration_seconds": 5.9,
+      "asset_sha256": "d471c201a036e05efa642dbe207b72522ed2e80efb7a80bde426559122bf8bc6"
+    },
+    {
+      "key": "e3dabd3578180970bfd73d8ed722df3cf1d4349a0a97170fa8b233ee6bb3f411",
+      "speaker": "林遥",
+      "text": "开始是住院。后来，是我不知道怎么说，我真的想离开。再后来，听说你们已经安葬了我……我就一直躲着。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "afc9658c87917c171b04811df62e217c5756d333c6896aa7b888b22469092205",
+      "duration_seconds": 10.1,
+      "asset_sha256": "c70059daa79aa75e870d9781fd972ca2f5e2d80a79ea8fb75b3f41d55d78f393"
+    },
+    {
+      "key": "8ed95434ef72c009a282fbdd6b3817a0bba12b15a911623226b80f5d3a865e6f",
+      "speaker": "林澈",
+      "text": "这些年，我确实很生气。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "24efe6608404b3723cf37d7a956efbf0d8c59c93f7d6d3811480a57474105a37",
+      "duration_seconds": 3.178667,
+      "asset_sha256": "c29c0190f585eb95ce40b2e1ab56ee2f1968322d70b1ac557eeed6a4ae444466"
+    },
+    {
+      "key": "d5ebbfc481fece7ef93b690944a30a03e13027234fe40ea3c2ac194018c7e5c1",
+      "speaker": "林遥",
+      "text": "我知道。我不能用难过，把这些都算成没有发生。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "b2d907ab2c83ee9156d72d7225b5fea9fe53dfccd267694444913592c2ce10c0",
+      "duration_seconds": 5.4,
+      "asset_sha256": "b9e6d12429bef810aa1e24a926cdff743b1c5187d1b66638ec4609d654930e63"
+    },
+    {
+      "key": "0eebd249609024821beb2b7835bea123cede717a9406b60c578c6c6182d5b38f",
+      "speaker": "许岚",
+      "text": "栞，明天想吃什么？",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "356f5c1d4a0cf6b3ec29933ec328a0693819dac234eb420d8ef5d1400925d338",
+      "duration_seconds": 2.448,
+      "asset_sha256": "504b5b04a705b5f98882ce438eb990381299d9041f5995555b8c927648b89296"
+    },
+    {
+      "key": "515145a8e491db0bb9bfd4f22e09c1a4482c7d8df4002ec7460b84b995b69134",
+      "speaker": "许岚",
+      "text": "以前我总说你是被小遥救回来的。好像你每过一天，都要还一次。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "-4%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "caceb7305220bc94f877ea19b60063acea7eebac2e41892387bc552aad67abdb",
+      "duration_seconds": 6.6,
+      "asset_sha256": "c1d04b7d749f574a00f2faa229146adcbfeabe061e6be7a625435f498cd0641c"
+    },
+    {
+      "key": "34a47dbffa77a7d2dad09c2848cbab5feccc761a41a14664b6e97a768c81d1e0",
+      "speaker": "栞",
+      "text": "妈，我也很想她。但我不想再为回来道歉。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "40ccd031d8aa438867077c6835a254f4977a9d43cc10644b02157851dba853c4",
+      "duration_seconds": 4.5,
+      "asset_sha256": "62feabb2c2a5821c44af65efa0598cfdbe80f89b85c54d48f240979744079704"
+    },
+    {
+      "key": "fd416f7929654e5803d6aeaed512cd8b936f8af905cc127fa3b00e1c217e5f36",
+      "speaker": "林澈",
+      "text": "最后一页写，她考上了想去的学校。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "1a6252d11865ade5a6016a7595c657d6b25113f8ddb1c1d18177ea29f7d375d6",
+      "duration_seconds": 3.586667,
+      "asset_sha256": "dbef2b48f4cd963a23919bba24c53be51863882e28977d189486e9c8d50117d9"
+    },
+    {
+      "key": "2682a30c5a165cfc6be4c0e9d088f8e77c75f0127260aa2fd140a581988449d5",
+      "speaker": "栞",
+      "text": "不是写她救了我们吗？",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "d44894bb0250a7bc0b8647c15f19622fee821bc8916fde89b07d01e3acd8812d",
+      "duration_seconds": 2.184,
+      "asset_sha256": "90dd8c5f58a6d5dfb05a921b2dc5c79a90ae603e0e37f46cfc7d8be491d81c5f"
+    },
+    {
+      "key": "6db867701596398e571105ec22647b5debf839cb50878eb258eb9d649f3c130a",
+      "speaker": "林澈",
+      "text": "前面写过了。这也是她。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "04661946b724c70f2ba1b0d688a46cc86e3cfcb73b0491111e4f6c9995e7a185",
+      "duration_seconds": 3.250667,
+      "asset_sha256": "f5f8c08f725baba5dc685a9ee82a7e18f60c978eaee3530a6565432eaeb5ddb5"
+    },
+    {
+      "key": "42218bf964e0d6530212c75e86374a52e09b45e2f726299e3866cfee39255322",
+      "speaker": "栞",
+      "text": "这次站进来吗？",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "e8289daf74e35853189d7cd62b2ab797b43cc6fddade82611dc012a00ad6f3a9",
+      "duration_seconds": 1.872,
+      "asset_sha256": "5775c4eb0a19814ed4d5cc74bac17bf0739c4fb7635830dbd65a573038fccd74"
+    },
+    {
+      "key": "42e395fd0254fcd1e87087f6982ffe3d3045f9339cd141b818b51d7b2c220c2f",
+      "speaker": "林澈",
+      "text": "这次拍风景吧。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "bb521bf13017f8e3a45df3fc37be9c97f16fced9642b915e06311e856175560f",
+      "duration_seconds": 2.256,
+      "asset_sha256": "ed4de9d78ab4eceb228b8e221db532f7ff6c873d441161acebd3cab90601c3a1"
+    },
+    {
+      "key": "af85350bcbd80ddcdf700b979c3e8f39690c30ee7cef24ff39e2f235d78c1e36",
+      "speaker": "栞",
+      "text": "好。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "f2f12e8a10b667cd9215b27d6af9ed38e9845eaab4749f991475f8b034b437b6",
+      "duration_seconds": 1.872,
+      "asset_sha256": "8e7a8f71da543b73df3ba2962716aaad2b1d8d71c346c36f571c707250bd5023"
+    },
+    {
+      "key": "e4f6a41029d9c59ff42a3d152e3ec13dcd09a950a73b348c120475dd2b476eaf",
+      "speaker": "林澈",
+      "text": "这次住多久？",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "70c14f805c6fd72e627f0533649ae684d8a4293a0e66ba797c99f7567368d1c4",
+      "duration_seconds": 2.184,
+      "asset_sha256": "50e6fe02c5711718d89f5e6aa215febfd50b45d06380e53d356e6cd784091cd3"
+    },
+    {
+      "key": "081937d9e0159db9170fbb6fd00e72a8293fb3514d55e4409fed1840ed88700e",
+      "speaker": "林遥",
+      "text": "周日回去。那边还有活。",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "a4abe48e5130726fb7a25978ff533a6fe7e55b27b217eb3ab8ba74b31586e1d3",
+      "duration_seconds": 3.322667,
+      "asset_sha256": "5b0b4069940ddc6e894ff2338ab761170d83e7bac1a688aaf70654d46478b0dc"
+    },
+    {
+      "key": "656647112586ef1731d40b86ad140b0d7e6a254ce8a9ad8514b89db37a1d723b",
+      "speaker": "林澈",
+      "text": "那我买三天的菜。",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+0%",
+      "production": {
+        "encoding": "mono 24 kHz Ogg Vorbis q5",
+        "filter": "loudnorm=I=-20:TP=-2:LRA=11"
+      },
+      "edge_tts_version": "7.2.8",
+      "recipe_sha256": "2e5021d5b2d5940354f259ed4d6f50f9bf996ccfbccbe9767f7252e1f39ee550",
+      "duration_seconds": 2.184,
+      "asset_sha256": "7b4010b1257a36573f7d6e56fafbdf9136c069210d78dfbe1d6c923a39388d17"
+    }
+  ]
+}

@@ -18,6 +18,10 @@ const Director := preload("res://src/art/scene_director.gd")
 const Guide := preload("res://src/game/exploration_guide.gd")
 const Voice := preload("res://src/art/dialogue_voice.gd")
 
+var dialogue := preload("res://src/game/dialogue_cursor.gd").new()
+var speaker_label: Label
+var dialogue_count: Label
+
 var preferences: RefCounted
 var journey_continuation := false
 var confirm_decisions := false
@@ -221,7 +225,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _trigger_primary_action() -> void:
 	if session.speaking():
-		_advance()
+		_continue_dialogue()
 	elif not _pending_action.is_empty():
 		_act(_pending_action)
 	elif session.view()["completed"] and journey_continuation:
@@ -277,10 +281,10 @@ func _build_hud() -> void:
 	motion_button.text = "动态镜头：开" if director.enabled else "动态镜头：关"
 	motion_button.position = Vector2(32, 90)
 	voice_button = _button(hud, "", _toggle_voice)
-	voice_button.text = "试音：关" if voice.muted else "试音：开"
-	voice_button.tooltip_text = "当前为未审校的合成试音。关闭不影响字幕、剧情和环境声。"
+	voice_button.text = "普通话试音：关" if voice.muted else "普通话试音：开"
+	voice_button.tooltip_text = "普通话逐句试音，表演尚待试听确认。关闭不影响字幕、剧情和环境声。"
 	voice_button.position = Vector2(185, 90)
-	voice_button.visible = not voice.clips.is_empty()
+	voice_button.visible = not voice.turn_clips.is_empty()
 	objective_label = _label(hud, "", 18)
 	objective_label.position = Vector2(32, 140)
 	objective_label.size.x = 780
@@ -311,19 +315,22 @@ func _build_hud() -> void:
 	column.add_theme_constant_override("separation", 6)
 	panel.add_child(column)
 	zone_label = _label(column, Content.WANDER, 16)
-	story_label = _label(column, "", 19)
+	speaker_label = _label(column, "", 17)
+	speaker_label.add_theme_color_override("font_color", Color("9b5d31"))
+	story_label = _label(column, "", 21)
 	story_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var row := HFlowContainer.new()
 	row.add_theme_constant_override("h_separation", 12)
 	row.add_theme_constant_override("v_separation", 8)
 	column.add_child(row)
-	next_button = _button(row, "继续（E / 空格 / A）", _advance)
+	next_button = _button(row, "继续（E / 空格 / A）", _continue_dialogue)
 	confirm_button = _button(row, "确定（E / A）", func() -> void: _act(_pending_action))
 	cancel_button = _button(row, "取消，继续探索（Q / LB）", _cancel_decision)
 	confirm_button.hide()
 	cancel_button.hide()
 	continue_button = _button(row, "继续旅程（E / A）", func() -> void: continue_requested.emit())
-	replay_button = _button(row, "重听对白（R / Y）", _replay_voice)
+	replay_button = _button(row, "重听这句话（R / Y）", _replay_voice)
+	dialogue_count = _label(row, "", 14)
 	_actions = HFlowContainer.new()
 	_actions.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(_actions)
@@ -350,9 +357,21 @@ func _button(parent: Node, text: String, callback: Callable) -> Button:
 	return button
 
 
+func _continue_dialogue() -> void:
+	if not session.speaking():
+		return
+	if dialogue.advance():
+		voice.stop()
+		_refresh_dialogue()
+	else:
+		_advance()
+
+
 func _advance() -> void:
+	# Commit one canonical block only after its final presentation turn.
 	if session.advance():
-		sound.cue()
+		dialogue.present("", false)
+		voice.stop()
 	refresh()
 
 
@@ -396,8 +415,9 @@ func refresh() -> void:
 	scene_label.text = scene_title
 	room.sync_state(state)
 	director.stage(room, player, state["speaking"], state["line"])
-	voice.present(state["line"], state["speaking"])
+	dialogue.present(state["line"], state["speaking"])
 	story_label.text = state["line"] if state["speaking"] else completed_text if state["completed"] else Content.WANDER
+	_refresh_dialogue()
 	next_button.visible = state["speaking"]
 	continue_button.visible = state["completed"] and journey_continuation
 	objective_label.text = Guide.objective(state)
@@ -479,7 +499,7 @@ func _position_targets() -> void:
 
 func _toggle_voice() -> void:
 	voice.set_muted(not voice.muted)
-	voice_button.text = "试音：关" if voice.muted else "试音：开"
+	voice_button.text = "普通话试音：关" if voice.muted else "普通话试音：开"
 	if preferences != null:
 		preferences.voice_enabled = not voice.muted
 		_store_preferences()
@@ -504,3 +524,16 @@ func _cancel_decision() -> void:
 	confirm_button.hide()
 	cancel_button.hide()
 	story_label.text = Content.WANDER
+
+
+func _refresh_dialogue() -> void:
+	var speaking: bool = session.speaking()
+	var turn := dialogue.current()
+	speaker_label.visible = speaking and not turn["speaker"].is_empty()
+	speaker_label.text = turn["speaker"]
+	dialogue_count.visible = speaking and dialogue.turns.size() > 1
+	dialogue_count.text = "%d / %d" % [dialogue.index + 1, dialogue.turns.size()]
+	if speaking:
+		story_label.text = turn["text"]
+	voice.present_turn(turn["speaker"] if speaking else "", turn["text"])
+	_update_replay()

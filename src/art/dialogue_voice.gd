@@ -1,6 +1,9 @@
 extends Node
 ## Optional recorded dialogue. Absence of a take is silent, never a fabricated voice.
 
+const Beats := preload("res://src/game/dialogue_beats.gd")
+
+var turn_clips: Dictionary = {}
 var output: AudioStreamPlayer
 var current_key := ""
 var muted := false
@@ -16,6 +19,9 @@ func _ready() -> void:
 	var manifest: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://assets/voice/manifest.json"))
 	if manifest is Dictionary:
 		clips = manifest
+	var turns: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://assets/voice/turn-manifest.json"))
+	if turns is Dictionary:
+		turn_clips = turns
 
 
 static func key_for(text: String) -> String:
@@ -23,14 +29,21 @@ static func key_for(text: String) -> String:
 
 
 func present(text: String, speaking: bool) -> void:
-	var key := key_for(text) if speaking else ""
+	_present_key(key_for(text) if speaking else "", clips)
+
+
+func present_turn(speaker: String, text: String) -> void:
+	_present_key(Beats.voice_key(speaker, text) if not speaker.is_empty() else "", turn_clips)
+
+
+func _present_key(key: String, catalog: Dictionary) -> void:
 	if key == current_key:
 		return
 	stop()
 	current_key = key
-	if not clips.has(key):
+	if not catalog.has(key):
 		return
-	var path: Variant = clips[key]
+	var path: Variant = catalog[key]
 	if not path is String or not path.begins_with("res://assets/voice/") or ".." in path:
 		return
 	output.stream = resolve_stream.call(path)

@@ -1,0 +1,14 @@
+{
+  "locale": "zh-CN",
+  "review_status": "audition",
+  "speakers": {
+    "林澈": {"voice": "zh-CN-YunxiNeural", "rate": "+0%"},
+    "栞": {"voice": "zh-CN-XiaoxiaoNeural", "rate": "+0%"},
+    "林遥": {"voice": "zh-CN-XiaoyiNeural", "rate": "+0%"},
+    "周启明": {"voice": "zh-CN-YunyangNeural", "rate": "-4%"},
+    "沈琴": {"voice": "zh-CN-XiaoyiNeural", "rate": "-4%"},
+    "许岚": {"voice": "zh-CN-XiaoxiaoNeural", "rate": "-4%"},
+    "年幼的林澈": {"voice": "zh-CN-YunxiaNeural", "rate": "+0%"},
+    "年幼的栞": {"voice": "zh-CN-XiaoyiNeural", "rate": "+0%"}
+  }
+}
