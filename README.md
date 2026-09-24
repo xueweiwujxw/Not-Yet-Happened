@@ -31,13 +31,16 @@ gamepad left stick move; E / gamepad A interacts or continues dialogue; Tab / ga
 to the notebook and manual save/load. The player eases into motion, brakes and turns smoothly,
 and blends the walk cycle back to rest. Dialogue pushes in gently and nearby visible characters
 turn toward each other; `动态镜头：关` restores wide framing. See [presentation direction and voice
-handoff](docs/presentation-direction.md). All six chapters' explicitly labelled spoken dialogue and
-the keeper tape are covered by 55 voiced display blocks. Narration remains unvoiced; casting,
+handoff](docs/presentation-direction.md). The 3D scenes now use 87 separate Mandarin speech turns, keyed by speaker and exact text.
+Narration stays silent, speaker names appear separately, and E / Space / Enter / A advances one
+turn at a time; the final turn commits the original story block. There is no per-block beep or
+stitched multi-speaker track. The old 55 audition blocks remain archived for compatibility only. Casting,
 pronunciation and acting still need human listening review. Missing takes stay silent and dialogue always advances
-manually. Unreviewed auditions default to OFF in the shipping entry point. `试音：开/关` controls
+manually. Unreviewed auditions default to OFF in the shipping entry point. `普通话试音：开/关` controls
 them separately from kitchen ambience; voice and camera preferences persist across chapters and restarts.
 Enabling auditions does not restart the current line; R / Y explicitly replays it.
-This update does not replace the recorded performances.
+These takes replace the spatial UI's previous generic voices, but remain auditions awaiting
+listening approval; adult female roles share two source voices. See [Mandarin production](docs/mandarin-voice-production.md).
 Quiet synthesized ambience, footsteps and accepted-interaction tones accompany the kitchen.
 Use `Audio: ON/OFF` to mute this view; this setting resets on reopening. These are placeholder
 effects, not voice acting or audible evidence. Physical-device listening QA remains outstanding.

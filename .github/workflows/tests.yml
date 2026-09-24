@@ -53,6 +53,9 @@ jobs:
           bash tests/test_check_godot.sh
           bash scripts/check-godot.sh godot --headless --path . --script tests/run_tests.gd
 
+      - name: Validate offline voice production recipes
+        run: python -m unittest discover -s tests -p test_voice_production.py
+
       - name: Smoke-test project startup
         run: bash scripts/check-godot.sh godot --headless --path . --quit-after 1
 

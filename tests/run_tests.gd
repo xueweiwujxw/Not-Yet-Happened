@@ -25,6 +25,8 @@ const FarewellVoiceTests := preload("res://tests/test_farewell_voice.gd")
 const VoiceCoverageTests := preload("res://tests/test_voice_coverage.gd")
 const DialogueReplayTests := preload("res://tests/test_dialogue_replay.gd")
 const PlatformTests := preload("res://tests/test_platform_performance.gd")
+const VoiceTurnCoverage := preload("res://tests/test_voice_turn_coverage.gd")
+const DialogueBeatTests := preload("res://tests/test_dialogue_beats.gd")
 const PlayabilityTests := preload("res://tests/test_playability.gd")
 const DinnerTests := preload("res://tests/test_dinner_performance.gd")
 
@@ -35,7 +37,7 @@ func _initialize() -> void:
 
 func _run() -> void:
 	# Compile display-only entry points here too; headless tests do not execute them.
-	for script_path: String in ["render_kitchen", "render_keeper", "render_finale", "render_cinematic", "render_playability"]:
+	for script_path: String in ["render_kitchen", "render_keeper", "render_finale", "render_cinematic", "render_playability", "render_dialogue_turns"]:
 		var renderer := load("res://tests/" + script_path + ".gd") as GDScript
 		if renderer == null or not renderer.can_instantiate():
 			printerr("Render entry point failed to compile: " + script_path)
@@ -69,6 +71,8 @@ func _run() -> void:
 		PlatformTests,
 		DinnerTests,
 		PlayabilityTests,
+		DialogueBeatTests,
+		VoiceTurnCoverage,
 	]
 	for suite: GDScript in suites:
 		if not suite.can_instantiate():
@@ -104,6 +108,8 @@ func _run() -> void:
 	failures.append_array(await PlatformTests.new().run(root))
 	failures.append_array(await DinnerTests.new().run(root))
 	failures.append_array(await PlayabilityTests.new().run(root))
+	failures.append_array(await DialogueBeatTests.new().run(root))
+	failures.append_array(VoiceTurnCoverage.new().run())
 
 	if failures.is_empty():
 		print("All tests passed.")
