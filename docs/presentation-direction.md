@@ -210,3 +210,26 @@ Both studio-boundary routes retain this authored mother/daughter conversation. E
 voice clips and dialogue are unchanged. This is procedural blocking, not lip sync or a
 final acting pass. Headless tests cover lifecycle and state isolation; real-engine captures
 cover serving, seated composition and the conversation.
+
+## Input and presentation continuity
+
+The 3D UI separates advancing dialogue from selecting an action. At multiple-choice zones,
+Left/Right or the controller D-pad selects; E/A confirms the selection. A short guard after
+closing dialogue prevents the next rapid press from acting on a newly appeared choice.
+Identity verification, platform observation, closing an unfinished preparation window,
+sealing records and violating Shiori's boundary show a consequence prompt before execution.
+Tab/B cancels the prompt. Leaving the zone also cancels it.
+
+The live notebook owner retains Voice/Camera preferences and one presentation snapshot.
+Returning to the exact same live story position resumes the camera and dinner/platform clock
+without automatically playing the same line again; R/Y remains available for explicit replay.
+A loaded or restarted session does not inherit the old live clock. This memory is not written
+into story saves and does not create observations or events.
+
+The platform's present-day paragraph restores the adult avatar and present equipment before
+its pending observation commits. The serving movement spans dinner paragraphs instead of
+teleporting Xu into her seat when the short first voice clip ends. A loaded later dinner
+paragraph still begins seated. In an unfinished platform movement paragraph, the first Continue
+shows the witnessed landing or loss of footing and briefly holds it; the next Continue advances.
+An explicit Skip button or Camera OFF keeps a direct text path. Completing an animation never
+advances the session, and no fall shot asserts the sister's later fate.

@@ -15,6 +15,7 @@ var active := false
 var _line := ""
 var _safe := false
 var _movement := false
+var _beat_shown := false
 var _surroundings: Array[Dictionary] = []
 
 
@@ -59,6 +60,7 @@ func present(state: Dictionary) -> void:
 	var line: String = state["line"] if state["speaking"] else ""
 	if line != _line:
 		elapsed = 0.0
+		_beat_shown = false
 	_line = line
 	# The current authored observation is already being shown in subtitles. Pending facts
 	# stay pending until the session completes that dialogue, exactly as before this shot.
@@ -112,3 +114,25 @@ func _show_shot(showing: bool) -> void:
 				entry["node"].visible = entry["visible"]
 		_surroundings.clear()
 	visible = showing
+
+
+func snapshot() -> Dictionary:
+	return {"elapsed": elapsed, "beat_shown": _beat_shown}
+
+
+func restore_snapshot(state: Dictionary) -> void:
+	elapsed = state.get("elapsed", 0.0)
+	_beat_shown = state.get("beat_shown", false)
+
+
+func needs_beat() -> bool:
+	return active and _movement and not _beat_shown and elapsed < (3.4 if _safe else 2.0)
+
+
+func reveal_beat() -> bool:
+	if not needs_beat():
+		return false
+	# Show the safe landing or the loss of footing before spray hides the aftermath.
+	elapsed = 3.4 if _safe else maxf(elapsed, 1.2)
+	_beat_shown = true
+	return true

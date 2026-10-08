@@ -53,7 +53,7 @@ func run(root: Window) -> Array[String]:
 		check(meal.visible and meal.bowl.position == Dinner.BOWL_PLACE, "reenabling does not restart transfer", failures)
 		view._advance()
 		view.director.tick(view.camera, 0.1)
-		check(meal.bowl.position == Dinner.BOWL_PLACE and meal.xu.position.y < 0, "next line starts after completed serving even when skipped", failures)
+		check(meal.bowl.position == Dinner.BOWL_PLACE and meal.xu.position.y < 0, "next line preserves completed serving", failures)
 		before = view.session.save_data()
 		var restored := Fixture.View.new()
 		restored.session = view.session.restore_save(before)

@@ -55,6 +55,12 @@ func _capture() -> void:
 			view.set_process(false)
 			view.director.tick(view.camera, 2.8 if ending == "kitchen" else 1.0)
 			await shot(view, "platform-safe" if ending == "kitchen" else "platform-slip")
+			var pending: Dictionary = view.session.save_data()
+			view.input_guard = 0.0
+			view._continue()
+			await shot(view, "platform-key-beat-" + ending)
+			if view.session.save_data() != pending:
+				failures.append("Revealing the key beat must not advance the observation")
 			if ending == "name":
 				view.director.tick(view.camera, 2.0)
 				await shot(view, "platform-obscured")
@@ -64,6 +70,11 @@ func _capture() -> void:
 		if ending == "kitchen":
 			await shot(view, "evening-store")
 		Fixture.step(view, &"records", failures)
+		if ending in ["kitchen", "name"]:
+			view.input_guard = 0.0
+			view._request_action(&"verify")
+			await shot(view, "identity-confirm")
+			view._cancel_decision()
 		Fixture.step(view, &"seal" if ending == "blank" else &"verify", failures)
 		if ending in ["kitchen", "distance"]:
 			Fixture.step(view, &"invite" if ending == "kitchen" else &"no_invite", failures)
@@ -114,6 +125,12 @@ func shot(view: Control, label: String) -> void:
 	await RenderingServer.frame_post_draw
 	if label == "camera-timer" and not view.room.timer_lamp.visible:
 		failures.append("Portrait timer must be visible in its capture")
+	if label == "identity-confirm":
+		if view.pending_decision != &"verify" or not view.confirm_button.visible:
+			failures.append("Identity confirmation must precede observation")
+		for control: Control in [view.story_label, view.confirm_button, view.cancel_button]:
+			if not Rect2(Vector2.ZERO, Vector2(root.size)).encloses(control.get_global_rect()):
+				failures.append("Confirmation HUD clipped")
 	if label.begins_with("dinner-"):
 		var meal: Node3D = view.room.performance
 		if not meal.bowl.is_visible_in_tree() or view.room.dining_corner.visible:

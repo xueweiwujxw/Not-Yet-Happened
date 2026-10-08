@@ -35,7 +35,11 @@ static func step(view: Control, action: StringName, failures: Array[String]) -> 
 		failures.append("Finale 3D: unreachable action " + action)
 		return
 	var before: Dictionary = view.session.save_data()
+	view.input_guard = 0.0
 	view.action_buttons[action].pressed.emit()
+	if view.pending_decision == action:
+		view.input_guard = 0.0
+		view.confirm_button.pressed.emit()
 	if view.session.save_data() == before:
 		failures.append("Finale 3D: rejected visible action " + action)
 	drain(view)

@@ -13,6 +13,7 @@ var shiori: Node3D
 var lin: Node3D
 var bowl: Node3D
 var elapsed := 0.0
+var serving_elapsed := 0.0
 var active := false
 var _line := ""
 
@@ -75,7 +76,10 @@ func present(state: Dictionary) -> void:
 	if line != _line:
 		elapsed = 0.0
 	_line = line
+	var was_active := active
 	active = line in Five.LINES[&"dinner"]
+	if active and not was_active:
+		serving_elapsed = 0.0 if line == Five.LINES[&"dinner"][0] else 6.0
 	if not active:
 		_show(false)
 
@@ -85,8 +89,8 @@ func tick(delta: float, enabled: bool) -> bool:
 	_show(active and enabled)
 	if not visible:
 		return false
-	var serving: bool = _line == Five.LINES[&"dinner"][0]
-	var time := elapsed if serving else 6.0
+	serving_elapsed += maxf(delta, 0.0)
+	var time := serving_elapsed
 	var home := smoothstep(2.8, 4.8, time)
 	var step_in := smoothstep(0.9, 1.3, time) * (1.0 - smoothstep(2.0, 2.7, time))
 	xu.position = Vector3(-1.27, 0, -0.95).lerp(Vector3(0, 0, -0.9), home)
@@ -124,3 +128,12 @@ func _show(showing: bool) -> void:
 	visible = showing
 	if is_instance_valid(exploration_corner):
 		exploration_corner.visible = not showing
+
+
+func snapshot() -> Dictionary:
+	return {"elapsed": elapsed, "serving": serving_elapsed}
+
+
+func restore_snapshot(state: Dictionary) -> void:
+	elapsed = state.get("elapsed", 0.0)
+	serving_elapsed = state.get("serving", serving_elapsed)

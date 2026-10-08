@@ -48,6 +48,7 @@ func load_arc() -> void:
 
 func _create_screen(session: RefCounted) -> void:
 	screen = Screen.new()
+	screen.presentation = owner_screen.presentation
 	screen.session = session
 	screen.save_store = save_store
 	screen.theme = owner_screen.theme
