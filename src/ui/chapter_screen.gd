@@ -15,6 +15,8 @@ const KitchenView := preload("res://src/ui/kitchen_view.gd")
 const KeeperView := preload("res://src/ui/keeper_view.gd")
 const KitchenContent := preload("res://src/content/kitchen_visual.gd")
 
+var presentation := preload("res://src/game/spatial_presentation.gd").new()
+
 var session: RefCounted = Session.new()
 var save_store := SaveStore.new()
 var second_store := SaveStore.new("user://chapter-two.json", Second)
@@ -252,6 +254,7 @@ func _show_second(next_session: RefCounted) -> void:
 	_clear_second()
 	second_screen = get_script().new()
 	second_screen.is_second = true
+	second_screen.presentation = presentation
 	second_screen.session = next_session
 	second_screen.save_store = second_store
 	second_screen.continue_story.connect(finale_navigation.enter)
@@ -306,6 +309,7 @@ func _show_kitchen() -> void:
 	if kitchen_view != null:
 		return
 	kitchen_view = KeeperView.new() if is_second else KitchenView.new()
+	kitchen_view.presentation = presentation
 	kitchen_view.session = session
 	kitchen_view.theme = theme
 	kitchen_view.return_requested.connect(_hide_kitchen)
@@ -317,6 +321,7 @@ func _hide_kitchen() -> void:
 	# Rendering/movement never owns facts. Both interfaces have used the exact same session.
 	if kitchen_view == null:
 		return
+	kitchen_view.hide()
 	kitchen_view.queue_free()
 	kitchen_view = null
 	chapter_scroll.show()

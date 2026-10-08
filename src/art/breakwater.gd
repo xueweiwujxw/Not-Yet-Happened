@@ -52,7 +52,7 @@ func _ready() -> void:
 func sync_state(state: Dictionary) -> void:
 	performance.present(state)
 	var f: Dictionary = state["facts"]
-	var historical: bool = f.has(&"c4_entered") and not f.has(&"c4_closed")
+	var historical: bool = preload("res://src/art/presentation_period.gd").historical(state)
 	backup.visible = historical and f.get(&"backup_connected", false)
 	indicator.material_override = Art.material("e8cf7a" if backup.visible else "374947")
 	ladder.rotation.x = PI if historical and f.get(&"ladder_lowered", false) else 0.0

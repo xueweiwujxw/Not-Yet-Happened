@@ -14,7 +14,18 @@ const Content := preload("res://src/content/kitchen_visual.gd")
 const Chapter := preload("res://src/content/chapter_one.gd")
 const Motion := preload("res://src/game/character_motion.gd")
 const Director := preload("res://src/art/scene_director.gd")
+const Decision := preload("res://src/game/decision_prompt.gd")
 const Voice := preload("res://src/art/dialogue_voice.gd")
+
+var presentation := preload("res://src/game/spatial_presentation.gd").new()
+var _resuming := false
+var _captured_for_exit := false
+
+var choice_index := -1
+var input_guard := 0.0
+var pending_decision: StringName = &""
+var confirm_button: Button
+var cancel_button: Button
 
 var session: RefCounted
 var room_script: GDScript = Room
@@ -31,6 +42,7 @@ var director := Director.new()
 var motion_button: Button
 var voice_button: Button
 var replay_button: Button
+var skip_button: Button
 var transition: ColorRect
 var transition_tween: Tween
 var mute_button: Button
@@ -59,6 +71,9 @@ func _ready() -> void:
 	add_child(sound)
 	voice = Voice.new()
 	add_child(voice)
+	voice.set_muted(presentation.voice_muted)
+	director.enabled = presentation.camera_enabled
+	_resuming = presentation.progress_key == presentation.key(session)
 	room = room_script.new()
 	add_child(room)
 	player = CharacterBody3D.new()
@@ -87,15 +102,27 @@ func _ready() -> void:
 	transition.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(transition)
 	_build_hud()
+	if _resuming:
+		player.position = presentation.snapshot["player"]
 	refresh()
+	if _resuming:
+		_restore_presentation()
+	_resuming = false
 	visibility_changed.connect(func() -> void:
 		if not is_visible_in_tree():
+			_capture_presentation()
+			_captured_for_exit = true
 			voice.stop()
+		else:
+			_captured_for_exit = false
+			var current: Dictionary = session.view()
+			voice.present(current["line"], current["speaking"], false)
 		_update_replay()
 	)
 
 
 func _process(delta: float) -> void:
+	input_guard = maxf(0.0, input_guard - delta)
 	if is_visible_in_tree() and not is_queued_for_deletion() and not _manual_camera:
 		director.tick(camera, delta)
 
@@ -122,7 +149,7 @@ func _physics_process(delta: float) -> void:
 	var keyboard := Vector2.ZERO
 	var stick := Vector2.ZERO
 	if not session.speaking() and not get_viewport().gui_get_focus_owner() is LineEdit:
-		keyboard.x = float(Input.is_physical_key_pressed(KEY_D) or Input.is_physical_key_pressed(KEY_RIGHT)) - float(Input.is_physical_key_pressed(KEY_A) or Input.is_physical_key_pressed(KEY_LEFT))
+		keyboard.x = float(Input.is_physical_key_pressed(KEY_D) or (action_buttons.size() <= 1 and Input.is_physical_key_pressed(KEY_RIGHT))) - float(Input.is_physical_key_pressed(KEY_A) or (action_buttons.size() <= 1 and Input.is_physical_key_pressed(KEY_LEFT)))
 		keyboard.y = float(Input.is_physical_key_pressed(KEY_S) or Input.is_physical_key_pressed(KEY_DOWN)) - float(Input.is_physical_key_pressed(KEY_W) or Input.is_physical_key_pressed(KEY_UP))
 		var joypads := Input.get_connected_joypads()
 		if not joypads.is_empty():
@@ -161,11 +188,24 @@ func move_player(input: Vector2, delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if not is_visible_in_tree() or is_queued_for_deletion():
 		return
+	if not session.speaking() and action_buttons.size() > 1:
+		var direction := 0
+		if event is InputEventKey and event.pressed and not event.echo:
+			direction = -1 if event.physical_keycode == KEY_LEFT else 1 if event.physical_keycode == KEY_RIGHT else 0
+		elif event is InputEventJoypadButton and event.pressed:
+			direction = -1 if event.button_index == JOY_BUTTON_DPAD_LEFT else 1 if event.button_index == JOY_BUTTON_DPAD_RIGHT else 0
+		if direction != 0:
+			_cycle_choice(direction)
+			get_viewport().set_input_as_handled()
+			return
 	# Reserve controller face buttons and Tab before GUI focus handling consumes them.
 	var keyboard_back: bool = event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_TAB
 	var gamepad_back: bool = event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_B
 	if keyboard_back or gamepad_back:
-		return_requested.emit()
+		if not pending_decision.is_empty():
+			_cancel_decision()
+		else:
+			return_requested.emit()
 		get_viewport().set_input_as_handled()
 	elif event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_A:
 		_trigger_primary_action()
@@ -188,10 +228,67 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _trigger_primary_action() -> void:
+	if input_guard > 0:
+		return
 	if session.speaking():
-		_advance()
+		_continue()
+	elif not pending_decision.is_empty():
+		_request_action(pending_decision)
+	elif action_buttons.size() == 1:
+		_request_action(action_buttons.keys()[0])
 	elif not action_buttons.is_empty():
-		_act(action_buttons.keys()[0])
+		if choice_index < 0:
+			_cycle_choice(1)
+		else:
+			_request_action(action_buttons.keys()[choice_index])
+
+
+func _cycle_choice(direction: int) -> void:
+	if input_guard > 0 or not pending_decision.is_empty() or session.speaking() or action_buttons.is_empty():
+		return
+	choice_index = (0 if direction > 0 else action_buttons.size() - 1) if choice_index < 0 else posmod(choice_index + direction, action_buttons.size())
+	var index := 0
+	for action: StringName in action_buttons:
+		action_buttons[action].text = ("▶ " if index == choice_index else "") + action_labels[action]
+		index += 1
+
+
+func _request_action(action: StringName) -> void:
+	if input_guard > 0 or session.speaking() or action not in action_buttons:
+		return
+	var warning := Decision.text(action, session.view())
+	if not warning.is_empty() and pending_decision != action:
+		pending_decision = action
+		story_label.text = warning
+		confirm_button.show()
+		cancel_button.show()
+		input_guard = 0.25
+		return
+	_act(action)
+
+
+func _cancel_decision() -> void:
+	if pending_decision.is_empty():
+		return
+	pending_decision = &""
+	confirm_button.hide()
+	cancel_button.hide()
+	story_label.text = Content.WANDER
+
+
+func _continue() -> void:
+	if input_guard > 0 or not session.speaking():
+		return
+	if director.enabled and room.has_method("tick_performance") and room.performance.has_method("reveal_beat") and room.performance.reveal_beat():
+		director.tick(camera, 0.0)
+		input_guard = 0.4
+		return
+	_advance()
+
+
+func _skip_performance() -> void:
+	if input_guard <= 0 and session.speaking() and skip_button.visible:
+		_advance()
 
 
 func _build_interaction_marker() -> MeshInstance3D:
@@ -234,14 +331,19 @@ func _build_hud() -> void:
 	mute_button.offset_bottom = 112
 	motion_button = _button(hud, "Camera: ON", func() -> void:
 		director.enabled = not director.enabled
+		presentation.camera_enabled = director.enabled
 		motion_button.text = "Camera: ON" if director.enabled else "Camera: OFF"
+		_update_skip()
 	)
+	motion_button.text = "Camera: ON" if director.enabled else "Camera: OFF"
 	motion_button.position = Vector2(32, 90)
 	voice_button = _button(hud, "Voice: ON", func() -> void:
 		voice.set_muted(not voice.muted)
+		presentation.voice_muted = voice.muted
 		voice_button.text = "Voice: OFF" if voice.muted else "Voice: ON"
 		_update_replay()
 	)
+	voice_button.text = "Voice: OFF" if voice.muted else "Voice: ON"
 	voice_button.position = Vector2(185, 90)
 	voice_button.visible = not voice.clips.is_empty()
 	var panel := PanelContainer.new()
@@ -269,14 +371,22 @@ func _build_hud() -> void:
 	zone_label = _label(column, Content.WANDER, 16)
 	story_label = _label(column, "", 19)
 	story_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	var row := HBoxContainer.new()
+	var row := HFlowContainer.new()
+	row.add_theme_constant_override("h_separation", 8)
 	column.add_child(row)
-	next_button = _button(row, Chapter.NEXT, _advance)
+	next_button = _button(row, Chapter.NEXT, _continue)
+	confirm_button = _button(row, "确定（E / A）", func() -> void: _request_action(pending_decision))
+	cancel_button = _button(row, "取消（Tab / B）", _cancel_decision)
+	confirm_button.hide()
+	cancel_button.hide()
+	skip_button = _button(row, "跳过演出，阅读结果", _skip_performance)
+	skip_button.hide()
 	replay_button = _button(row, "重听对白（R / Y）", _replay_voice)
 	_actions = HFlowContainer.new()
 	_actions.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(_actions)
-	_label(column, Content.HELP, 13)
+	var help := _label(column, Content.HELP, 13)
+	help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
 
 func _label(parent: Node, text: String, size_px: int) -> Label:
@@ -301,6 +411,8 @@ func _button(parent: Node, text: String, callback: Callable) -> Button:
 func _advance() -> void:
 	if session.advance():
 		sound.cue()
+		if not session.speaking():
+			input_guard = 0.25
 	refresh()
 
 
@@ -329,13 +441,15 @@ func _act(action: StringName) -> void:
 
 
 func refresh() -> void:
+	_cancel_decision()
 	var state: Dictionary = session.view()
 	scene_label.text = scene_title
 	room.sync_state(state)
 	director.stage(room, player, state["speaking"], state["line"])
-	voice.present(state["line"], state["speaking"])
+	voice.present(state["line"], state["speaking"], not _resuming)
 	story_label.text = state["line"] if state["speaking"] else completed_text if state["completed"] else Content.WANDER
 	next_button.visible = state["speaking"]
+	_update_skip()
 	_update_replay()
 	_refresh_zone(true)
 
@@ -345,7 +459,10 @@ func _refresh_zone(force: bool = false) -> void:
 	var id: StringName = nearby.get("id", &"")
 	if not force and id == _active_zone:
 		return
+	if id != _active_zone:
+		_cancel_decision()
 	_active_zone = id
+	choice_index = -1
 	_marker.visible = not nearby.is_empty()
 	if _marker.visible:
 		var at: Vector2 = nearby["at"]
@@ -357,5 +474,38 @@ func _refresh_zone(force: bool = false) -> void:
 	var actions: Array = nearby.get("actions", [])
 	for index: int in range(actions.size()):
 		var action: StringName = actions[index]
-		var label: String = ("E / A · " if index == 0 else "") + action_labels[action]
-		action_buttons[action] = _button(_actions, label, _act.bind(action))
+		var label: String = ("E / A · " if actions.size() == 1 else "") + action_labels[action]
+		action_buttons[action] = _button(_actions, label, _request_action.bind(action))
+
+
+func _capture_presentation() -> void:
+	if room == null or player == null or camera == null:
+		return
+	presentation.voice_muted = voice.muted
+	presentation.camera_enabled = director.enabled
+	presentation.progress_key = presentation.key(session)
+	presentation.snapshot = {
+		"player": player.position, "camera": camera.transform, "size": camera.size,
+		"elapsed": director.elapsed, "expression": director.expression_time,
+		"performance": room.performance.snapshot() if room.has_method("tick_performance") else {},
+	}
+
+
+func _restore_presentation() -> void:
+	var snapshot: Dictionary = presentation.snapshot
+	director.elapsed = snapshot["elapsed"]
+	director.expression_time = snapshot["expression"]
+	if room.has_method("tick_performance"):
+		room.performance.restore_snapshot(snapshot["performance"])
+	director.tick(camera, 0.0)
+	camera.transform = snapshot["camera"]
+	camera.size = snapshot["size"]
+
+
+func _exit_tree() -> void:
+	if not _captured_for_exit:
+		_capture_presentation()
+
+
+func _update_skip() -> void:
+	skip_button.visible = director.enabled and room.has_method("tick_performance") and room.performance.has_method("needs_beat") and room.performance.needs_beat()

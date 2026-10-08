@@ -22,7 +22,7 @@ static func key_for(text: String) -> String:
 	return text.sha256_text()
 
 
-func present(text: String, speaking: bool) -> void:
+func present(text: String, speaking: bool, autoplay: bool = true) -> void:
 	var key := key_for(text) if speaking else ""
 	if key == current_key:
 		return
@@ -34,7 +34,7 @@ func present(text: String, speaking: bool) -> void:
 	if not path is String or not path.begins_with("res://assets/voice/") or ".." in path:
 		return
 	output.stream = resolve_stream.call(path)
-	if output.stream != null and not muted:
+	if output.stream != null and not muted and autoplay:
 		_start_take.call_deferred(_ticket)
 
 
